@@ -15,3 +15,5 @@
 <link rel="stylesheet" href="./template/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
 <!-- Custom Stylesheet -->
 <link href="./template/css/style.css" rel="stylesheet">
+
+<script src="https://kit.fontawesome.com/eabba84056.js" crossorigin="anonymous"></script>
