@@ -76,7 +76,7 @@
                                                 <td>{{ $department->name }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
-                                                    <button class="btn bg-transparent btn-sm" data-toggle="modal" data-target="#editDepartmentModal" data-id="{{ $department->id }}" data-name="{{ $department->name }}" data-toggle="tooltip" title="Edit"><i class="fa-regular fa-pen-to-square"></i></button>
+                                                    <button class="btn bg-transparent btn-sm" data-toggle="modal" data-target="#editDepartmentModal" data-id="{{ $department->id }}" data-name="{{ $department->name }}"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
 
                                                     <!-- Delete Button -->
                                                     <form action="{{ route('departments.destroy', $department->id) }}" method="POST" style="display:inline;">

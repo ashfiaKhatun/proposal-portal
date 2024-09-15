@@ -3,7 +3,7 @@
         <ul class="metismenu" id="menu">
             <li>
                 <a href="{{ route('departments.index') }}" aria-expanded="false">
-                    <i class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
+                <i class="icon-grid menu-icon"></i><span class="nav-text">Departments</span>
                 </a>
             </li>
             <li class="nav-label">Dashboard</li>
