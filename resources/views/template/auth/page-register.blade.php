@@ -52,6 +52,33 @@
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
 
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <select name="role" class="form-control">
+                                            <option value="student">Student</option>
+                                            <option value="teacher">Teacher</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="isAdmin">Is Admin?</label>
+                                        <input type="checkbox" name="isAdmin" value="1" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="isSuperAdmin">Is Super Admin?</label>
+                                        <input type="checkbox" name="isSuperAdmin" value="1" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="dept_id">Department</label>
+                                        <select name="dept_id" class="form-control">
+                                            @foreach($departments as $department)
+                                            <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
                                     <!-- Password -->
                                     <div>
                                         <label class="col-form-label">Password:</label>
@@ -65,13 +92,12 @@
                                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                     </div>
 
-                                    <div class="d-flex justify-content-end mt-4">
-                                        <input type="submit" name="submit" value="Register" class="btn btn-primary">
-                                    </div>
+                                    <button class="btn btn-primary my-3">Register</button>
 
                                 </form>
+
                                 <div>
-                                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="/">
+                                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/">
                                         {{ __('Already registered?') }}
                                     </a>
                                 </div>

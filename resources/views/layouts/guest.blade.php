@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <img src="./template/images/logo.png" alt="" width="80" height="80">
+                    <img src="../../template/images/logo.png" alt="" width="80" height="80">
                 </a>
             </div>
 

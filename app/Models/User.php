@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'isAdmin',
+        'isSuperAdmin',
+        'dept_id',
+        'profile_picture',
     ];
 
     /**
@@ -41,4 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function department()
+    {
+        return $this->belongsTo(Department::class, 'dept_id');
+    }
+
+    // public function getProfilePictureUrlAttribute()
+    // {
+    //     return $this->profile_picture ? asset('storage/' . $this->profile_picture) : asset('images/default-avatar.png');
+    // }
 }

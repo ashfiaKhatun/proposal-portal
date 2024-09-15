@@ -3,7 +3,7 @@
         ***********************************-->
 <div class="nav-header position-fixed">
     <div class="brand-logo bg-white  h-100 d-flex justify-content-center align-items-center">
-        <a href="">
+        <a href="/">
             <b class="logo-abbr"><img src="./template/images/logo.png" alt=""> </b>
             <span class="logo-compact"><img src="./template/images/logo-text.png" alt=""></span>
             <span class="brand-title">

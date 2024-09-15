@@ -49,7 +49,7 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
-                                        <button class="btn btn-primary">Login</button>
+                                    <button class="btn btn-primary">Login</button>
                                 </form>
 
                                 <div>
