@@ -25,7 +25,8 @@ class User extends Authenticatable
         'isAdmin',
         'isSuperAdmin',
         'dept_id',
-        'profile_picture',
+        'assigned_teacher',
+        'official_id',
     ];
 
     /**
@@ -52,8 +53,4 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'dept_id');
     }
 
-    // public function getProfilePictureUrlAttribute()
-    // {
-    //     return $this->profile_picture ? asset('storage/' . $this->profile_picture) : asset('images/default-avatar.png');
-    // }
 }

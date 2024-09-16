@@ -38,6 +38,13 @@
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
 
+                                    <!-- ID -->
+                                    <div>
+                                        <label class="col-form-label">Student ID:</label>
+                                        <input class="form-control rounded" type="text" name="student_id" placeholder="Student ID" required>
+                                        
+                                    </div>
+                                    
                                     <!-- Name -->
                                     <div>
                                         <label class="col-form-label">Name:</label>
@@ -52,15 +59,7 @@
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="role">Role</label>
-                                        <select name="role" class="form-control">
-                                            <option value="student">Student</option>
-                                            <option value="teacher">Teacher</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label for="isAdmin">Is Admin?</label>
                                         <input type="checkbox" name="isAdmin" value="1" />
                                     </div>
@@ -68,9 +67,9 @@
                                     <div class="form-group">
                                         <label for="isSuperAdmin">Is Super Admin?</label>
                                         <input type="checkbox" name="isSuperAdmin" value="1" />
-                                    </div>
+                                    </div> -->
 
-                                    <div class="form-group">
+                                    <div class="form-group mt-2">
                                         <label for="dept_id">Department</label>
                                         <select name="dept_id" class="form-control">
                                             @foreach($departments as $department)
