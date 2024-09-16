@@ -2,10 +2,17 @@
     <div class="nk-nav-scroll">
         <ul class="metismenu" id="menu">
             <li>
+                <a href="{{ route('supervisors.index') }}" aria-expanded="false">
+                <i class="fa-solid fa-users-rectangle"></i><span class="nav-text">Supervisors</span>
+                </a>
+            </li>
+            
+            <li>
                 <a href="{{ route('departments.index') }}" aria-expanded="false">
                 <i class="icon-grid menu-icon"></i><span class="nav-text">Departments</span>
                 </a>
             </li>
+
             <li class="nav-label">Dashboard</li>
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
