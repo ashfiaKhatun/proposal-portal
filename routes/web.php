@@ -25,6 +25,10 @@ Route::get('/', function () {
 Route::get('/dashboard',  [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
 
 Route::get('/supervisors',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('supervisors.index');
+Route::get('/new-supervisor',  [UserController::class, 'create'])->middleware(['auth', 'verified'])->name('supervisors.create');
+Route::post('/new-supervisor',  [UserController::class, 'store'])->middleware(['auth', 'verified'])->name('supervisors.store');
+Route::get('/edit-supervisor-{id}',  [UserController::class, 'edit'])->middleware(['auth', 'verified'])->name('supervisors.edit');
+Route::delete('/delete-supervisor-{id}',  [UserController::class, 'destroy'])->middleware(['auth', 'verified'])->name('supervisors.destroy');
 
 Route::resource('departments', DepartmentController::class);
 

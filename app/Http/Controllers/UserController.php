@@ -2,14 +2,64 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $supervisors = User::where('role', 'teacher');
+        $supervisors = User::where('role', 'supervisor')->get();
         return view('template.home.users.supervisors.index', compact('supervisors'));
     }
+
+    public function create()
+    {
+        $departments = Department::all();
+        return view('template.home.users.supervisors.create', compact('departments'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'role' => 'required|string',
+            // 'isAdmin' => 'boolean',
+            // 'isSuperAdmin' => 'boolean',
+            'dept_id' => 'nullable|exists:departments,id',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'official_id' => $request->teacher_id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'supervisor',
+            'isAdmin' => $request->isAdmin ?? false,
+            'isSuperAdmin' => $request->isSuperAdmin ?? false,
+            'dept_id' => $request->dept_id,
+        ]);
+        return redirect()->route('supervisors.index');
+    }
+
+    public function edit($id)
+    {
+        $supervisor = User::findOrFail($id);
+        $departments = Department::all();
+        return view('template.home.users.supervisors.edit', compact('supervisor', 'departments'));
+    }
+
+    public function destroy($id)
+    {
+        $supervisor = User::findOrFail($id);
+        $supervisor->delete();
+
+        return redirect()->route('supervisors.index');
+    }
+    
 }
