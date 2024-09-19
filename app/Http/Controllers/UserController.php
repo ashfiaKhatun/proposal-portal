@@ -12,7 +12,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        $supervisors = User::where('role', 'supervisor')->get();
+        $supervisors = User::where('role', 'supervisor')
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('template.home.users.supervisors.index', compact('supervisors'));
     }
 
@@ -20,6 +22,12 @@ class UserController extends Controller
     {
         $departments = Department::all();
         return view('template.home.users.supervisors.create', compact('departments'));
+    }
+
+    public function createSupervisor()
+    {
+        $departments = Department::all();
+        return view('template.auth.page-supervisor-register', compact('departments'));
     }
 
     public function store(Request $request)
@@ -54,6 +62,24 @@ class UserController extends Controller
         return view('template.home.users.supervisors.edit', compact('supervisor', 'departments'));
     }
 
+    public function update(Request $request, $id)
+    {
+
+        $supervisor = User::findOrFail($id);
+        $supervisor->update([
+            'name' => $request->name,
+            'official_id' => $request->teacher_id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'supervisor',
+            'isAdmin' => $request->isAdmin ?? false,
+            'isSuperAdmin' => $request->isSuperAdmin ?? false,
+            'dept_id' => $request->dept_id,
+        ]);
+
+        return redirect()->route('supervisors.index');
+    }
+
     public function destroy($id)
     {
         $supervisor = User::findOrFail($id);
@@ -61,5 +87,4 @@ class UserController extends Controller
 
         return redirect()->route('supervisors.index');
     }
-    
 }

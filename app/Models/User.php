@@ -27,6 +27,9 @@ class User extends Authenticatable
         'dept_id',
         'assigned_teacher',
         'official_id',
+        'designation',
+        'credit_finished',
+        'cgpa',
     ];
 
     /**

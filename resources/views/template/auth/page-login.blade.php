@@ -34,7 +34,7 @@
                                     <h4 class="mt-3">Proposal Portal</h4>
                                 </div>
 
-                                <form method="POST" action="{{ route('login') }}" class="mt-5 mb-5 login-input">
+                                <form method="POST" action="{{ route('login') }}" class="m-3 login-input">
 
                                     @csrf
 
@@ -52,14 +52,10 @@
                                     <button class="btn btn-primary">Login</button>
                                 </form>
 
-                                <div>
-                                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                                        {{ __('New Here?') }}
-                                    </a><br>
-                                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                                        {{ __('Forget Password?') }}
-                                    </a>
-                                </div>
+
+                                <a class="underline text-sm text-gray-600 hover:text-gray-900 ml-3" href="{{ route('password.request') }}">
+                                    {{ __('Forget Password?') }}
+                                </a>
                             </div>
                         </div>
                     </div>
