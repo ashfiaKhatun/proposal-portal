@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -46,5 +47,21 @@ class DepartmentController extends Controller
         $department->delete();
 
         return redirect()->route('departments.index');
+    }
+
+    public function showSupervisors($id)
+    {
+        $department = Department::find($id);
+        $supervisors = User::where('dept_id', $id)->where('role', 'supervisor')->get();
+
+        return view('template.home.departments.supervisors', compact('department', 'supervisors'));
+    }
+
+    public function showStudents($id)
+    {
+        $department = Department::find($id);
+        $students = User::where('dept_id', $id)->where('role', 'student')->get();
+
+        return view('template.home.departments.students', compact('department', 'students'));
     }
 }

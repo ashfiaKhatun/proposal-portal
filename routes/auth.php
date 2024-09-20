@@ -18,6 +18,8 @@ Route::middleware('guest')->group(function () {
     
     Route::get('proposal-thesis-supervisor-register', [UserController::class, 'createSupervisor']);
 
+    Route::post('/new-supervisor',  [UserController::class, 'storeSupervisors'])->name('supervisors.register');
+
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])

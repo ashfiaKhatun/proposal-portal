@@ -25,12 +25,14 @@ Route::get('/', function () {
 Route::get('/dashboard',  [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
 
 Route::get('/supervisors',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('supervisors.index');
-Route::get('/new-supervisor',  [UserController::class, 'create'])->middleware(['auth', 'verified'])->name('supervisors.create');
-Route::post('/new-supervisor',  [UserController::class, 'store'])->middleware(['auth', 'verified'])->name('supervisors.store');
-Route::post('/new-supervisor',  [UserController::class, 'store'])->name('supervisors.register');
+Route::get('/add-new-supervisor',  [UserController::class, 'create'])->middleware(['auth', 'verified'])->name('supervisors.create');
+Route::post('/add-new-supervisor',  [UserController::class, 'store'])->middleware(['auth', 'verified'])->name('supervisors.store');
 Route::get('/edit-supervisor-{id}',  [UserController::class, 'edit'])->middleware(['auth', 'verified'])->name('supervisors.edit');
 Route::put('/update-supervisor-{id}',  [UserController::class, 'update'])->middleware(['auth', 'verified'])->name('supervisors.update');
 Route::delete('/delete-supervisor-{id}',  [UserController::class, 'destroy'])->middleware(['auth', 'verified'])->name('supervisors.destroy');
+
+Route::get('department-{id}/supervisors', [DepartmentController::class, 'showSupervisors'])->middleware(['auth', 'verified'])->name('departments.supervisors');
+Route::get('department-{id}/students', [DepartmentController::class, 'showStudents'])->middleware(['auth', 'verified'])->name('departments.students');
 
 Route::resource('departments', DepartmentController::class);
 

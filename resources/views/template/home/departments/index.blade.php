@@ -64,7 +64,6 @@
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
                                                 <th>Name</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -72,17 +71,27 @@
                                         <tbody>
                                             @foreach ($departments as $department)
                                             <tr>
-                                                <td>{{ $department->id }}</td>
                                                 <td>{{ $department->name }}</td>
                                                 <td>
-                                                    <!-- Edit Button -->
-                                                    <button class="btn bg-transparent btn-sm" data-toggle="modal" data-target="#editDepartmentModal" data-id="{{ $department->id }}" data-name="{{ $department->name }}"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
+                                                   
+                                                    <!-- View Teachers Button -->
+                                                    <a href="{{ route('departments.supervisors', $department->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="View Supervisors">
+                                                        Supervisors<i class="fa-solid fa-chalkboard-teacher ml-2"></i> 
+                                                    </a>
+
+                                                    <!-- View Students Button -->
+                                                    <a href="{{ route('departments.students', $department->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="View Students">
+                                                        Students<i class="fa-solid fa-user-graduate ml-2"></i> 
+                                                    </a>
+
+                                                     <!-- Edit Button -->
+                                                     <button class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#editDepartmentModal" data-id="{{ $department->id }}" data-name="{{ $department->name }}">Edit<i class="fa-regular fa-pen-to-square ml-2" data-toggle="tooltip" title="Edit"></i></button>
 
                                                     <!-- Delete Button -->
                                                     <form action="{{ route('departments.destroy', $department->id) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn bg-transparent btn-sm" onclick="return confirm('Are you sure you want to delete this department?')" data-toggle="tooltip" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this department?')" data-toggle="tooltip" title="Delete">Delete<i class="fa-solid fa-trash ml-2"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

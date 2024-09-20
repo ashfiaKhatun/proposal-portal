@@ -54,6 +54,31 @@ class UserController extends Controller
         ]);
         return redirect()->route('supervisors.index');
     }
+    
+    public function storeSupervisors(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'role' => 'required|string',
+            // 'isAdmin' => 'boolean',
+            // 'isSuperAdmin' => 'boolean',
+            'dept_id' => 'nullable|exists:departments,id',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'official_id' => $request->teacher_id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'supervisor',
+            'isAdmin' => $request->isAdmin ?? false,
+            'isSuperAdmin' => $request->isSuperAdmin ?? false,
+            'dept_id' => $request->dept_id,
+        ]);
+        return redirect()->route('login');
+    }
 
     public function edit($id)
     {
