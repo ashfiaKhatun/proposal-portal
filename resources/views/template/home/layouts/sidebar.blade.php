@@ -3,7 +3,13 @@
         <ul class="metismenu" id="menu">
             <li>
                 <a href="{{ route('supervisors.index') }}" aria-expanded="false">
-                <i class="fa-solid fa-users-rectangle"></i><span class="nav-text">Supervisors</span>
+                <i class="fa-solid fa-chalkboard-teacher"></i><span class="nav-text">Supervisors</span>
+                </a>
+            </li>
+            
+            <li>
+                <a href="{{ route('students.index') }}" aria-expanded="false">
+                <i class="fa-solid fa-user-graduate"></i><span class="nav-text">Students</span>
                 </a>
             </li>
             

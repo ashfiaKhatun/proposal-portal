@@ -48,7 +48,7 @@
                                     <!-- Name -->
                                     <div>
                                         <label class="col-form-label">Name:</label>
-                                        <input id="name" class="form-control rounded" type="text" name="name" :value="old('name')" placeholder="Name" required autofocus autocomplete="name">
+                                        <input id="name" class="form-control rounded" type="text" name="name" :value="old('name')" placeholder="Name" required autocomplete="name">
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 

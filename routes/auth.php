@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,9 @@ Route::middleware('guest')->group(function () {
     Route::get('final-year-student-register', [RegisteredUserController::class, 'create'])
                 ->name('register');
     
-    Route::get('proposal-thesis-supervisor-register', [UserController::class, 'createSupervisor']);
+    Route::get('proposal-thesis-supervisor-register', [SupervisorController::class, 'createSupervisor']);
 
-    Route::post('/new-supervisor',  [UserController::class, 'storeSupervisors'])->name('supervisors.register');
+    Route::post('/new-supervisor',  [SupervisorController::class, 'storeSupervisors'])->name('supervisors.register');
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
