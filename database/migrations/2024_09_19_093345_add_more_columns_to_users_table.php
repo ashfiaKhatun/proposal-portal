@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('designation')->nullable()->after('assigned_teacher');
             $table->string('credit_finished')->nullable();
             $table->string('cgpa')->nullable();
+            $table->integer('batch')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->dropColumn('designation');
             $table->dropColumn('credit_finished');
             $table->dropColumn('cgpa');
+            $table->dropColumn('batch');
         });
     }
 };

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('assigned_teacher')->nullable(); // Add nullable profile picture column
+            $table->index('assigned_teacher')->nullable(); // Add nullable profile picture column
             $table->string('role')->default('user'); // 'role' column
             $table->boolean('isAdmin')->default(false); // 'isAdmin' boolean column
             $table->boolean('isSuperAdmin')->default(false); // 'isSuperAdmin' boolean column

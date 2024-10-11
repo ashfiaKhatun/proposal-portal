@@ -80,6 +80,13 @@
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
     
+                                        <!-- Designation -->
+                                        <div>
+                                            <label class="col-form-label">Designation:</label>
+                                            <input class="form-control rounded" type="text" name="designation" placeholder="Designation" required>
+    
+                                        </div>
+    
                                         <!-- <div class="form-group">
                                             <label for="isAdmin">Is Admin?</label>
                                             <input type="checkbox" name="isAdmin" value="1" />

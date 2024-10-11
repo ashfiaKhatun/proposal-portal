@@ -80,6 +80,13 @@
                                             <input id="email" class="form-control rounded" type="email" name="email" value="{{ $supervisor->email }}" placeholder="Email" required autocomplete="email" />
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
+
+                                        <!-- Designation -->
+                                        <div>
+                                            <label class="col-form-label">Designation:</label>
+                                            <input class="form-control rounded" type="text" name="designation" value="{{ $supervisor->designation }}" placeholder="Designation" required>
+    
+                                        </div>
     
                                         <!-- <div class="form-group">
                                             <label for="isSuperAdmin">Is Super Admin?</label>

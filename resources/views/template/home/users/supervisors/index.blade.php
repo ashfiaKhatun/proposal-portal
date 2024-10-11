@@ -67,8 +67,10 @@
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Teacher ID</th>
                                                 <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Designation</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -77,6 +79,8 @@
                                             <tr>
                                                 <td>{{ $supervisor->official_id }}</td>
                                                 <td>{{ $supervisor->name }}</td>
+                                                <td>{{ $supervisor->email }}</td>
+                                                <td>{{ $supervisor->designation }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
                                                      <a href="{{ route('supervisors.edit', $supervisor->id) }}">

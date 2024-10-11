@@ -42,9 +42,9 @@
                                     <div>
                                         <label class="col-form-label">Student ID:</label>
                                         <input class="form-control rounded" type="text" name="student_id" placeholder="Student ID" required>
-                                        
+
                                     </div>
-                                    
+
                                     <!-- Name -->
                                     <div>
                                         <label class="col-form-label">Name:</label>
@@ -57,6 +57,27 @@
                                         <label class="col-form-label">Email:</label>
                                         <input id="email" class="form-control rounded" type="email" name="email" :value="old('email')" placeholder="Email" required autocomplete="email" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                    </div>
+
+                                    <!-- Batch -->
+                                    <div>
+                                        <label class="col-form-label">Batch:</label>
+                                        <input class="form-control rounded" type="text" name="batch" placeholder="Batch" required>
+
+                                    </div>
+
+                                    <!-- Credit Finished -->
+                                    <div>
+                                        <label class="col-form-label">Credit Finished:</label>
+                                        <input class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+
+                                    </div>
+
+                                    <!-- CGPA -->
+                                    <div>
+                                        <label class="col-form-label">Current CGPA:</label>
+                                        <input class="form-control rounded" type="text" name="cgpa" placeholder="Current CGPA" required>
+
                                     </div>
 
                                     <!-- <div class="form-group">
@@ -77,7 +98,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    
+
                                     <!-- Password -->
                                     <div>
                                         <label class="col-form-label">Password:</label>

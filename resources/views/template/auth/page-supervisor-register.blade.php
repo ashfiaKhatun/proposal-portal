@@ -78,6 +78,13 @@
                                         </select>
                                     </div>
 
+                                    <!-- Designation -->
+                                    <div>
+                                        <label class="col-form-label">Designation:</label>
+                                        <input class="form-control rounded" type="text" name="designation" placeholder="Designation" required>
+
+                                    </div>
+
                                     <!-- Password -->
                                     <div>
                                         <label class="col-form-label">Password:</label>

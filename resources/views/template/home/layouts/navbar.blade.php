@@ -4,10 +4,10 @@
 <div class="nav-header position-fixed">
     <div class="brand-logo bg-white  h-100 d-flex justify-content-center align-items-center">
         <a href="/">
-            <b class="logo-abbr"><img src="./template/images/logo.png" alt=""> </b>
-            <span class="logo-compact"><img src="./template/images/logo-text.png" alt=""></span>
+            <b class="logo-abbr"><img src="../../template/images/logo.png" alt=""> </b>
+            <span class="logo-compact"><img src="../../template/images/logo-text.png" alt=""></span>
             <span class="brand-title">
-                <img src="./template/images/logo-text.png" height="52" alt="">
+                <img src="../../template/images/logo-text.png" height="52" alt="">
             </span>
         </a>
     </div>
@@ -146,7 +146,7 @@
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                         <span class="activity active"></span>
-                        <img src="./template/images/user/1.png" height="40" width="40" alt="">
+                        <img src="../../template/images/user/1.png" height="40" width="40" alt="">
                     </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">

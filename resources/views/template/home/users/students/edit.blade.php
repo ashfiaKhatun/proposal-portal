@@ -59,28 +59,28 @@
                                     <form method="POST" action="{{ route('students.update', $student->id) }}">
                                         @csrf
                                         @method('PUT')
-    
+
                                         <!-- ID -->
                                         <div>
                                             <label class="col-form-label">Student ID:</label>
                                             <input class="form-control rounded" type="text" name="student_id" value="{{ $student->official_id }}" placeholder="Teacher ID" required>
-    
+
                                         </div>
-    
+
                                         <!-- Name -->
                                         <div>
                                             <label class="col-form-label">Name:</label>
                                             <input id="name" class="form-control rounded" type="text" name="name" value="{{ $student->name }}" placeholder="Name" required autofocus autocomplete="name">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
-    
+
                                         <!-- Email Address -->
                                         <div>
                                             <label class="col-form-label">Email:</label>
                                             <input id="email" class="form-control rounded" type="email" name="email" value="{{ $student->email }}" placeholder="Email" required autocomplete="email" />
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
-    
+
                                         <div class="form-group mt-2">
                                             <label for="dept_id">Department</label>
                                             <select name="dept_id" class="form-control">
@@ -88,10 +88,31 @@
                                                 <option value="{{ $department->id }}" {{ $student->dept_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
                                                 @endforeach
                                             </select>
-                                        </div> 
-    
+                                        </div>
+
+                                        <!-- Batch -->
+                                        <div>
+                                            <label class="col-form-label">Batch:</label>
+                                            <input class="form-control rounded" type="text" name="batch" placeholder="Batch" required>
+
+                                        </div>
+
+                                        <!-- Credit Finished -->
+                                        <div>
+                                            <label class="col-form-label">Credit Finished:</label>
+                                            <input class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+
+                                        </div>
+
+                                        <!-- CGPA -->
+                                        <div>
+                                            <label class="col-form-label">Current CGPA:</label>
+                                            <input class="form-control rounded" type="text" name="cgpa" placeholder="Current CGPA" required>
+
+                                        </div>
+
                                         <button class="btn btn-primary btn-sm my-3">Update</button>
-    
+
                                     </form>
 
                                 </div>

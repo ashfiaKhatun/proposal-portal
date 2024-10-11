@@ -80,6 +80,27 @@
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
 
+                                        <!-- Batch -->
+                                        <div>
+                                            <label class="col-form-label">Batch:</label>
+                                            <input class="form-control rounded" type="text" name="batch" placeholder="Batch" required>
+
+                                        </div>
+                                        
+                                        <!-- Credit Finished -->
+                                        <div>
+                                            <label class="col-form-label">Credit Finished:</label>
+                                            <input class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+
+                                        </div>
+
+                                        <!-- CGPA -->
+                                        <div>
+                                            <label class="col-form-label">Current CGPA:</label>
+                                            <input class="form-control rounded" type="text" name="cgpa" placeholder="Current CGPA" required>
+
+                                        </div>
+
                                         <!-- Password -->
                                         <div>
                                             <label class="col-form-label">Password:</label>

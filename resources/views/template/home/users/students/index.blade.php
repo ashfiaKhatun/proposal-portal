@@ -67,8 +67,13 @@
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Student ID</th>
                                                 <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Batch</th>
+                                                <th>Credit Finished</th>
+                                                <th>Current CGPA</th>
+                                                <th>Assigned Teacher</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -77,6 +82,11 @@
                                             <tr>
                                                 <td>{{ $student->official_id }}</td>
                                                 <td>{{ $student->name }}</td>
+                                                <td>{{ $student->email }}</td>
+                                                <td>{{ $student->batch }}</td>
+                                                <td>{{ $student->credit_finished }}</td>
+                                                <td>{{ $student->cgpa }}</td>
+                                                <td>{{ $student->assigned_teacher }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
                                                      <a href="{{ route('students.edit', $student->id) }}">

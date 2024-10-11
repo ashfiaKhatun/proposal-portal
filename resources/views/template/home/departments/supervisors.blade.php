@@ -56,9 +56,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <h4 class="cart-title">Teachers in {{ $department->name }}</h4>
-                                    <!-- <button type="button" class="btn btn-sm btn-secondary text-white" data-toggle="modal" data-target="#addDepartmentModal">
-                                        Add New Department
-                                    </button> -->
+                                    
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
