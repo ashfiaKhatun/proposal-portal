@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\UserController;
@@ -44,6 +45,11 @@ Route::get('department-{id}/supervisors', [DepartmentController::class, 'showSup
 Route::get('department-{id}/students', [DepartmentController::class, 'showStudents'])->middleware(['auth', 'verified'])->name('departments.students');
 
 Route::resource('departments', DepartmentController::class);
+
+Route::get('/proposal',  [ProposalController::class, 'create'])->middleware(['auth', 'verified'])->name('proposals.create');
+Route::post('/submit-proposal',  [ProposalController::class, 'store'])->middleware(['auth', 'verified'])->name('proposals.store');
+Route::get('/edit-proposal-{id}',  [ProposalController::class, 'edit'])->middleware(['auth', 'verified'])->name('proposals.edit');
+Route::put('/edit-proposal-{id}',  [ProposalController::class, 'update'])->middleware(['auth', 'verified'])->name('proposals.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

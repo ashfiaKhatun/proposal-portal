@@ -16,7 +16,13 @@ class StudentController extends Controller
             ->where('dept_id', auth()->user()->dept_id)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('template.home.users.students.index', compact('students'));
+
+        $teachers = User::where('role', 'supervisor')
+            ->where('dept_id', auth()->user()->dept_id)
+            ->get();
+
+
+        return view('template.home.users.students.index', compact('students', 'teachers'));
     }
 
     public function create()

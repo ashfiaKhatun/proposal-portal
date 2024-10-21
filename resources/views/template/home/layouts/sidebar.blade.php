@@ -18,6 +18,12 @@
                 <i class="icon-grid menu-icon"></i><span class="nav-text">Departments</span>
                 </a>
             </li>
+            
+            <li>
+                <a href="{{ route('proposals.create') }}" aria-expanded="false">
+                <i class="icon-note menu-icon"></i><span class="nav-text">Proposal</span>
+                </a>
+            </li>
 
             <li class="nav-label">Dashboard</li>
             <li>
