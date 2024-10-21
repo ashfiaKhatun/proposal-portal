@@ -50,6 +50,14 @@ Route::get('/proposal',  [ProposalController::class, 'create'])->middleware(['au
 Route::post('/submit-proposal',  [ProposalController::class, 'store'])->middleware(['auth', 'verified'])->name('proposals.store');
 Route::get('/edit-proposal-{id}',  [ProposalController::class, 'edit'])->middleware(['auth', 'verified'])->name('proposals.edit');
 Route::put('/edit-proposal-{id}',  [ProposalController::class, 'update'])->middleware(['auth', 'verified'])->name('proposals.update');
+// View all proposals
+Route::get('/thesis-proposals', [ProposalController::class, 'indexThesis'])->middleware(['auth', 'verified'])->name('proposals.indexThesis');
+Route::get('/project-proposals', [ProposalController::class, 'indexProject'])->middleware(['auth', 'verified'])->name('proposals.indexProject');
+Route::get('/show-proposal-{id}', [ProposalController::class, 'show'])->middleware(['auth', 'verified'])->name('proposals.show');
+
+// Update proposal status
+Route::put('/update-status-{id}', [ProposalController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('proposals.updateStatus');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

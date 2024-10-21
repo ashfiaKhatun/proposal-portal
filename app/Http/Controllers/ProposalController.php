@@ -7,11 +7,36 @@ use Illuminate\Http\Request;
 
 class ProposalController extends Controller
 {
+    public function indexThesis()
+    {
+        $proposals = Proposal::where('type', 'thesis')
+            ->with('student')
+            ->get();  // Fetch all thesis proposals from the database
+        return view('template.home.proposals.index_thesis', compact('proposals'));  // Return the view with proposals
+    }
+
+    public function indexProject()
+    {
+        $proposals = Proposal::where('type', 'project')
+            ->with('student')
+            ->get();  // Fetch all thesis proposals from the database
+
+        return view('template.home.proposals.index_project', compact('proposals'));  // Return the view with proposals
+    }
+
+    public function show($id)
+    {
+        $proposal = Proposal::with('student')->findOrFail($id);
+
+        return view('template.home.proposals.show', compact('proposal'));
+    }
+
     public function create()
     {
         $user = auth()->user();
         $existingProposal = Proposal::where('student_id', $user->official_id)
             ->where('status', '!=', 'rejected')
+            // ->where('role', 'student')
             ->first();
 
         return view('template.home.proposals.create', compact('existingProposal'));
@@ -105,5 +130,21 @@ class ProposalController extends Controller
 
         // Redirect with an error message
         return redirect()->route('proposals.create', $proposal->id)->with('alert-error', 'You cannot edit this proposal.');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $proposal = Proposal::findOrFail($id);  // Find the proposal by ID
+
+        // Validate that the status is one of the allowed values
+        $request->validate([
+            'status' => 'required|in:pending,approved,rejected',
+        ]);
+
+        // Update the status
+        $proposal->update(['status' => $request->status]);
+
+        // Return a success response (you can return a JSON response for AJAX)
+        return redirect()->back();
     }
 }

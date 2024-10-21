@@ -29,7 +29,7 @@ class Proposal extends Model
     // Relationship: One student submits one proposal
     public function student()
     {
-        return $this->belongsTo(User::class, 'student_id');
+        return $this->belongsTo(User::class, 'student_id', 'official_id');
     }
 
     // Relationship: One proposal can have an assigned teacher

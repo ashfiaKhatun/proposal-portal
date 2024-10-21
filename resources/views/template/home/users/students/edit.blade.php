@@ -70,7 +70,7 @@
                                         <!-- Name -->
                                         <div>
                                             <label class="col-form-label">Name:</label>
-                                            <input id="name" class="form-control rounded" type="text" name="name" value="{{ $student->name }}" placeholder="Name" required autofocus autocomplete="name">
+                                            <input id="name" class="form-control rounded" type="text" name="name" value="{{ $student->name }}" placeholder="Name" required autocomplete="name">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
 
@@ -93,21 +93,21 @@
                                         <!-- Batch -->
                                         <div>
                                             <label class="col-form-label">Batch:</label>
-                                            <input class="form-control rounded" type="text" name="batch" placeholder="Batch" required>
+                                            <input class="form-control rounded" type="text" name="batch" value="{{ $student->batch }}" placeholder="Batch" required>
 
                                         </div>
 
                                         <!-- Credit Finished -->
                                         <div>
                                             <label class="col-form-label">Credit Finished:</label>
-                                            <input class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+                                            <input class="form-control rounded" type="text" name="credit_finished" value="{{ $student->credit_finished }}" placeholder="Credit Finished" required>
 
                                         </div>
 
                                         <!-- CGPA -->
                                         <div>
                                             <label class="col-form-label">Current CGPA:</label>
-                                            <input class="form-control rounded" type="text" name="cgpa" placeholder="Current CGPA" required>
+                                            <input class="form-control rounded" type="text" name="cgpa" value="{{ $student->cgpa }}" placeholder="Current CGPA" required>
 
                                         </div>
 
