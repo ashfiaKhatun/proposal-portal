@@ -35,7 +35,7 @@ class Proposal extends Model
     // Relationship: One proposal can have an assigned teacher
     public function assignedTeacher()
     {
-        return $this->belongsTo(User::class, 'ass_teacher_id');
+        return $this->belongsTo(User::class, 'ass_teacher_id', 'official_id');
     }
 
     // Relationship: One proposal belongs to a department

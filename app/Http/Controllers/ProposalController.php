@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proposal;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProposalController extends Controller
@@ -10,23 +11,28 @@ class ProposalController extends Controller
     public function indexThesis()
     {
         $proposals = Proposal::where('type', 'thesis')
-            ->with('student')
+            ->with('student', 'assignedTeacher')
             ->get();  // Fetch all thesis proposals from the database
-        return view('template.home.proposals.index_thesis', compact('proposals'));  // Return the view with proposals
+
+        $supervisors = User::where('role', 'supervisor')->get();
+
+        return view('template.home.proposals.index_thesis', compact('proposals', 'supervisors'));  // Return the view with proposals
     }
 
     public function indexProject()
     {
         $proposals = Proposal::where('type', 'project')
-            ->with('student')
+            ->with('student', 'assignedTeacher')
             ->get();  // Fetch all thesis proposals from the database
 
-        return view('template.home.proposals.index_project', compact('proposals'));  // Return the view with proposals
+        $supervisors = User::where('role', 'supervisor')->get();
+
+        return view('template.home.proposals.index_project', compact('proposals', 'supervisors'));  // Return the view with proposals
     }
 
     public function show($id)
     {
-        $proposal = Proposal::with('student')->findOrFail($id);
+        $proposal = Proposal::with('student', 'assignedTeacher')->findOrFail($id);
 
         return view('template.home.proposals.show', compact('proposal'));
     }
@@ -146,5 +152,23 @@ class ProposalController extends Controller
 
         // Return a success response (you can return a JSON response for AJAX)
         return redirect()->back();
+    }
+
+    public function assignTeacher(Request $request, $id)
+    {
+        $proposal = Proposal::findOrFail($id);
+
+        // Update the ass_teacher_id in proposals
+        $proposal->ass_teacher_id = $request->input('ass_teacher_id');
+        $proposal->save();
+
+        // Update the assigned_teacher in users
+        $supervisor = User::where('official_id', $proposal->ass_teacher_id)->first();
+        if ($supervisor) {
+            $supervisor->assigned_teacher = $proposal->ass_teacher_id;
+            $supervisor->save();
+        }
+
+        return redirect()->back()->with('success', 'Supervisor assigned successfully!');
     }
 }

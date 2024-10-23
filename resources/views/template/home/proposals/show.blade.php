@@ -71,6 +71,21 @@
                                 <div class="proposal-details mt-4">
 
                                     <div class="row">
+                                        <b class="col-3">Student ID:</b>
+                                        <p class="col-9 ">{{ $proposal->student->official_id }}</p>
+                                    </div>
+
+                                    <div class="row">
+                                        <b class="col-3">Student Name:</b>
+                                        <p class="col-9 ">{{ $proposal->student->name }}</p>
+                                    </div>
+
+                                    <div class="row">
+                                        <b class="col-3">Batch:</b>
+                                        <p class="col-9 ">{{ $proposal->student->batch }}</p>
+                                    </div>
+
+                                    <div class="row">
                                         <b class="col-3">Area:</b>
                                         <p class="col-9 ">{{ $proposal->area }}</p>
                                     </div>
@@ -114,10 +129,10 @@
                                     </div>
                                     @endif
 
-                                    <!-- <div class="row">
+                                    <div class="row">
                                         <b class="col-3">Assigned To:</b>
-                                        <p class="col-9 ">{{ $proposal->area }}</p>
-                                    </div> -->
+                                        <p class="col-9 ">{{ $proposal->assignedTeacher->name }} ( {{ $proposal->assignedTeacher->official_id }} )</p>
+                                    </div>
 
                                 </div>
                                 

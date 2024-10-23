@@ -34,7 +34,7 @@ return new class extends Migration
             $table->foreign('dept_id')->references('id')->on('departments')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('student_id')->references('official_id')->on('users')->onDelete('cascade'); // Ensure official_id exists in users table
-            $table->foreign('ass_teacher_id')->references('assigned_teacher')->on('users')->onDelete('cascade'); // Ensure assigned_teacher exists in users table
+            $table->foreign('ass_teacher_id')->references('official_id')->on('users')->onDelete('cascade'); // Ensure assigned_teacher exists in users table
             $table->timestamps();
         });
     }

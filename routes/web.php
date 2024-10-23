@@ -58,6 +58,8 @@ Route::get('/show-proposal-{id}', [ProposalController::class, 'show'])->middlewa
 // Update proposal status
 Route::put('/update-status-{id}', [ProposalController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('proposals.updateStatus');
 
+Route::put('/assign-teacher-proposal-{id}', [ProposalController::class, 'assignTeacher'])->middleware(['auth', 'verified'])->name('proposals.assignTeacher');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

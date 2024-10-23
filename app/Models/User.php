@@ -57,4 +57,13 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class, 'dept_id');
     }
 
+    public function proposals()
+    {
+        return $this->hasMany(Proposal::class, 'student_id', 'official_id');
+    }
+
+    public function supervisedProposals()
+    {
+        return $this->hasMany(Proposal::class, 'ass_teacher_id', 'official_id');  // To get all proposals supervised by this user
+    }
 }
