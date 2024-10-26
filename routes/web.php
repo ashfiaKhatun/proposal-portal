@@ -55,10 +55,21 @@ Route::get('/thesis-proposals', [ProposalController::class, 'indexThesis'])->mid
 Route::get('/project-proposals', [ProposalController::class, 'indexProject'])->middleware(['auth', 'verified'])->name('proposals.indexProject');
 Route::get('/show-proposal-{id}', [ProposalController::class, 'show'])->middleware(['auth', 'verified'])->name('proposals.show');
 
+// Routes for teacher-specific thesis and project proposals
+Route::get('/supervisor-thesis-proposals', [ProposalController::class, 'indexSupervisorThesisProposals'])->middleware(['auth', 'verified'])->name('supervisor.proposals.thesis');
+Route::get('/supervisor-project-proposals', [ProposalController::class, 'indexSupervisorProjectProposals'])->middleware(['auth', 'verified'])->name('supervisor.proposals.project');
+
+
 // Update proposal status
 Route::put('/update-status-{id}', [ProposalController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('proposals.updateStatus');
 
+// Assign supervisor
 Route::put('/assign-teacher-proposal-{id}', [ProposalController::class, 'assignTeacher'])->middleware(['auth', 'verified'])->name('proposals.assignTeacher');
+
+// Provide feedback
+// Route for submitting feedback
+Route::put('/feedback-proposals-{id}', [ProposalController::class, 'giveFeedback'])->name('proposals.giveFeedback');
+
 
 
 Route::middleware('auth')->group(function () {

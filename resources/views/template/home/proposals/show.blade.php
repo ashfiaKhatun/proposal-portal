@@ -134,8 +134,76 @@
                                         <p class="col-9 ">{{ $proposal->assignedTeacher->name }} ( {{ $proposal->assignedTeacher->official_id }} )</p>
                                     </div>
 
+                                    <div class="row">
+                                        <b class="col-3">Supervisors Feedback:</b>
+                                        <p class="col-9 ">{{ $proposal->feedback }}</p>
+                                    </div>
+
+                                    <div class="row">
+                                        <b class="col-3">Change Status:</b>
+                                        <form action="{{ route('proposals.updateStatus', $proposal->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="status" class="form-select-sm" onchange="this.form.submit()">
+                                                <option value="pending" {{ $proposal->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="approved" {{ $proposal->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                                <option value="rejected" {{ $proposal->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                            </select>
+                                        </form>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <b class="col-3">Assign Supervisor:</b>
+                                        <!-- Supervisor Dropdown -->
+                                        <form action="{{ route('proposals.assignTeacher', $proposal->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="ass_teacher_id" class="form-select-sm" onchange="this.form.submit()">
+                                                <option value="">-- Select Supervisor --</option>
+                                                @foreach ($supervisors as $supervisor)
+                                                <option value="{{ $supervisor->official_id }}" {{ $proposal->ass_teacher_id == $supervisor->official_id ? 'selected' : '' }}>
+                                                    {{ $supervisor->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <b class="col-3">Provide Feedback:</b>
+                                        <!-- Supervisor Dropdown -->
+                                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#feedbackModal{{ $proposal->id }}">
+                                            Give Feedback
+                                        </button>
+
+                                        <!-- Feedback Modal -->
+                                        <div class="modal fade" id="feedbackModal{{ $proposal->id }}" tabindex="-1" aria-labelledby="feedbackModalLabel{{ $proposal->id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="feedbackModalLabel{{ $proposal->id }}">Give Feedback on {{ $proposal->student_id }}</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{{ route('proposals.giveFeedback', $proposal->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <div class="mb-3">
+                                                                <label for="feedback" class="form-label">Feedback</label>
+                                                                <textarea class="form-control" id="feedback" name="feedback" rows="3" required>{{ $proposal->feedback }}</textarea>
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                
+
 
                             </div>
                         </div>

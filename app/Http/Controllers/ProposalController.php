@@ -30,11 +30,42 @@ class ProposalController extends Controller
         return view('template.home.proposals.index_project', compact('proposals', 'supervisors'));  // Return the view with proposals
     }
 
+    public function indexSupervisorThesisProposals()
+    {
+        // Get the logged-in teacher's official_id
+        $supervisorId = auth()->user()->official_id;
+
+        // Fetch all thesis proposals assigned to the logged-in supervisor
+        $proposals = Proposal::where('type', 'thesis')
+            ->where('ass_teacher_id', $supervisorId)
+            ->with('student', 'assignedTeacher')
+            ->get();
+
+        return view('template.home.proposals.index_supervisor_thesis', compact('proposals'));  // Return the view with proposals
+    }
+
+    public function indexSupervisorProjectProposals()
+    {
+        // Get the logged-in teacher's official_id
+        $supervisorId = auth()->user()->official_id;
+
+        // Fetch all project proposals assigned to the logged-in supervisor
+        $proposals = Proposal::where('type', 'project')
+            ->where('ass_teacher_id', $supervisorId)
+            ->with('student', 'assignedTeacher')
+            ->get();
+
+        return view('template.home.proposals.index_supervisor_project', compact('proposals'));  // Return the view with proposals
+    }
+
+
     public function show($id)
     {
         $proposal = Proposal::with('student', 'assignedTeacher')->findOrFail($id);
 
-        return view('template.home.proposals.show', compact('proposal'));
+        $supervisors = User::where('role', 'supervisor')->get();
+
+        return view('template.home.proposals.show', compact('proposal', 'supervisors'));
     }
 
     public function create()
@@ -170,5 +201,23 @@ class ProposalController extends Controller
         }
 
         return redirect()->back()->with('success', 'Supervisor assigned successfully!');
+    }
+
+    public function giveFeedback(Request $request, $id)
+    {
+        // Validate the feedback input
+        $request->validate([
+            'feedback' => 'required|string|max:1000',
+        ]);
+
+        // Find the proposal by ID
+        $proposal = Proposal::findOrFail($id);
+
+        // Update the feedback column
+        $proposal->feedback = $request->input('feedback');
+        $proposal->save();
+
+        // Redirect back with success message
+        return back()->with('success', 'Feedback submitted successfully.');
     }
 }
