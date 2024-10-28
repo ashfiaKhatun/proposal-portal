@@ -22,7 +22,6 @@ return new class extends Migration
             $table->text('question')->nullable();
             $table->text('objective')->nullable();
             $table->text('skills')->nullable();
-            $table->text('feedback')->nullable();
 
             // Foreign keys
             $table->unsignedBigInteger('user_id'); // Student submitting the proposal

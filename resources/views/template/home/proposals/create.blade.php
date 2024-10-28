@@ -66,11 +66,11 @@
                                     <span class="label label-pill label-danger">Rejected</span>
                                     @elseif($existingProposal->status == 'pending')
                                     <span class="label label-pill label-warning">Pending</span>
-                                    @endif
-
+                                    
                                     <a href="{{ route('proposals.edit', $existingProposal->id) }}">
                                         <button class="btn bg-transparent"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
                                     </a>
+                                    @endif
 
                                 </div>
 
@@ -120,10 +120,12 @@
                                     </div>
                                     @endif
 
-                                    <!-- <div class="row">
+                                    @if($existingProposal->teacher_id)
+                                    <div class="row">
                                         <b class="col-3">Assigned To:</b>
-                                        <p class="col-9 ">{{ $existingProposal->area }}</p>
-                                    </div> -->
+                                        <p class="col-9 ">{{ $existingProposal->assignedTeacher->name }}</p>
+                                    </div>
+                                    @endif                                    
 
                                 </div>
                                 @else

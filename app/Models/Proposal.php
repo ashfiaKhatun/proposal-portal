@@ -43,4 +43,9 @@ class Proposal extends Model
     {
         return $this->belongsTo(Department::class, 'dept_id');
     }
+
+    public function feedback()
+    {
+        return $this->hasMany(Proposal::class, 'prop_id', 'id');
+    }
 }

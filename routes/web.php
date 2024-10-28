@@ -68,7 +68,7 @@ Route::put('/assign-teacher-proposal-{id}', [ProposalController::class, 'assignT
 
 // Provide feedback
 // Route for submitting feedback
-Route::put('/feedback-proposals-{id}', [ProposalController::class, 'giveFeedback'])->name('proposals.giveFeedback');
+Route::post('/feedback-proposals-{id}', [ProposalController::class, 'giveFeedback'])->name('proposals.giveFeedback');
 
 
 

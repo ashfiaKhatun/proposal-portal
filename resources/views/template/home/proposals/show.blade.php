@@ -136,7 +136,12 @@
 
                                     <div class="row">
                                         <b class="col-3">Supervisors Feedback:</b>
-                                        <p class="col-9 ">{{ $proposal->feedback }}</p>
+                                        <div class="col-9">
+                                            @foreach ($feedbacks as $feedback)
+                                            <p>{{ $feedback->feedback }}</p>
+                                            @endforeach
+
+                                        </div>
                                     </div>
 
                                     <div class="row">
@@ -189,10 +194,9 @@
                                                     <div class="modal-body">
                                                         <form action="{{ route('proposals.giveFeedback', $proposal->id) }}" method="POST">
                                                             @csrf
-                                                            @method('PUT')
                                                             <div class="mb-3">
                                                                 <label for="feedback" class="form-label">Feedback</label>
-                                                                <textarea class="form-control" id="feedback" name="feedback" rows="3" required>{{ $proposal->feedback }}</textarea>
+                                                                <textarea class="form-control" id="feedback" name="feedback" rows="3" required></textarea>
                                                             </div>
                                                             <button type="submit" class="btn btn-primary">Submit Feedback</button>
                                                         </form>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Feedback;
 use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -58,23 +59,26 @@ class ProposalController extends Controller
         return view('template.home.proposals.index_supervisor_project', compact('proposals'));  // Return the view with proposals
     }
 
-
     public function show($id)
     {
         $proposal = Proposal::with('student', 'assignedTeacher')->findOrFail($id);
 
         $supervisors = User::where('role', 'supervisor')->get();
 
-        return view('template.home.proposals.show', compact('proposal', 'supervisors'));
+        $feedbacks = Feedback::where('prop_id', $id)->get();
+
+        return view('template.home.proposals.show', compact('proposal', 'supervisors', 'feedbacks'));
     }
 
     public function create()
     {
         $user = auth()->user();
-        $existingProposal = Proposal::where('student_id', $user->official_id)
+        $existingProposal = Proposal::with('assignedTeacher')
+            ->where('student_id', $user->official_id)
             ->where('status', '!=', 'rejected')
-            // ->where('role', 'student')
             ->first();
+
+        // $feedbacks = Feedback::where('prop_id', $existingProposal->id)->get();
 
         return view('template.home.proposals.create', compact('existingProposal'));
     }
@@ -213,9 +217,10 @@ class ProposalController extends Controller
         // Find the proposal by ID
         $proposal = Proposal::findOrFail($id);
 
-        // Update the feedback column
-        $proposal->feedback = $request->input('feedback');
-        $proposal->save();
+        Feedback::create([
+            'feedback' => $request->feedback,
+            'prop_id' => $proposal->id,
+        ]);
 
         // Redirect back with success message
         return back()->with('success', 'Feedback submitted successfully.');

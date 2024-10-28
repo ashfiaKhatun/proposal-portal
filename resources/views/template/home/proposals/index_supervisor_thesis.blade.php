@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="cart-title">Project Proposals</h4>
+                                <h4 class="cart-title">Thesis Proposals</h4>
 
                                 <div class="table-responsive text-nowrap">
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
@@ -112,10 +112,10 @@
                                                                 <div class="modal-body">
                                                                     <form action="{{ route('proposals.giveFeedback', $proposal->id) }}" method="POST">
                                                                         @csrf
-                                                                        @method('PUT')
+                                                                        
                                                                         <div class="mb-3">
                                                                             <label for="feedback" class="form-label">Feedback</label>
-                                                                            <textarea class="form-control" id="feedback" name="feedback" rows="3" required>{{ $proposal->feedback }}</textarea>
+                                                                            <textarea class="form-control" id="feedback" name="feedback" rows="3" required></textarea>
                                                                         </div>
                                                                         <button type="submit" class="btn btn-primary">Submit Feedback</button>
                                                                     </form>

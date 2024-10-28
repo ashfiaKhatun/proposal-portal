@@ -112,7 +112,7 @@
                                                                 <div class="modal-body">
                                                                     <form action="{{ route('proposals.giveFeedback', $proposal->id) }}" method="POST">
                                                                         @csrf
-                                                                        @method('PUT')
+                                                                        
                                                                         <div class="mb-3">
                                                                             <label for="feedback" class="form-label">Feedback</label>
                                                                             <textarea class="form-control" id="feedback" name="feedback" rows="3" required>{{ $proposal->feedback }}</textarea>
