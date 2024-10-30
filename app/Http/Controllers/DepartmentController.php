@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class DepartmentController extends Controller
 {
@@ -12,6 +14,32 @@ class DepartmentController extends Controller
     {
         $departments = Department::all();
         return view('template.home.departments.index', compact('departments'));
+    }
+    
+    public function createAdmin($id)
+    {
+        $department = Department::findOrFail($id);
+
+        return view('template.home.departments.create_admin', compact('department'));
+    }
+
+    public function storeAdmin(Request $request, $id)
+    {
+        $department = Department::findOrFail($id);
+
+
+        $user = User::create([
+            'name' => $request->name,
+            'official_id' => $request->teacher_id,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'designation' => $request->designation,
+            'role' => 'supervisor',
+            'isAdmin' => true,
+            'isSuperAdmin' => $request->isSuperAdmin ?? false,
+            'dept_id' => $id,
+        ]);
+        return redirect()->route('departments.supervisors', ['id' => $id]);
     }
 
     public function store(Request $request)

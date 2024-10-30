@@ -54,25 +54,46 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between">
+                                <div>
                                     <h4 class="cart-title">Teachers in {{ $department->name }}</h4>
-                                    
+
+                                    <a href="{{ route('departments.createAdmin', $department->id) }}">
+                                        <button class="btn bg-secondary btn-sm text-white">Assign Admin</button>
+                                    </a>
+
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Teacher ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Designation</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($supervisors as $supervisor)
+                                            @foreach($supervisors as $supervisor)
                                             <tr>
-                                                <td>{{ $supervisor->id }}</td>
+                                                <td>{{ $supervisor->official_id }}</td>
                                                 <td>{{ $supervisor->name }}</td>
                                                 <td>{{ $supervisor->email }}</td>
+                                                <td>{{ $supervisor->designation }}</td>
+                                                <td>
+                                                    <!-- Edit Button -->
+                                                    <a href="{{ route('supervisors.edit', $supervisor->id) }}">
+                                                        <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
+                                                    </a>
+
+                                                    <!-- Delete Button -->
+                                                    <form action="{{ route('supervisors.destroy', $supervisor->id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn bg-transparent btn-sm" onclick="return confirm('Are you sure you want to delete this supervisor?')" data-toggle="tooltip" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                                    </form>
+                                                </td>
+
                                             </tr>
                                             @endforeach
                                         </tbody>

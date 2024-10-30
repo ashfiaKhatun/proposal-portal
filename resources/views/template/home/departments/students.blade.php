@@ -62,19 +62,42 @@
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped verticle-middle mt-3">
-                                        <thead>
+                                    <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Student ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Batch</th>
+                                                <th>Credit Finished</th>
+                                                <th>Current CGPA</th>
+                                                <th>Assigned Teacher</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($students as $student)
+                                            @foreach($students as $student)
                                             <tr>
-                                                <td>{{ $student->id }}</td>
+                                                <td>{{ $student->official_id }}</td>
                                                 <td>{{ $student->name }}</td>
                                                 <td>{{ $student->email }}</td>
+                                                <td>{{ $student->batch }}</td>
+                                                <td>{{ $student->credit_finished }}</td>
+                                                <td>{{ $student->cgpa }}</td>
+                                                <td>{{ $student->assigned_teacher }}</td>
+                                                <td>
+                                                    <!-- Edit Button -->
+                                                     <a href="{{ route('students.edit', $student->id) }}">
+                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
+                                                     </a>
+
+                                                    <!-- Delete Button -->
+                                                    <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn bg-transparent btn-sm" onclick="return confirm('Are you sure you want to delete this student?')" data-toggle="tooltip" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                                    </form>
+                                                </td>
+
                                             </tr>
                                             @endforeach
                                         </tbody>

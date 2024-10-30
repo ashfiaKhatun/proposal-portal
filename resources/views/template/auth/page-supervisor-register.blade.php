@@ -32,7 +32,7 @@
                             <div class="card-body pt-5">
                                 <div class="text-center">
                                     <img src="template/images/favicon.png" width="48">
-                                    <h4 class="mt-3">BizMappers</h4>
+                                    <h4 class="mt-3">Proposal Portal</h4>
                                 </div>
 
                                 <form method="POST" action="{{ route('supervisors.register') }}">

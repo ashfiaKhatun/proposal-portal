@@ -44,6 +44,10 @@ Route::delete('/delete-student-{id}',  [StudentController::class, 'destroy'])->m
 Route::get('department-{id}/supervisors', [DepartmentController::class, 'showSupervisors'])->middleware(['auth', 'verified'])->name('departments.supervisors');
 Route::get('department-{id}/students', [DepartmentController::class, 'showStudents'])->middleware(['auth', 'verified'])->name('departments.students');
 
+Route::get('department-{id}/new-admin', [DepartmentController::class, 'createAdmin'])->middleware(['auth', 'verified'])->name('departments.createAdmin');
+
+Route::post('department-{id}/new-admin', [DepartmentController::class, 'storeAdmin'])->middleware(['auth', 'verified'])->name('departments.storeAdmin');
+
 Route::resource('departments', DepartmentController::class);
 
 Route::get('/proposal',  [ProposalController::class, 'create'])->middleware(['auth', 'verified'])->name('proposals.create');

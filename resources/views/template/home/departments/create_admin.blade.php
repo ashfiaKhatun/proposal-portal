@@ -54,60 +54,63 @@
                     <div class="col-lg-12">
                         <div class="card w-75 mx-auto">
                             <div class="card-body">
-                                <h4 class="cart-title">Create New Supervisor</h4>
+                                <h4 class="cart-title">Create New Admin for {{ $department->name }}</h4>
                                 <div>
-                                    <form method="POST" action="{{ route('supervisors.update', $supervisor->id) }}">
+                                    <form method="POST" action="{{ route('departments.storeAdmin', $department->id) }}">
                                         @csrf
-                                        @method('PUT')
     
                                         <!-- ID -->
                                         <div>
                                             <label class="col-form-label">Teacher ID:</label>
-                                            <input class="form-control rounded" type="text" name="teacher_id" value="{{ $supervisor->official_id }}" placeholder="Teacher ID" required>
+                                            <input class="form-control rounded" type="text" name="teacher_id" placeholder="Teacher ID" required>
     
                                         </div>
     
                                         <!-- Name -->
                                         <div>
                                             <label class="col-form-label">Name:</label>
-                                            <input id="name" class="form-control rounded" type="text" name="name" value="{{ $supervisor->name }}" placeholder="Name" required autofocus autocomplete="name">
+                                            <input id="name" class="form-control rounded" type="text" name="name" :value="old('name')" placeholder="Name" required autocomplete="name">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
     
                                         <!-- Email Address -->
                                         <div>
                                             <label class="col-form-label">Email:</label>
-                                            <input id="email" class="form-control rounded" type="email" name="email" value="{{ $supervisor->email }}" placeholder="Email" required autocomplete="email" />
+                                            <input id="email" class="form-control rounded" type="email" name="email" :value="old('email')" placeholder="Email" required autocomplete="email" />
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
-
+    
                                         <!-- Designation -->
                                         <div>
                                             <label class="col-form-label">Designation:</label>
-                                            <input class="form-control rounded" type="text" name="designation" value="{{ $supervisor->designation }}" placeholder="Designation" required>
+                                            <input class="form-control rounded" type="text" name="designation" placeholder="Designation" required>
     
                                         </div>
     
                                         <!-- <div class="form-group">
+                                            <label for="isAdmin">Is Admin?</label>
+                                            <input type="checkbox" name="isAdmin" value="1" />
+                                        </div>
+    
+                                        <div class="form-group">
                                             <label for="isSuperAdmin">Is Super Admin?</label>
                                             <input type="checkbox" name="isSuperAdmin" value="1" />
                                         </div> -->
     
-                                        <div class="form-group mt-2">
-                                            <label for="dept_id">Department</label>
-                                            <select name="dept_id" class="form-control">
-                                                @foreach($departments as $department)
-                                                <option value="{{ $department->id }}" {{ $supervisor->dept_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div> 
-
-                                        <div class="form-group mt-2">
-                                            <input class="mr-2" type="checkbox" name="isAdmin" value="1" />
-                                            <label for="isAdmin">Department admin?</label>
+                                        <!-- Password -->
+                                        <div>
+                                            <label class="col-form-label">Password:</label>
+                                            <input id="password" class="form-control rounded" type="password" name="password" placeholder="Password" required autocomplete="new-password" />
+                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         </div>
     
-                                        <button class="btn btn-primary btn-sm my-3">Update</button>
+                                        <div>
+                                            <label class="col-form-label">Confirm Password:</label>
+                                            <input id="password_confirmation" class="form-control rounded" type="password" name="password_confirmation" placeholder="Confirm Password" required autocomplete="new-password" />
+                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                        </div>
+    
+                                        <button class="btn btn-primary my-3">Register</button>
     
                                     </form>
 
