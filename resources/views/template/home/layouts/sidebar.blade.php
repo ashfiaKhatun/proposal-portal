@@ -10,6 +10,12 @@
             </li>
 
             <li>
+                <a href="{{ route('admins.index') }}" aria-expanded="false">
+                    <i class="fa-solid fa-user-tie"></i><span class="nav-text">Admins</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="{{ route('supervisors.index') }}" aria-expanded="false">
                     <i class="fa-solid fa-chalkboard-teacher"></i><span class="nav-text">Supervisors</span>
                 </a>

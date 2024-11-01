@@ -103,9 +103,16 @@
                                         </div> 
 
                                         <div class="form-group mt-2">
-                                            <input class="mr-2" type="checkbox" name="isAdmin" value="1" />
+                                            <input class="mr-2" type="checkbox" name="isAdmin" value="1" {{ $supervisor->isAdmin ? 'checked' : '' }} />
                                             <label for="isAdmin">Department admin?</label>
                                         </div>
+
+                                        @if($supervisor->isAdmin)
+                                        <div class="form-group mt-2">
+                                            <input class="mr-2" type="checkbox" name="isSuperAdmin" value="1" {{ $supervisor->isSuperAdmin ? 'checked' : '' }} />
+                                            <label for="isAdmin">Super Admin?</label>
+                                        </div>
+                                        @endif
     
                                         <button class="btn btn-primary btn-sm my-3">Update</button>
     

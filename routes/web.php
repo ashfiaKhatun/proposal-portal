@@ -27,6 +27,8 @@ Route::get('/', function () {
 
 Route::get('/dashboard',  [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
 
+Route::get('/admins',  [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('admins.index');
+
 Route::get('/supervisors',  [SupervisorController::class, 'index'])->middleware(['auth', 'verified'])->name('supervisors.index');
 Route::get('/add-new-supervisor',  [SupervisorController::class, 'create'])->middleware(['auth', 'verified'])->name('supervisors.create');
 Route::post('/add-new-supervisor',  [SupervisorController::class, 'store'])->middleware(['auth', 'verified'])->name('supervisors.store');
