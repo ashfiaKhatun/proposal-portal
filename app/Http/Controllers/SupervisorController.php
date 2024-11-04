@@ -94,19 +94,17 @@ class SupervisorController extends Controller
     {
 
         $supervisor = User::findOrFail($id);
+        
         $supervisor->update([
             'name' => $request->name,
-            'official_id' => $request->teacher_id,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'designation' => $request->designation,
             'role' => 'supervisor',
             'isAdmin' => $request->isAdmin ?? false,
             'isSuperAdmin' => $request->isSuperAdmin ?? false,
-            'dept_id' => $request->dept_id,
         ]);
 
-        return redirect()->route('supervisors.index');
+        return redirect()->back();
     }
 
     public function destroy($id)
@@ -114,6 +112,6 @@ class SupervisorController extends Controller
         $supervisor = User::findOrFail($id);
         $supervisor->delete();
 
-        return redirect()->route('supervisors.index');
+        return redirect()->back();
     }
 }

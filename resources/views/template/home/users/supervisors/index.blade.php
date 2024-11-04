@@ -61,10 +61,15 @@
                                             Add New Supervisor
                                         </button>
                                     </a>
-
                                 </div>
+
+                                <!-- Search Field -->
+                                <div class="mb-1 w-25">
+                                    <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
+                                </div>
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped verticle-middle mt-3">
+                                    <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Teacher ID</th>
@@ -83,9 +88,9 @@
                                                 <td>{{ $supervisor->designation }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
-                                                     <a href="{{ route('supervisors.edit', $supervisor->id) }}">
-                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
-                                                     </a>
+                                                    <a href="{{ route('supervisors.edit', $supervisor->id) }}">
+                                                        <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
+                                                    </a>
 
                                                     <!-- Delete Button -->
                                                     <form action="{{ route('supervisors.destroy', $supervisor->id) }}" method="POST" style="display:inline;">
@@ -129,6 +134,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+
+    @include('template.home.layouts.custom_scripts.search_script')
 
 </body>
 

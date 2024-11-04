@@ -60,8 +60,14 @@
                                         Add New Department
                                     </button>
                                 </div>
+
+                                <!-- Search Field -->
+                                <div class="mb-1 w-25">
+                                    <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
+                                </div>
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped verticle-middle mt-3">
+                                    <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Name</th>
@@ -73,19 +79,19 @@
                                             <tr>
                                                 <td>{{ $department->name }}</td>
                                                 <td>
-                                                   
+
                                                     <!-- View Teachers Button -->
                                                     <a href="{{ route('departments.supervisors', $department->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="View Supervisors">
-                                                        Supervisors<i class="fa-solid fa-chalkboard-teacher ml-2"></i> 
+                                                        Supervisors<i class="fa-solid fa-chalkboard-teacher ml-2"></i>
                                                     </a>
 
                                                     <!-- View Students Button -->
                                                     <a href="{{ route('departments.students', $department->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="View Students">
-                                                        Students<i class="fa-solid fa-user-graduate ml-2"></i> 
+                                                        Students<i class="fa-solid fa-user-graduate ml-2"></i>
                                                     </a>
 
-                                                     <!-- Edit Button -->
-                                                     <button class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#editDepartmentModal" data-id="{{ $department->id }}" data-name="{{ $department->name }}">Edit<i class="fa-regular fa-pen-to-square ml-2" data-toggle="tooltip" title="Edit"></i></button>
+                                                    <!-- Edit Button -->
+                                                    <button class="btn btn-secondary btn-sm text-white" data-toggle="modal" data-target="#editDepartmentModal" data-id="{{ $department->id }}" data-name="{{ $department->name }}">Edit<i class="fa-regular fa-pen-to-square ml-2" data-toggle="tooltip" title="Edit"></i></button>
 
                                                     <!-- Delete Button -->
                                                     <form action="{{ route('departments.destroy', $department->id) }}" method="POST" style="display:inline;">
@@ -171,6 +177,7 @@
             Footer start
         ***********************************-->
         @include('template.home.layouts.footer')
+
         <!--**********************************
             Footer end
         ***********************************-->
@@ -183,6 +190,9 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+
+    @include('template.home.layouts.custom_scripts.search_script')
+
     <script>
         // Handle the edit button click
         $('#editDepartmentModal').on('show.bs.modal', function(event) {

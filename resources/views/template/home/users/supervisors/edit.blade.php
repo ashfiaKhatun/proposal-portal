@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="card w-75 mx-auto">
                             <div class="card-body">
-                                <h4 class="cart-title">Create New Supervisor</h4>
+                                <h4 class="cart-title">Edit Supervisor</h4>
                                 <div>
                                     <form method="POST" action="{{ route('supervisors.update', $supervisor->id) }}">
                                         @csrf
@@ -63,7 +63,7 @@
                                         <!-- ID -->
                                         <div>
                                             <label class="col-form-label">Teacher ID:</label>
-                                            <input class="form-control rounded" type="text" name="teacher_id" value="{{ $supervisor->official_id }}" placeholder="Teacher ID" required>
+                                            <input class="form-control rounded" type="text" name="teacher_id" value="{{ $supervisor->official_id }}" placeholder="Teacher ID" disabled required>
     
                                         </div>
     
@@ -95,7 +95,7 @@
     
                                         <div class="form-group mt-2">
                                             <label for="dept_id">Department</label>
-                                            <select name="dept_id" class="form-control">
+                                            <select name="dept_id" class="form-control" disabled>
                                                 @foreach($departments as $department)
                                                 <option value="{{ $department->id }}" {{ $supervisor->dept_id == $department->id ? 'selected' : '' }}>{{ $department->name }}</option>
                                                 @endforeach

@@ -131,7 +131,7 @@
 
                                     <div class="row">
                                         <b class="col-3">Assigned To:</b>
-                                        <p class="col-9 ">{{ $proposal->assignedTeacher->name }} ( {{ $proposal->assignedTeacher->official_id }} )</p>
+                                        <p class="col-9 ">{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</p>
                                     </div>
 
                                     <div class="row">

@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="card w-75 mx-auto">
                             <div class="card-body">
-                                <h4 class="cart-title">Create New Supervisor</h4>
+                                <h4 class="cart-title">Create New Student</h4>
                                 <div>
                                     <form method="POST" action="{{ route('students.store') }}">
                                         @csrf

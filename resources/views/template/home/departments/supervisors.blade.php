@@ -54,16 +54,21 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div>
+                                <div class="d-flex justify-content-between">
                                     <h4 class="cart-title">Teachers in {{ $department->name }}</h4>
 
-                                    <a href="{{ route('departments.createAdmin', $department->id) }}">
-                                        <button class="btn bg-secondary btn-sm text-white">Assign Admin</button>
-                                    </a>
-
+                                    <!-- Search Field -->
+                                    <div class="mb-1 mt-3 w-25">
+                                        <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
+                                    </div>
                                 </div>
+
+                                <a href="{{ route('departments.createAdmin', $department->id) }}">
+                                    <button class="btn bg-secondary btn-sm text-white">Assign Admin</button>
+                                </a>
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped verticle-middle mt-3">
+                                    <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Teacher ID</th>
@@ -128,6 +133,9 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+
+    @include('template.home.layouts.custom_scripts.search_script')
+
 
 </body>
 

@@ -56,8 +56,13 @@
                             <div class="card-body">
                                 <h4 class="cart-title">Thesis Proposals</h4>
 
+                                <!-- Search Field -->
+                                <div class="mb-1 w-25">
+                                    <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
+                                </div>
+
                                 <div class="table-responsive text-nowrap">
-                                    <table class="table table-bordered table-striped verticle-middle mt-3">
+                                    <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>View</th>
@@ -160,6 +165,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+
+    @include('template.home.layouts.custom_scripts.search_script')
 
 </body>
 

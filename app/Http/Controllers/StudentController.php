@@ -70,21 +70,18 @@ class StudentController extends Controller
     {
 
         $student = User::findOrFail($id);
+        
         $student->update([
             'name' => $request->name,
             'official_id' => $request->student_id,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
             'batch' => $request->batch,
             'credit_finished' => $request->credit_finished,
             'cgpa' => $request->cgpa,
-            'role' => 'student',
-            'isAdmin' => $request->isAdmin ?? false,
-            'isSuperAdmin' => $request->isSuperAdmin ?? false,
             'dept_id' => $request->dept_id,
         ]);
 
-        return redirect()->route('students.index');
+        return redirect()->back();
     }
 
     public function destroy($id)
@@ -92,6 +89,6 @@ class StudentController extends Controller
         $student = User::findOrFail($id);
         $student->delete();
 
-        return redirect()->route('students.index');
+        return redirect()->back();
     }
 }

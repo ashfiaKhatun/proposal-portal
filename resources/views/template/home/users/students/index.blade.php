@@ -61,10 +61,15 @@
                                             Add New Student
                                         </button>
                                     </a>
-
                                 </div>
+
+                                <!-- Search Field -->
+                                <div class="mb-1 w-25">
+                                    <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
+                                </div>
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped verticle-middle mt-3">
+                                    <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Student ID</th>
@@ -89,9 +94,9 @@
                                                 <td>{{ $student->assigned_teacher }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
-                                                     <a href="{{ route('students.edit', $student->id) }}">
-                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
-                                                     </a>
+                                                    <a href="{{ route('students.edit', $student->id) }}">
+                                                        <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
+                                                    </a>
 
                                                     <!-- Delete Button -->
                                                     <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
@@ -135,6 +140,9 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+
+    @include('template.home.layouts.custom_scripts.search_script')
+
 
 </body>
 
