@@ -71,6 +71,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Designation</th>
+                                                <th>Department</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -81,6 +82,7 @@
                                                 <td>{{ $supervisor->name }}</td>
                                                 <td>{{ $supervisor->email }}</td>
                                                 <td>{{ $supervisor->designation }}</td>
+                                                <td>{{ $supervisor->department->name }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
                                                     <a href="{{ route('supervisors.edit', $supervisor->id) }}">

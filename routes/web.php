@@ -53,6 +53,7 @@ Route::post('department-{id}/new-admin', [DepartmentController::class, 'storeAdm
 Route::resource('departments', DepartmentController::class);
 
 Route::get('/proposal',  [ProposalController::class, 'create'])->middleware(['auth', 'verified'])->name('proposals.create');
+Route::get('/submitted-proposals',  [ProposalController::class, 'indexSubmission'])->middleware(['auth', 'verified'])->name('proposals.indexSubmission');
 Route::post('/submit-proposal',  [ProposalController::class, 'store'])->middleware(['auth', 'verified'])->name('proposals.store');
 Route::get('/edit-proposal-{id}',  [ProposalController::class, 'edit'])->middleware(['auth', 'verified'])->name('proposals.edit');
 Route::put('/edit-proposal-{id}',  [ProposalController::class, 'update'])->middleware(['auth', 'verified'])->name('proposals.update');

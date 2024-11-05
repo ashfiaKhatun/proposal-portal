@@ -102,12 +102,14 @@
                                             </select>
                                         </div> 
 
+                                        @if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin)
                                         <div class="form-group mt-2">
                                             <input class="mr-2" type="checkbox" name="isAdmin" value="1" {{ $supervisor->isAdmin ? 'checked' : '' }} />
                                             <label for="isAdmin">Department admin?</label>
                                         </div>
+                                        @endif
 
-                                        @if($supervisor->isAdmin)
+                                        @if(auth()->user()->isSuperAdmin && $supervisor->isAdmin)
                                         <div class="form-group mt-2">
                                             <input class="mr-2" type="checkbox" name="isSuperAdmin" value="1" {{ $supervisor->isSuperAdmin ? 'checked' : '' }} />
                                             <label for="isAdmin">Super Admin?</label>

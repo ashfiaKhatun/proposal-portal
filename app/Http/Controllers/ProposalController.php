@@ -15,9 +15,11 @@ class ProposalController extends Controller
             ->with('student', 'assignedTeacher')
             ->get();  // Fetch all thesis proposals from the database
 
+        $type = 'thesis';
+
         $supervisors = User::where('role', 'supervisor')->get();
 
-        return view('template.home.proposals.index_thesis', compact('proposals', 'supervisors'));  // Return the view with proposals
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
     }
 
     public function indexProject()
@@ -26,9 +28,11 @@ class ProposalController extends Controller
             ->with('student', 'assignedTeacher')
             ->get();  // Fetch all thesis proposals from the database
 
+        $type = 'project';
+
         $supervisors = User::where('role', 'supervisor')->get();
 
-        return view('template.home.proposals.index_project', compact('proposals', 'supervisors'));  // Return the view with proposals
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
     }
 
     public function indexSupervisorThesisProposals()
@@ -42,7 +46,11 @@ class ProposalController extends Controller
             ->with('student', 'assignedTeacher')
             ->get();
 
-        return view('template.home.proposals.index_supervisor_thesis', compact('proposals'));  // Return the view with proposals
+        $supervisors = User::where('role', 'supervisor')->get();
+
+        $type = 'thesis';
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
     }
 
     public function indexSupervisorProjectProposals()
@@ -56,7 +64,28 @@ class ProposalController extends Controller
             ->with('student', 'assignedTeacher')
             ->get();
 
-        return view('template.home.proposals.index_supervisor_project', compact('proposals'));  // Return the view with proposals
+        $supervisors = User::where('role', 'supervisor')->get();
+
+        $type = 'project';
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
+    }
+    
+    public function indexSubmission()
+    {
+        // Get the logged-in teacher's official_id
+        $studentId = auth()->user()->official_id;
+
+        // Fetch all project proposals assigned to the logged-in supervisor
+        $proposals = Proposal::where('student_id', $studentId)
+            ->with('student', 'assignedTeacher')
+            ->get();
+
+        $supervisors = User::where('role', 'supervisor')->get();
+
+        $type = '';
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
     }
 
     public function show($id)
@@ -198,10 +227,10 @@ class ProposalController extends Controller
         $proposal->save();
 
         // Update the assigned_teacher in users
-        $supervisor = User::where('official_id', $proposal->ass_teacher_id)->first();
-        if ($supervisor) {
-            $supervisor->assigned_teacher = $proposal->ass_teacher_id;
-            $supervisor->save();
+        $student = User::where('official_id', $proposal->student_id)->first();
+        if ($student) {
+            $student->assigned_teacher = $proposal->ass_teacher_id;
+            $student->save();
         }
 
         return redirect()->back()->with('success', 'Supervisor assigned successfully!');

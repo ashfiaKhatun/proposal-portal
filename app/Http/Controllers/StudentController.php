@@ -12,83 +12,101 @@ class StudentController extends Controller
 {
     public function index()
     {
-        $students = User::where('role', 'student')
-            ->where('dept_id', auth()->user()->dept_id)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        $teachers = User::where('role', 'supervisor')
-            ->where('dept_id', auth()->user()->dept_id)
-            ->get();
-
-
-        return view('template.home.users.students.index', compact('students', 'teachers'));
+        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+            $students = User::where('role', 'student')
+                ->where('dept_id', auth()->user()->dept_id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+    
+            return view('template.home.users.students.index', compact('students'));
+        } else {
+            return redirect('/');
+        }
     }
 
     public function create()
     {
-        $departments = Department::all();
-        return view('template.home.users.students.create', compact('departments'));
+        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+            $departments = Department::all();
+            return view('template.home.users.students.create', compact('departments'));
+        } else {
+            return redirect('/');
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            // 'role' => 'required|string',
-            // 'isAdmin' => 'boolean',
-            // 'isSuperAdmin' => 'boolean',
-            'dept_id' => 'nullable|exists:departments,id',
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'official_id' => $request->student_id,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'batch' => $request->batch,
-            'credit_finished' => $request->credit_finished,
-            'cgpa' => $request->cgpa,
-            'role' => 'student',
-            'isAdmin' => $request->isAdmin ?? false,
-            'isSuperAdmin' => $request->isSuperAdmin ?? false,
-            'dept_id' => auth()->user()->dept_id,
-        ]);
-        return redirect()->route('students.index');
+        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                // 'role' => 'required|string',
+                // 'isAdmin' => 'boolean',
+                // 'isSuperAdmin' => 'boolean',
+                'dept_id' => 'nullable|exists:departments,id',
+            ]);
+    
+            $user = User::create([
+                'name' => $request->name,
+                'official_id' => $request->student_id,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'batch' => $request->batch,
+                'credit_finished' => $request->credit_finished,
+                'cgpa' => $request->cgpa,
+                'role' => 'student',
+                'isAdmin' => $request->isAdmin ?? false,
+                'isSuperAdmin' => $request->isSuperAdmin ?? false,
+                'dept_id' => auth()->user()->dept_id,
+            ]);
+            return redirect()->route('students.index');
+        } else {
+            return redirect('/');
+        }
     }
 
     public function edit($id)
     {
-        $student = User::findOrFail($id);
-        $departments = Department::all();
-        return view('template.home.users.students.edit', compact('student', 'departments'));
+        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+            $student = User::findOrFail($id);
+            $departments = Department::all();
+            return view('template.home.users.students.edit', compact('student', 'departments'));
+        } else {
+            return redirect('/');
+        }
     }
 
     public function update(Request $request, $id)
     {
-
-        $student = User::findOrFail($id);
-        
-        $student->update([
-            'name' => $request->name,
-            'official_id' => $request->student_id,
-            'email' => $request->email,
-            'batch' => $request->batch,
-            'credit_finished' => $request->credit_finished,
-            'cgpa' => $request->cgpa,
-            'dept_id' => $request->dept_id,
-        ]);
-
-        return redirect()->back();
+        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+            $student = User::findOrFail($id);
+            
+            $student->update([
+                'name' => $request->name,
+                'official_id' => $request->student_id,
+                'email' => $request->email,
+                'batch' => $request->batch,
+                'credit_finished' => $request->credit_finished,
+                'cgpa' => $request->cgpa,
+                'dept_id' => $request->dept_id,
+            ]);
+    
+            return redirect()->back();
+        } else {
+            return redirect('/');
+        }
     }
 
     public function destroy($id)
     {
-        $student = User::findOrFail($id);
-        $student->delete();
-
-        return redirect()->back();
+        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+            $student = User::findOrFail($id);
+            $student->delete();
+    
+            return redirect()->back();
+        } else {
+            return redirect('/');
+        }
     }
 }

@@ -78,7 +78,6 @@
                                                 <th>Batch</th>
                                                 <th>Credit Finished</th>
                                                 <th>Current CGPA</th>
-                                                <th>Assigned Teacher</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -91,7 +90,6 @@
                                                 <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->credit_finished }}</td>
                                                 <td>{{ $student->cgpa }}</td>
-                                                <td>{{ $student->assigned_teacher }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
                                                     <a href="{{ route('students.edit', $student->id) }}">
