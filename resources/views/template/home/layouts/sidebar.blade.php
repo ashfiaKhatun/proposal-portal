@@ -54,6 +54,16 @@
                     <li><a href="{{ route('proposals.indexProject') }}">Project Proposals</a></li>
                 </ul>
             </li>
+            
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="icon-note menu-icon"></i><span class="nav-text">Department Proposals</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('department.proposals.thesis') }}">Thesis Proposals</a></li>
+                    <li><a href="{{ route('department.proposals.project') }}">Project Proposals</a></li>
+                </ul>
+            </li>
 
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">

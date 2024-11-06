@@ -15,11 +15,12 @@ class ProposalController extends Controller
             ->with('student', 'assignedTeacher')
             ->get();  // Fetch all thesis proposals from the database
 
-        $type = 'thesis';
-
         $supervisors = User::where('role', 'supervisor')->get();
 
-        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
+        $type = 'thesis';
+        $showExtraColumns = false;
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
     }
 
     public function indexProject()
@@ -28,11 +29,12 @@ class ProposalController extends Controller
             ->with('student', 'assignedTeacher')
             ->get();  // Fetch all thesis proposals from the database
 
-        $type = 'project';
-
         $supervisors = User::where('role', 'supervisor')->get();
 
-        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
+        $type = 'project';
+        $showExtraColumns = false;
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
     }
 
     public function indexSupervisorThesisProposals()
@@ -49,8 +51,9 @@ class ProposalController extends Controller
         $supervisors = User::where('role', 'supervisor')->get();
 
         $type = 'thesis';
+        $showExtraColumns = false;
 
-        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
     }
 
     public function indexSupervisorProjectProposals()
@@ -67,10 +70,53 @@ class ProposalController extends Controller
         $supervisors = User::where('role', 'supervisor')->get();
 
         $type = 'project';
+        $showExtraColumns = false;
 
-        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type'));  // Return the view with proposals
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
     }
-    
+
+    public function indexDepartmentThesisProposals()
+    {
+        // Get the logged-in teacher's dept_id
+        $department = auth()->user()->dept_id;
+
+        // Fetch all thesis proposals assigned to the logged-in supervisor
+        $proposals = Proposal::where('type', 'thesis')
+            ->where('dept_id', $department)
+            ->with('student', 'assignedTeacher')
+            ->get();
+
+        $supervisors = User::where('role', 'supervisor')
+            ->where('dept_id', $department)
+            ->get();
+
+        $type = 'thesis';
+        $showExtraColumns = true;
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+    }
+
+    public function indexDepartmentProjectProposals()
+    {
+        // Get the logged-in teacher's official_id
+        $department = auth()->user()->dept_id;
+
+        // Fetch all thesis proposals assigned to the logged-in supervisor
+        $proposals = Proposal::where('type', 'project')
+            ->where('dept_id', $department)
+            ->with('student', 'assignedTeacher')
+            ->get();
+
+        $supervisors = User::where('role', 'supervisor')
+            ->where('dept_id', $department)
+            ->get();
+
+        $type = 'project';
+        $showExtraColumns = true;
+
+        return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+    }
+
     public function indexSubmission()
     {
         // Get the logged-in teacher's official_id
@@ -92,7 +138,10 @@ class ProposalController extends Controller
     {
         $proposal = Proposal::with('student', 'assignedTeacher')->findOrFail($id);
 
-        $supervisors = User::where('role', 'supervisor')->get();
+        $department = auth()->user()->dept_id;
+        $supervisors = User::where('role', 'supervisor')
+            ->where('dept_id', $department)
+            ->get();
 
         $feedbacks = Feedback::where('prop_id', $id)->get();
 

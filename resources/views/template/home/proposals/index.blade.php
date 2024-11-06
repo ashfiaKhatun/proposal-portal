@@ -89,8 +89,10 @@
                                                 <th>Title</th>
                                                 <th>Status</th>
                                                 <th>Assigned Supervisor</th>
+                                                @if($showExtraColumns)
                                                 <th>Change Status</th>
                                                 <th>Assign Supervisor</th>
+                                                @endif
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -118,7 +120,7 @@
 
                                                 <td>{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</td>
 
-
+                                                @if($showExtraColumns)
                                                 <td>
                                                     <form action="{{ route('proposals.updateStatus', $proposal->id) }}" method="POST">
                                                         @csrf
@@ -146,6 +148,7 @@
                                                         </select>
                                                     </form>
                                                 </td>
+                                                @endif
 
                                             </tr>
                                             @endforeach
