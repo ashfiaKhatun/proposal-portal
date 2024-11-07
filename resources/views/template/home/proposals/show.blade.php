@@ -48,11 +48,11 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="container-fluid mt-3">
+            <div class="container-fluid">
 
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card w-75 mx-auto">
+                    <div class="col-lg-7">
+                        <div class="card mx-auto">
                             <div class="card-body">
 
                                 <div>
@@ -71,111 +71,70 @@
                                 <div class="proposal-details mt-4">
 
                                     <div class="row">
-                                        <b class="col-3">Student ID:</b>
-                                        <p class="col-9 ">{{ $proposal->student->official_id }}</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <b class="col-3">Student Name:</b>
-                                        <p class="col-9 ">{{ $proposal->student->name }}</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <b class="col-3">Batch:</b>
-                                        <p class="col-9 ">{{ $proposal->student->batch }}</p>
-                                    </div>
-
-                                    <div class="row">
-                                        <b class="col-3">Area:</b>
-                                        <p class="col-9 ">{{ $proposal->area }}</p>
+                                        <b class="col-4">Area:</b>
+                                        <p  class="col-8 ">{{ $proposal->area }}</p>
                                     </div>
 
 
                                     <div class="row">
-                                        <b class="col-3">Title:</b>
-                                        <p class="col-9 ">{{ $proposal->title }}</p>
+                                        <b class="col-4">Title:</b>
+                                        <p  class="col-8 ">{{ $proposal->title }}</p>
                                     </div>
 
                                     @if($proposal->type == 'project')
                                     <div class="row">
-                                        <b class="col-3">Brief Discussion:</b>
-                                        <p class="col-9 ">{{ $proposal->description }}</p>
+                                        <b class="col-4">Brief Discussion:</b>
+                                        <p  class="col-8 ">{!! nl2br(e($proposal->description)) !!}</p>
                                     </div>
 
                                     <div class="row">
-                                        <b class="col-3">Skills:</b>
-                                        <p class="col-9 ">{{ $proposal->skills }}</p>
+                                        <b class="col-4">Skills:</b>
+                                        <p  class="col-8 ">{!! nl2br(e($proposal->skills)) !!}</p>
                                     </div>
 
                                     @elseif($proposal->type == 'thesis')
                                     <div class="row">
-                                        <b class="col-3">Background Study:</b>
-                                        <p class="col-9 ">{{ $proposal->background }}</p>
+                                        <b class="col-4">Background Study:</b>
+                                        <p  class="col-8 ">{!! nl2br(e($proposal->background)) !!}</p>
                                     </div>
 
                                     <div class="row">
-                                        <b class="col-3">Research Questions:</b>
-                                        <p class="col-9 ">{{ $proposal->question }}</p>
+                                        <b class="col-4">Research Questions:</b>
+                                        <p  class="col-8 ">{!! nl2br(e($proposal->question)) !!}</p>
                                     </div>
 
                                     <div class="row">
-                                        <b class="col-3">Research Objectives:</b>
-                                        <p class="col-9 ">{{ $proposal->objective }}</p>
+                                        <b class="col-4">Research Objectives:</b>
+                                        <p  class="col-8 ">{!! nl2br(e($proposal->objective)) !!}</p>
                                     </div>
 
                                     <div class="row">
-                                        <b class="col-3">Skills:</b>
-                                        <p class="col-9 ">{{ $proposal->skills }}</p>
+                                        <b class="col-4">Skills:</b>
+                                        <p  class="col-8 ">{!! nl2br(e($proposal->skills)) !!}</p>
                                     </div>
                                     @endif
 
                                     <div class="row">
-                                        <b class="col-3">Assigned To:</b>
-                                        <p class="col-9 ">{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</p>
+                                        <b class="col-4">Assigned To:</b>
+                                        <p  class="col-8 ">{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</p>
                                     </div>
 
                                     <div class="row">
-                                        <b class="col-3">Supervisors Feedback:</b>
-                                        <div class="col-9">
-                                            @foreach ($feedbacks as $feedback)
-                                            <p>{{ $feedback->feedback }}</p>
-                                            @endforeach
-
+                                        <b class="col-12">Supervisors Feedback:</b>
+                                        <div  class="col-12 text-nowrap">
+                                            <table id="table" class="table verticle-middle ">
+                                                @foreach ($feedbacks as $feedback)
+                                                <tr>
+                                                    <td><b>{{ $feedback->created_at->format('j F Y') }}:</b> {{ $feedback->feedback }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </table>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <b class="col-3">Change Status:</b>
-                                        <form action="{{ route('proposals.updateStatus', $proposal->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <select name="status" class="form-select-sm" onchange="this.form.submit()">
-                                                <option value="pending" {{ $proposal->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                <option value="approved" {{ $proposal->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                                                <option value="rejected" {{ $proposal->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                            </select>
-                                        </form>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <b class="col-3">Assign Supervisor:</b>
-                                        <!-- Supervisor Dropdown -->
-                                        <form action="{{ route('proposals.assignTeacher', $proposal->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <select name="ass_teacher_id" class="form-select-sm" onchange="this.form.submit()">
-                                                <option value="">-- Select Supervisor --</option>
-                                                @foreach ($supervisors as $supervisor)
-                                                <option value="{{ $supervisor->official_id }}" {{ $proposal->ass_teacher_id == $supervisor->official_id ? 'selected' : '' }}>
-                                                    {{ $supervisor->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </form>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <b class="col-3">Provide Feedback:</b>
+                                    
+                                    @if(auth()->user()->role == 'supervisor' && auth()->user()->official_id == $proposal->ass_teacher_id && $proposal->status == 'approved')
+                                    <div class="row mb-3">
+                                        <b class="col-4">Provide Feedback:</b>
                                         <!-- Supervisor Dropdown -->
                                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#feedbackModal{{ $proposal->id }}">
                                             Give Feedback
@@ -198,12 +157,88 @@
                                                                 <label for="feedback" class="form-label">Feedback</label>
                                                                 <textarea class="form-control" id="feedback" name="feedback" rows="3" required></textarea>
                                                             </div>
-                                                            <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                                                            <button type="submit" class="btn btn-sm btn-primary">Submit Feedback</button>
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    @endif
+
+                                    @if(auth()->user()->isAdmin && auth()->user()->dept_id == $proposal->dept_id)
+                                    <div class="row">
+                                        <b class="col-4">Change Status:</b>
+                                        <form action="{{ route('proposals.updateStatus', $proposal->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="status" class="form-select-sm" onchange="this.form.submit()">
+                                                <option value="pending" {{ $proposal->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                <option value="approved" {{ $proposal->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                                <option value="rejected" {{ $proposal->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    @endif
+
+                                    @if(auth()->user()->isAdmin && auth()->user()->dept_id == $proposal->dept_id && $proposal->status == 'approved')
+                                    <div class="row mt-3">
+                                        <b class="col-4">Assign Supervisor:</b>
+                                        <!-- Supervisor Dropdown -->
+                                        <form action="{{ route('proposals.assignTeacher', $proposal->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="ass_teacher_id" class="form-select-sm" onchange="this.form.submit()">
+                                                <option value="">-- Select Supervisor --</option>
+                                                @foreach ($supervisors as $supervisor)
+                                                <option value="{{ $supervisor->official_id }}" {{ $proposal->ass_teacher_id == $supervisor->official_id ? 'selected' : '' }}>
+                                                    {{ $supervisor->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </form>
+                                    </div>
+                                    @endif
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="card mx-auto">
+                            <div class="card-body">
+
+
+                                <div class="proposal-details mt-4">
+
+                                    <div class="row">
+                                        <b class="col-4">Student ID:</b>
+                                        <p  class="col-8 ">{{ $proposal->student->official_id }}</p>
+                                    </div>
+
+                                    <div class="row">
+                                        <b class="col-4">Student Name:</b>
+                                        <p  class="col-8 ">{{ $proposal->student->name }}</p>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <b class="col-4">Student Email:</b>
+                                        <p  class="col-8 ">{{ $proposal->student->email }}</p>
+                                    </div>
+
+                                    <div class="row">
+                                        <b class="col-4">Batch:</b>
+                                        <p  class="col-8 ">{{ $proposal->student->batch }}</p>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <b class="col-4">Credit Finished:</b>
+                                        <p  class="col-8 ">{{ $proposal->student->credit_finished }}</p>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <b class="col-4">CGPA:</b>
+                                        <p  class="col-8 ">{{ $proposal->student->cgpa }}</p>
                                     </div>
 
                                 </div>

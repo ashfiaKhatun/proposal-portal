@@ -48,7 +48,7 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="container-fluid mt-3">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6">
                         <div class="card gradient-1">

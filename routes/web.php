@@ -57,6 +57,8 @@ Route::delete('/delete-student-{id}',  [StudentController::class, 'destroy'])->m
 Route::get('department-{id}/supervisors', [DepartmentController::class, 'showSupervisors'])->middleware(['auth', 'verified'])->name('departments.supervisors');
 // department wise students
 Route::get('department-{id}/students', [DepartmentController::class, 'showStudents'])->middleware(['auth', 'verified'])->name('departments.students');
+// department wise proposals
+Route::get('department-{id}/proposals', [DepartmentController::class, 'showProposals'])->middleware(['auth', 'verified'])->name('departments.proposals');
 
 // create admin for department
 Route::get('department-{id}/new-admin', [DepartmentController::class, 'createAdmin'])->middleware(['auth', 'verified'])->name('departments.createAdmin');
@@ -74,9 +76,7 @@ Route::get('/submitted-proposals',  [ProposalController::class, 'indexSubmission
 Route::get('/edit-proposal-{id}',  [ProposalController::class, 'edit'])->middleware(['auth', 'verified'])->name('proposals.edit');
 Route::put('/edit-proposal-{id}',  [ProposalController::class, 'update'])->middleware(['auth', 'verified'])->name('proposals.update');
 
-// View all proposals
-Route::get('/thesis-proposals', [ProposalController::class, 'indexThesis'])->middleware(['auth', 'verified'])->name('proposals.indexThesis');
-Route::get('/project-proposals', [ProposalController::class, 'indexProject'])->middleware(['auth', 'verified'])->name('proposals.indexProject');
+// View proposal
 Route::get('/show-proposal-{id}', [ProposalController::class, 'show'])->middleware(['auth', 'verified'])->name('proposals.show');
 
 // Routes for teacher-specific thesis and project proposals

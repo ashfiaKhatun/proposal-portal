@@ -48,7 +48,7 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="container-fluid mt-3">
+            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -102,7 +102,7 @@
                                             </select>
                                         </div> 
 
-                                        @if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin)
+                                        @if(auth()->user()->isAdmin)
                                         <div class="form-group mt-2">
                                             <input class="mr-2" type="checkbox" name="isAdmin" value="1" {{ $supervisor->isAdmin ? 'checked' : '' }} />
                                             <label for="isAdmin">Department admin?</label>

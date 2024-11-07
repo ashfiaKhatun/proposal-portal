@@ -48,7 +48,7 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="container-fluid mt-3">
+            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -66,7 +66,7 @@
                                     <span class="label label-pill label-danger">Rejected</span>
                                     @elseif($existingProposal->status == 'pending')
                                     <span class="label label-pill label-warning">Pending</span>
-                                    
+
                                     <a href="{{ route('proposals.edit', $existingProposal->id) }}">
                                         <button class="btn bg-transparent"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
                                     </a>
@@ -120,12 +120,23 @@
                                     </div>
                                     @endif
 
-                                    @if($existingProposal->teacher_id)
                                     <div class="row">
                                         <b class="col-3">Assigned To:</b>
-                                        <p class="col-9 ">{{ $existingProposal->assignedTeacher->name }}</p>
+                                        <p class="col-9 ">{{ $existingProposal->assignedTeacher ? $existingProposal->assignedTeacher->name : 'Not Assigned' }}</p>
                                     </div>
-                                    @endif                                    
+
+                                    <div class="row">
+                                        <b class="col-12">Supervisors Feedback:</b>
+                                        <div class="col-12 text-nowrap">
+                                            <table id="table" class="table verticle-middle ">
+                                                @foreach ($feedbacks as $feedback)
+                                                <tr>
+                                                    <td><b>{{ $feedback->created_at->format('j F Y') }}:</b> {{ $feedback->feedback }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                    </div>
 
                                 </div>
                                 @else

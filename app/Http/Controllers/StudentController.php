@@ -12,7 +12,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+        if(auth()->user()->isAdmin){
             $students = User::where('role', 'student')
                 ->where('dept_id', auth()->user()->dept_id)
                 ->orderBy('created_at', 'desc')
@@ -26,7 +26,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+        if(auth()->user()->isAdmin){
             $departments = Department::all();
             return view('template.home.users.students.create', compact('departments'));
         } else {
@@ -36,7 +36,7 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+        if(auth()->user()->isAdmin){
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -68,7 +68,7 @@ class StudentController extends Controller
 
     public function edit($id)
     {
-        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+        if(auth()->user()->isAdmin){
             $student = User::findOrFail($id);
             $departments = Department::all();
             return view('template.home.users.students.edit', compact('student', 'departments'));
@@ -79,7 +79,7 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
-        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+        if(auth()->user()->isAdmin){
             $student = User::findOrFail($id);
             
             $student->update([
@@ -100,7 +100,7 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
-        if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin){
+        if(auth()->user()->isAdmin){
             $student = User::findOrFail($id);
             $student->delete();
     

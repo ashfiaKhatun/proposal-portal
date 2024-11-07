@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Proposal;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,9 +33,9 @@ class DepartmentController extends Controller
 
     public function storeAdmin(Request $request, $id)
     {
-        if(auth()->user()->isSuperAdmin){
+        if (auth()->user()->isSuperAdmin) {
             $department = Department::findOrFail($id);
-    
+
             $user = User::create([
                 'name' => $request->name,
                 'official_id' => $request->teacher_id,
@@ -54,15 +55,15 @@ class DepartmentController extends Controller
 
     public function store(Request $request)
     {
-        if(auth()->user()->isSuperAdmin){
+        if (auth()->user()->isSuperAdmin) {
             $request->validate([
                 'name' => 'required|string|max:255',
             ]);
-    
+
             Department::create([
                 'name' => $request->name,
             ]);
-    
+
             return redirect()->route('departments.index');
         } else {
             return redirect('/');
@@ -71,16 +72,16 @@ class DepartmentController extends Controller
 
     public function update(Request $request, $id)
     {
-        if(auth()->user()->isSuperAdmin){
+        if (auth()->user()->isSuperAdmin) {
             $request->validate([
                 'name' => 'required|string|max:255',
             ]);
-    
+
             $department = Department::findOrFail($id);
             $department->update([
                 'name' => $request->name,
             ]);
-    
+
             return redirect()->route('departments.index');
         } else {
             return redirect('/');
@@ -89,10 +90,10 @@ class DepartmentController extends Controller
 
     public function destroy($id)
     {
-        if(auth()->user()->isSuperAdmin){
+        if (auth()->user()->isSuperAdmin) {
             $department = Department::findOrFail($id);
             $department->delete();
-    
+
             return redirect()->route('departments.index');
         } else {
             return redirect('/');
@@ -101,11 +102,11 @@ class DepartmentController extends Controller
 
     public function showSupervisors($id)
     {
-        if(auth()->user()->isSuperAdmin){
+        if (auth()->user()->isSuperAdmin) {
             $department = Department::find($id);
             $supervisors = User::where('dept_id', $id)->where('role', 'supervisor')->get();
-    
-            return view('template.home.departments.supervisors', compact('department', 'supervisors'));
+
+            return view('template.home.users.supervisors.index', compact('department', 'supervisors'));
         } else {
             return redirect('/');
         }
@@ -113,11 +114,33 @@ class DepartmentController extends Controller
 
     public function showStudents($id)
     {
-        if(auth()->user()->isSuperAdmin){
+        if (auth()->user()->isSuperAdmin) {
             $department = Department::find($id);
             $students = User::where('dept_id', $id)->where('role', 'student')->get();
-    
-            return view('template.home.departments.students', compact('department', 'students'));
+
+            return view('template.home.users.students.index', compact('department', 'students'));
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function showProposals($id)
+    {
+        if (auth()->user()->isSuperAdmin) {
+            $department = Department::find($id);
+
+            $proposals = Proposal::where('dept_id', $id)
+                ->with('student', 'assignedTeacher')
+                ->get();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $type = '';
+            $showExtraColumns = false;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
         } else {
             return redirect('/');
         }

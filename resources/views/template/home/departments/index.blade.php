@@ -48,7 +48,7 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="container-fluid mt-3">
+            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -88,6 +88,11 @@
                                                     <!-- View Students Button -->
                                                     <a href="{{ route('departments.students', $department->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="View Students">
                                                         Students<i class="fa-solid fa-user-graduate ml-2"></i>
+                                                    </a>
+                                                    
+                                                    <!-- View Proposals Button -->
+                                                    <a href="{{ route('departments.proposals', $department->id) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="View Proposals">
+                                                        Proposals<i class="fa-regular fa-file ml-2"></i>
                                                     </a>
 
                                                     <!-- Edit Button -->

@@ -17,7 +17,7 @@
             </li>
             @endif
             
-            @if(auth()->user()->isSuperAdmin || auth()->user()->isAdmin)
+            @if(auth()->user()->isAdmin)
             <li>
                 <a href="{{ route('supervisors.index') }}" aria-expanded="false">
                     <i class="fa-solid fa-chalkboard-teacher"></i><span class="nav-text">Supervisors</span>
@@ -33,47 +33,39 @@
 
             @if(auth()->user()->role == 'student')
             <li>
-                <a href="{{ route('proposals.create') }}" aria-expanded="false">
-                    <i class="icon-note menu-icon"></i><span class="nav-text">Proposal</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ route('proposals.indexSubmission') }}" aria-expanded="false">
-                    <i class="icon-note menu-icon"></i><span class="nav-text">My Submissions</span>
-                </a>
-            </li>
-            @endif
-
-            <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-note menu-icon"></i><span class="nav-text">Proposals</span>
+                    <i class="icon-notebook menu-icon"></i><span class="nav-text">Proposals</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('proposals.indexThesis') }}">Thesis Proposals</a></li>
-                    <li><a href="{{ route('proposals.indexProject') }}">Project Proposals</a></li>
+                    <li><a href="{{ route('proposals.create') }}">Submit Proposal</a></li>
+                    <li><a href="{{ route('proposals.indexSubmission') }}">My Submissions</a></li>
                 </ul>
             </li>
+            @endif
             
+            @if(auth()->user()->isAdmin)
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-note menu-icon"></i><span class="nav-text">Department Proposals</span>
+                    <i class="icon-notebook menu-icon"></i><span class="nav-text">Proposals</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('department.proposals.thesis') }}">Thesis Proposals</a></li>
                     <li><a href="{{ route('department.proposals.project') }}">Project Proposals</a></li>
                 </ul>
             </li>
+            @endif
 
+            @if(auth()->user()->role == 'supervisor')
             <li>
                 <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="icon-note menu-icon"></i><span class="nav-text">Assigned Students</span>
+                    <i class="icon-notebook menu-icon"></i><span class="nav-text">Assigned Students</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('supervisor.proposals.thesis') }}">Thesis Proposals</a></li>
                     <li><a href="{{ route('supervisor.proposals.project') }}">Project Proposals</a></li>
                 </ul>
             </li>
+            @endif
 
         </ul>
     </div>
