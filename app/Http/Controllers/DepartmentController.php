@@ -43,6 +43,7 @@ class DepartmentController extends Controller
                 'password' => Hash::make($request->password),
                 'designation' => $request->designation,
                 'role' => 'supervisor',
+                'status' => 'approved',
                 'isAdmin' => true,
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
                 'dept_id' => $id,
@@ -104,9 +105,12 @@ class DepartmentController extends Controller
     {
         if (auth()->user()->isSuperAdmin) {
             $department = Department::find($id);
-            $supervisors = User::where('dept_id', $id)->where('role', 'supervisor')->get();
+            $supervisors = User::where('dept_id', $id)
+                ->where('role', 'supervisor')
+                ->where('status', 'approved')
+                ->get();
 
-            return view('template.home.users.supervisors.index', compact('department', 'supervisors'));
+            return view('template.home.departments.supervisors', compact('department', 'supervisors'));
         } else {
             return redirect('/');
         }
@@ -116,9 +120,12 @@ class DepartmentController extends Controller
     {
         if (auth()->user()->isSuperAdmin) {
             $department = Department::find($id);
-            $students = User::where('dept_id', $id)->where('role', 'student')->get();
+            $students = User::where('dept_id', $id)
+                ->where('role', 'student')
+                ->where('status', 'approved')
+                ->get();
 
-            return view('template.home.users.students.index', compact('department', 'students'));
+            return view('template.home.departments.students', compact('department', 'students'));
         } else {
             return redirect('/');
         }

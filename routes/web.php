@@ -38,7 +38,9 @@ Route::post('/add-new-supervisor',  [SupervisorController::class, 'store'])->mid
 // edit supervisor 
 Route::get('/edit-supervisor-{id}',  [SupervisorController::class, 'edit'])->middleware(['auth', 'verified'])->name('supervisors.edit');
 Route::put('/update-supervisor-{id}',  [SupervisorController::class, 'update'])->middleware(['auth', 'verified'])->name('supervisors.update');
-// delete student
+// Update supervisor's status
+Route::put('/update-supervisor-status/{id}', [SupervisorController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('supervisors.updateStatus');
+// delete supervisor
 Route::delete('/delete-supervisor-{id}',  [SupervisorController::class, 'destroy'])->middleware(['auth', 'verified'])->name('supervisors.destroy');
 
 // Students
@@ -49,6 +51,8 @@ Route::post('/add-new-student',  [StudentController::class, 'store'])->middlewar
 // edit student
 Route::get('/edit-student-{id}',  [StudentController::class, 'edit'])->middleware(['auth', 'verified'])->name('students.edit');
 Route::put('/update-student-{id}',  [StudentController::class, 'update'])->middleware(['auth', 'verified'])->name('students.update');
+// Update student's status
+Route::put('/update-student-status/{id}', [StudentController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('students.updateStatus');
 // delete student
 Route::delete('/delete-student-{id}',  [StudentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('students.destroy');
 

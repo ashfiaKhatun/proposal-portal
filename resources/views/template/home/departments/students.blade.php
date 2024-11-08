@@ -48,39 +48,32 @@
         ***********************************-->
         <div class="content-body">
 
-            <div class="container-fluid">
+            <div class="container-fluid mt-3">
 
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="cart-title">Students</h4>
-                                    <a href="{{ route('students.create') }}">
-                                        <button type="button" class="btn btn-sm btn-secondary text-white">
-                                            Add New Student
-                                        </button>
-                                    </a>
-                                </div>
+                                    <h4 class="cart-title">Students in {{ $department->name }}</h4>
 
-                                <!-- Search Field -->
-                                <div class="mb-1 w-25">
-                                    <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
-                                </div>
+                                    <!-- Search Field -->
+                                    <div class="mb-1 w-25">
+                                        <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
+                                    </div>
 
-                                <div class="table-responsive text-nowrap">
+                                </div>
+                                <div class="table-responsive">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Student ID</th>
                                                 <th>Name</th>
-                                                <th>Teacher Initial</th>
                                                 <th>Email</th>
                                                 <th>Batch</th>
                                                 <th>Credit Finished</th>
                                                 <th>Current CGPA</th>
-                                                <th>Status</th>
-                                                <th>Change Status</th>
+                                                <th>Assigned Teacher</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -93,29 +86,7 @@
                                                 <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->credit_finished }}</td>
                                                 <td>{{ $student->cgpa }}</td>
-
-                                                <td>
-                                                    @if($student->status == 'approved')
-                                                    <span class="label label-pill label-success">Approved</span>
-                                                    @elseif($student->status == 'rejected')
-                                                    <span class="label label-pill label-danger">Rejected</span>
-                                                    @elseif($student->status == 'pending')
-                                                    <span class="label label-pill label-warning">Pending</span>
-                                                    @endif
-                                                </td>
-
-                                                <td>
-                                                    <form action="{{ route('students.updateStatus', $student->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <select name="status" class="form-select-sm" onchange="this.form.submit()">
-                                                            <option value="pending" {{ $student->status == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                            <option value="approved" {{ $student->status == 'approved' ? 'selected' : '' }}>Approved</option>
-                                                            <option value="rejected" {{ $student->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                                        </select>
-                                                    </form>
-                                                </td>
-
+                                                <td>{{ $student->assigned_teacher }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
                                                     <a href="{{ route('students.edit', $student->id) }}">

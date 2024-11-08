@@ -56,6 +56,7 @@ class StudentController extends Controller
                 'credit_finished' => $request->credit_finished,
                 'cgpa' => $request->cgpa,
                 'role' => 'student',
+                'status' => 'approved',
                 'isAdmin' => $request->isAdmin ?? false,
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
                 'dept_id' => auth()->user()->dept_id,
@@ -92,6 +93,23 @@ class StudentController extends Controller
                 'dept_id' => $request->dept_id,
             ]);
     
+            return redirect()->back();
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $supervisor = User::findOrFail($id);
+
+        if (auth()->user()->isAdmin && auth()->user()->dept_id === $supervisor->dept_id) {
+            $request->validate([
+                'status' => 'required|in:pending,approved,rejected',
+            ]);
+
+            $supervisor->update(['status' => $request->status]);
+
             return redirect()->back();
         } else {
             return redirect('/');

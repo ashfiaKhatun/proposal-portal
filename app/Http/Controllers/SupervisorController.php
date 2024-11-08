@@ -12,11 +12,12 @@ class SupervisorController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', auth()->user()->dept_id)
                 ->orderBy('created_at', 'desc')
                 ->get();
+                
             return view('template.home.users.supervisors.index', compact('supervisors'));
         } else {
             return redirect('/');
@@ -25,7 +26,7 @@ class SupervisorController extends Controller
 
     public function create()
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $departments = Department::all();
             return view('template.home.users.supervisors.create', compact('departments'));
         } else {
@@ -41,7 +42,7 @@ class SupervisorController extends Controller
 
     public function store(Request $request)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -51,14 +52,16 @@ class SupervisorController extends Controller
                 // 'isSuperAdmin' => 'boolean',
                 'dept_id' => 'nullable|exists:departments,id',
             ]);
-    
+
             $user = User::create([
                 'name' => $request->name,
                 'official_id' => $request->teacher_id,
+                'teacher_initial' => $request->teacher_initial,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'designation' => $request->designation,
                 'role' => 'supervisor',
+                'role' => 'approved',
                 'isAdmin' => $request->isAdmin ?? false,
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
                 'dept_id' => auth()->user()->dept_id,
@@ -81,23 +84,34 @@ class SupervisorController extends Controller
             'dept_id' => 'nullable|exists:departments,id',
         ]);
 
+        // Check if there are any users in the database
+        $isFirstUser = User::count() === 0;
+
+        if($isFirstUser){
+            $department = Department::create([
+                'name' => 'Information Technology and Management',
+            ]);
+        }
+
         $user = User::create([
             'name' => $request->name,
             'official_id' => $request->teacher_id,
+            'teacher_initial' => $request->teacher_initial,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'designation' => $request->designation,
-            'role' => 'supervisor',
-            'isAdmin' => $request->isAdmin ?? false,
-            'isSuperAdmin' => $request->isSuperAdmin ?? false,
-            'dept_id' => $request->dept_id,
+            'role' => 'supervisor', 
+            'status' => $isFirstUser ? 'approved' : 'pending', // Use 'status' instead of overwriting 'role'
+            'isAdmin' => $isFirstUser ? true : $request->isAdmin ?? false,
+            'isSuperAdmin' => $isFirstUser ? true : $request->isSuperAdmin ?? false,
+            'dept_id' => $isFirstUser ? $department->id : $request->dept_id,
         ]);
         return redirect()->route('login');
     }
 
     public function edit($id)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $supervisor = User::findOrFail($id);
             $departments = Department::all();
             return view('template.home.users.supervisors.edit', compact('supervisor', 'departments'));
@@ -108,18 +122,36 @@ class SupervisorController extends Controller
 
     public function update(Request $request, $id)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $supervisor = User::findOrFail($id);
-            
+
             $supervisor->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'designation' => $request->designation,
+                'teacher_initial' => $request->teacher_initial,
                 'role' => 'supervisor',
                 'isAdmin' => $request->isAdmin ?? false,
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
             ]);
-    
+
+            return redirect()->back();
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $supervisor = User::findOrFail($id);
+
+        if (auth()->user()->isAdmin && auth()->user()->dept_id === $supervisor->dept_id) {
+            $request->validate([
+                'status' => 'required|in:pending,approved,rejected',
+            ]);
+
+            $supervisor->update(['status' => $request->status]);
+
             return redirect()->back();
         } else {
             return redirect('/');
@@ -128,10 +160,10 @@ class SupervisorController extends Controller
 
     public function destroy($id)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $supervisor = User::findOrFail($id);
             $supervisor->delete();
-    
+
             return redirect()->back();
         } else {
             return redirect('/');

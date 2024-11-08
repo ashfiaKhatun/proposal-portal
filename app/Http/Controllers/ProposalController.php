@@ -281,7 +281,6 @@ class ProposalController extends Controller
                     ['skills' => $skills]
                 ));
 
-                // Redirect with a success message
                 return redirect()->route('proposals.create', $proposal->id);
             }
 
@@ -294,18 +293,15 @@ class ProposalController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $proposal = Proposal::findOrFail($id);  // Find the proposal by ID
+        $proposal = Proposal::findOrFail($id);
 
         if (auth()->user()->isAdmin && auth()->user()->dept_id === $proposal->dept_id) {
-            // Validate that the status is one of the allowed values
             $request->validate([
                 'status' => 'required|in:pending,approved,rejected',
             ]);
 
-            // Update the status
             $proposal->update(['status' => $request->status]);
 
-            // Return a success response (you can return a JSON response for AJAX)
             return redirect()->back();
         } else {
             return redirect('/');

@@ -73,6 +73,12 @@
                                             <input id="name" class="form-control rounded" type="text" name="name" value="{{ $supervisor->name }}" placeholder="Name" required autofocus autocomplete="name">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
+
+                                        <!-- Teacher Initial -->
+                                        <div>
+                                            <label class="col-form-label">Teacher Initial:</label>
+                                            <input class="form-control rounded" type="text" name="teacher_initial" placeholder="Teacher Initial" value="{{ $supervisor->teacher_initial }}" required>
+                                        </div>
     
                                         <!-- Email Address -->
                                         <div>

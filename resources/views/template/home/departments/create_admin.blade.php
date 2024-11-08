@@ -58,35 +58,41 @@
                                 <div>
                                     <form method="POST" action="{{ route('departments.storeAdmin', $department->id) }}">
                                         @csrf
-    
+
                                         <!-- ID -->
                                         <div>
                                             <label class="col-form-label">Teacher ID:</label>
                                             <input class="form-control rounded" type="text" name="teacher_id" placeholder="Teacher ID" required>
-    
+
                                         </div>
-    
+
                                         <!-- Name -->
                                         <div>
                                             <label class="col-form-label">Name:</label>
                                             <input id="name" class="form-control rounded" type="text" name="name" :value="old('name')" placeholder="Name" required autocomplete="name">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
-    
+
+                                        <!-- Teacher Initial -->
+                                        <div>
+                                            <label class="col-form-label">Teacher Initial:</label>
+                                            <input class="form-control rounded" type="text" name="teacher_initial" placeholder="Teacher Initial" required>
+                                        </div>
+
                                         <!-- Email Address -->
                                         <div>
                                             <label class="col-form-label">Email:</label>
                                             <input id="email" class="form-control rounded" type="email" name="email" :value="old('email')" placeholder="Email" required autocomplete="email" />
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
-    
+
                                         <!-- Designation -->
                                         <div>
                                             <label class="col-form-label">Designation:</label>
                                             <input class="form-control rounded" type="text" name="designation" placeholder="Designation" required>
-    
+
                                         </div>
-    
+
                                         <!-- <div class="form-group">
                                             <label for="isAdmin">Is Admin?</label>
                                             <input type="checkbox" name="isAdmin" value="1" />
@@ -96,22 +102,22 @@
                                             <label for="isSuperAdmin">Is Super Admin?</label>
                                             <input type="checkbox" name="isSuperAdmin" value="1" />
                                         </div> -->
-    
+
                                         <!-- Password -->
                                         <div>
                                             <label class="col-form-label">Password:</label>
                                             <input id="password" class="form-control rounded" type="password" name="password" placeholder="Password" required autocomplete="new-password" />
                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         </div>
-    
+
                                         <div>
                                             <label class="col-form-label">Confirm Password:</label>
                                             <input id="password_confirmation" class="form-control rounded" type="password" name="password_confirmation" placeholder="Confirm Password" required autocomplete="new-password" />
                                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                         </div>
-    
+
                                         <button class="btn btn-primary my-3">Register</button>
-    
+
                                     </form>
 
                                 </div>

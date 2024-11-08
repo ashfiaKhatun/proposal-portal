@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('official_id')->unique();
+            $table->string('teacher_initial')->nullable();
             $table->string('assigned_teacher')->nullable(); // Add nullable profile picture column
             $table->string('designation')->nullable();
-            $table->string('role')->default('user'); // 'role' column
+            $table->string('role'); // 'role' column
+            $table->string('status')->default('pending'); 
             $table->boolean('isAdmin')->default(false); // 'isAdmin' boolean column
             $table->boolean('isSuperAdmin')->default(false); // 'isSuperAdmin' boolean column
             
@@ -38,9 +40,12 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('official_id');
+            $table->dropColumn('teacher_initial');
             $table->dropColumn('assigned_teacher');
             $table->dropColumn('designation');
             $table->dropColumn('role');
+            $table->dropColumn('status');
+            $table->dropColumn('status');
             $table->dropColumn('isAdmin');
             $table->dropColumn('isSuperAdmin');
 

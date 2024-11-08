@@ -72,6 +72,12 @@
                                             <input id="name" class="form-control rounded" type="text" name="name" :value="old('name')" placeholder="Name" required autocomplete="name">
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
+
+                                        <!-- Teacher Initial -->
+                                        <div>
+                                            <label class="col-form-label">Teacher Initial:</label>
+                                            <input class="form-control rounded" type="text" name="teacher_initial" placeholder="Teacher Initial" required>
+                                        </div>
     
                                         <!-- Email Address -->
                                         <div>
@@ -87,12 +93,12 @@
     
                                         </div>
     
-                                        <!-- <div class="form-group">
+                                        <div class="form-group">
                                             <label for="isAdmin">Is Admin?</label>
                                             <input type="checkbox" name="isAdmin" value="1" />
                                         </div>
     
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="isSuperAdmin">Is Super Admin?</label>
                                             <input type="checkbox" name="isSuperAdmin" value="1" />
                                         </div> -->

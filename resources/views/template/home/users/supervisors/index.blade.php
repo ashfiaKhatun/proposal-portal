@@ -74,8 +74,11 @@
                                             <tr>
                                                 <th>Teacher ID</th>
                                                 <th>Name</th>
+                                                <th>Teacher Initial</th>
                                                 <th>Email</th>
                                                 <th>Designation</th>
+                                                <th>Status</th>
+                                                <th>Change Status</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -84,8 +87,31 @@
                                             <tr>
                                                 <td>{{ $supervisor->official_id }}</td>
                                                 <td>{{ $supervisor->name }}</td>
+                                                <td>{{ $supervisor->teacher_initial }}</td>
                                                 <td>{{ $supervisor->email }}</td>
                                                 <td>{{ $supervisor->designation }}</td>
+                                                <td>
+                                                    @if($supervisor->status == 'approved')
+                                                    <span class="label label-pill label-success">Approved</span>
+                                                    @elseif($supervisor->status == 'rejected')
+                                                    <span class="label label-pill label-danger">Rejected</span>
+                                                    @elseif($supervisor->status == 'pending')
+                                                    <span class="label label-pill label-warning">Pending</span>
+                                                    @endif
+                                                </td>
+
+                                                <td>
+                                                    <form action="{{ route('supervisors.updateStatus', $supervisor->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <select name="status" class="form-select-sm" onchange="this.form.submit()">
+                                                            <option value="pending" {{ $supervisor->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                            <option value="approved" {{ $supervisor->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                                            <option value="rejected" {{ $supervisor->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                                        </select>
+                                                    </form>
+                                                </td>
+
                                                 <td>
                                                     <!-- Edit Button -->
                                                     <a href="{{ route('supervisors.edit', $supervisor->id) }}">

@@ -51,6 +51,7 @@ class RegisteredUserController extends Controller
             'credit_finished' => $request->credit_finished,
             'cgpa' => $request->cgpa,
             'role' => 'student',
+            'status' => 'pending',
             'isAdmin' => $request->isAdmin ?? false,
             'isSuperAdmin' => $request->isSuperAdmin ?? false,
             'dept_id' => $request->dept_id,
@@ -58,8 +59,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
+        return redirect('/login');
     }
 }

@@ -52,6 +52,12 @@
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
+                                    <!-- Teacher Initial -->
+                                    <div>
+                                        <label class="col-form-label">Teacher Initial:</label>
+                                        <input class="form-control rounded" type="text" name="teacher_initial" placeholder="Teacher Initial" required>
+                                    </div>
+
                                     <!-- Email Address -->
                                     <div>
                                         <label class="col-form-label">Email:</label>
