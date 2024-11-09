@@ -21,6 +21,7 @@ class ProposalController extends Controller
             $proposals = Proposal::where('type', 'thesis')
                 ->where('ass_teacher_id', $supervisorId)
                 ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisors = User::where('role', 'supervisor')->get();
@@ -45,6 +46,7 @@ class ProposalController extends Controller
             $proposals = Proposal::where('type', 'project')
                 ->where('ass_teacher_id', $supervisorId)
                 ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisors = User::where('role', 'supervisor')->get();
@@ -69,6 +71,7 @@ class ProposalController extends Controller
             $proposals = Proposal::where('type', 'thesis')
                 ->where('dept_id', $department)
                 ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisors = User::where('role', 'supervisor')
@@ -95,6 +98,7 @@ class ProposalController extends Controller
             $proposals = Proposal::where('type', 'project')
                 ->where('dept_id', $department)
                 ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisors = User::where('role', 'supervisor')
@@ -120,6 +124,7 @@ class ProposalController extends Controller
             // Fetch all project proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('student_id', $studentId)
                 ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisors = User::where('role', 'supervisor')->get();
@@ -168,7 +173,9 @@ class ProposalController extends Controller
             ->where('dept_id', $department)
             ->get();
 
-        $feedbacks = Feedback::where('prop_id', $id)->get();
+        $feedbacks = Feedback::where('prop_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('template.home.proposals.show', compact('proposal', 'supervisors', 'feedbacks'));
     }
@@ -182,9 +189,12 @@ class ProposalController extends Controller
                 ->where('status', '!=', 'rejected')
                 ->first();
 
-            $feedbacks = Feedback::where('prop_id', $existingProposal->id)->get();
+            if ($existingProposal) {
+                $feedbacks = Feedback::where('prop_id', $existingProposal->id)->get();
+                return view('template.home.proposals.create', compact('existingProposal', 'feedbacks'));
+            }
 
-            return view('template.home.proposals.create', compact('existingProposal', 'feedbacks'));
+            return view('template.home.proposals.create', compact('existingProposal'));
         } else {
             return redirect('/');
         }
@@ -302,7 +312,7 @@ class ProposalController extends Controller
 
             $proposal->update(['status' => $request->status]);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Status updated successfully!');
         } else {
             return redirect('/');
         }

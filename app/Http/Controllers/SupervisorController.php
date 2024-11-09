@@ -61,12 +61,12 @@ class SupervisorController extends Controller
                 'password' => Hash::make($request->password),
                 'designation' => $request->designation,
                 'role' => 'supervisor',
-                'role' => 'approved',
+                'status' => 'approved',
                 'isAdmin' => $request->isAdmin ?? false,
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
                 'dept_id' => auth()->user()->dept_id,
             ]);
-            return redirect()->route('supervisors.index');
+            return redirect()->route('supervisors.index')->with('success', 'Supervisor created successfully!');
         } else {
             return redirect('/');
         }
@@ -106,7 +106,7 @@ class SupervisorController extends Controller
             'isSuperAdmin' => $isFirstUser ? true : $request->isSuperAdmin ?? false,
             'dept_id' => $isFirstUser ? $department->id : $request->dept_id,
         ]);
-        return redirect()->route('login');
+        return redirect()->route('login')->with('success', 'Registered as supervisor successfully! Wait for admins approval to login.');
     }
 
     public function edit($id)
@@ -135,7 +135,7 @@ class SupervisorController extends Controller
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
             ]);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Supervisor updated successfully!');
         } else {
             return redirect('/');
         }
@@ -152,7 +152,7 @@ class SupervisorController extends Controller
 
             $supervisor->update(['status' => $request->status]);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Status updated successfully!');
         } else {
             return redirect('/');
         }
@@ -164,7 +164,7 @@ class SupervisorController extends Controller
             $supervisor = User::findOrFail($id);
             $supervisor->delete();
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Supervisor deleted successfully!');
         } else {
             return redirect('/');
         }

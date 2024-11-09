@@ -59,6 +59,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Registered as student successfully! Wait for admins approval to login.');
     }
 }

@@ -55,6 +55,13 @@
                         <div class="card w-75 mx-auto">
                             <div class="card-body">
                                 <h4 class="cart-title">Edit Student</h4>
+
+                                @if(session('success'))
+                                <div class="alert alert-success mt-3">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+                                
                                 <div>
                                     <form method="POST" action="{{ route('students.update', $student->id) }}">
                                         @csrf

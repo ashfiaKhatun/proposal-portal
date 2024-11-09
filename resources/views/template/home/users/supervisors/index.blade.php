@@ -68,6 +68,12 @@
                                     <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
                                 </div>
 
+                                @if(session('success'))
+                                <div class="alert alert-success mt-3">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
                                 <div class="table-responsive">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>

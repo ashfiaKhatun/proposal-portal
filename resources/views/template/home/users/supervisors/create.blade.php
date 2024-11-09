@@ -93,9 +93,9 @@
     
                                         </div>
     
-                                        <div class="form-group">
-                                            <label for="isAdmin">Is Admin?</label>
+                                        <div class="form-group mt-3">
                                             <input type="checkbox" name="isAdmin" value="1" />
+                                            <label class="ml-2" for="isAdmin">Is Admin?</label>
                                         </div>
     
                                         <!-- <div class="form-group">
@@ -107,7 +107,7 @@
                                         <div>
                                             <label class="col-form-label">Password:</label>
                                             <input id="password" class="form-control rounded" type="password" name="password" placeholder="Password" required autocomplete="new-password" />
-                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                            <x-input-error :messages="$errors->get('password')" />
                                         </div>
     
                                         <div>

@@ -61,6 +61,12 @@
                                     </button>
                                 </div>
 
+                                @if(session('success'))
+                                <div class="alert alert-success mt-3">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
                                 <!-- Search Field -->
                                 <div class="mb-1 w-25">
                                     <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">

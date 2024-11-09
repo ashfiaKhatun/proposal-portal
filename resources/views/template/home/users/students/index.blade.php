@@ -68,13 +68,18 @@
                                     <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
                                 </div>
 
+                                @if(session('success'))
+                                <div class="alert alert-success mt-3">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
                                 <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Student ID</th>
                                                 <th>Name</th>
-                                                <th>Teacher Initial</th>
                                                 <th>Email</th>
                                                 <th>Batch</th>
                                                 <th>Credit Finished</th>

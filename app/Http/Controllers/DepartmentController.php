@@ -39,6 +39,7 @@ class DepartmentController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'official_id' => $request->teacher_id,
+                'teacher_initial' => $request->teacher_initial,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'designation' => $request->designation,
@@ -65,7 +66,7 @@ class DepartmentController extends Controller
                 'name' => $request->name,
             ]);
 
-            return redirect()->route('departments.index');
+            return redirect()->route('departments.index')->with('success', 'Department added successfully!');
         } else {
             return redirect('/');
         }
@@ -95,7 +96,7 @@ class DepartmentController extends Controller
             $department = Department::findOrFail($id);
             $department->delete();
 
-            return redirect()->route('departments.index');
+            return redirect()->route('departments.index')->with('success', 'Department deleted successfully!');
         } else {
             return redirect('/');
         }
@@ -108,6 +109,7 @@ class DepartmentController extends Controller
             $supervisors = User::where('dept_id', $id)
                 ->where('role', 'supervisor')
                 ->where('status', 'approved')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             return view('template.home.departments.supervisors', compact('department', 'supervisors'));
@@ -123,6 +125,7 @@ class DepartmentController extends Controller
             $students = User::where('dept_id', $id)
                 ->where('role', 'student')
                 ->where('status', 'approved')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             return view('template.home.departments.students', compact('department', 'students'));
@@ -138,6 +141,7 @@ class DepartmentController extends Controller
 
             $proposals = Proposal::where('dept_id', $id)
                 ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisors = User::where('role', 'supervisor')

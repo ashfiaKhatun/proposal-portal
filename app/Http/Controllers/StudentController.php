@@ -61,7 +61,7 @@ class StudentController extends Controller
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
                 'dept_id' => auth()->user()->dept_id,
             ]);
-            return redirect()->route('students.index');
+            return redirect()->route('students.index')->with('success', 'Student created successfully!');
         } else {
             return redirect('/');
         }
@@ -85,15 +85,13 @@ class StudentController extends Controller
             
             $student->update([
                 'name' => $request->name,
-                'official_id' => $request->student_id,
                 'email' => $request->email,
                 'batch' => $request->batch,
                 'credit_finished' => $request->credit_finished,
                 'cgpa' => $request->cgpa,
-                'dept_id' => $request->dept_id,
             ]);
     
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Student updated successfully!');
         } else {
             return redirect('/');
         }
@@ -110,7 +108,7 @@ class StudentController extends Controller
 
             $supervisor->update(['status' => $request->status]);
 
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Status updated successfully!');
         } else {
             return redirect('/');
         }
@@ -122,7 +120,7 @@ class StudentController extends Controller
             $student = User::findOrFail($id);
             $student->delete();
     
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Student deleted successfully!');
         } else {
             return redirect('/');
         }

@@ -34,6 +34,12 @@
                                     <h4 class="mt-3">Proposal Portal</h4>
                                 </div>
 
+                                @if(session('success'))
+                                <div class="alert alert-success mt-3 text-center">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+
                                 <form method="POST" action="{{ route('login') }}" class="m-3 login-input">
 
                                     @csrf

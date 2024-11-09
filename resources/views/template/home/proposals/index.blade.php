@@ -82,6 +82,7 @@
                                         <thead>
                                             <tr>
                                                 <th>View</th>
+                                                <th>Submission Date</th>
                                                 <th>Student ID</th>
                                                 <th>Student Name</th>
                                                 <th>Batch</th>
@@ -105,6 +106,7 @@
                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-eye" data-toggle="tooltip" title="View"></i></button>
                                                     </a>
                                                 </td>
+                                                <td>{{ $proposal->created_at->format('j F Y') }}</td>
                                                 <td>{{ $proposal->student->official_id }}</td>
                                                 <td>{{ $proposal->student->name }}</td>
                                                 <td>{{ $proposal->student->batch }}</td>
