@@ -55,7 +55,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="cart-title">Students</h4>
+                                    <h4 class="cart-title">Students ({{ $studentCount }})</h4>
                                     <a href="{{ route('students.create') }}">
                                         <button type="button" class="btn btn-sm btn-secondary text-white">
                                             Add New Student
@@ -122,6 +122,11 @@
                                                 </td>
 
                                                 <td>
+                                                    <!-- Edit Button -->
+                                                    <a href="{{ route('students.proposals', $student->official_id) }}">
+                                                        <button class="btn bg-transparent btn-sm"><i class="icon-notebook" data-toggle="tooltip" title="View Proposals"></i></button>
+                                                    </a>
+
                                                     <!-- Edit Button -->
                                                     <a href="{{ route('students.edit', $student->id) }}">
                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>

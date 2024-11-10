@@ -24,12 +24,17 @@ class ProposalController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $proposalCount = Proposal::where('type', 'thesis')
+                ->where('ass_teacher_id', $supervisorId)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
             $supervisors = User::where('role', 'supervisor')->get();
 
             $type = 'thesis';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -49,12 +54,17 @@ class ProposalController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $proposalCount = Proposal::where('type', 'project')
+                ->where('ass_teacher_id', $supervisorId)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
             $supervisors = User::where('role', 'supervisor')->get();
 
             $type = 'project';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -74,6 +84,11 @@ class ProposalController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $proposalCount = Proposal::where('type', 'thesis')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
                 ->get();
@@ -81,7 +96,7 @@ class ProposalController extends Controller
             $type = 'thesis';
             $showExtraColumns = true;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -101,6 +116,11 @@ class ProposalController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $proposalCount = Proposal::where('type', 'project')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
                 ->get();
@@ -108,7 +128,63 @@ class ProposalController extends Controller
             $type = 'project';
             $showExtraColumns = true;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function indexSupervisorProposals($official_id)
+    {
+        $supervisor = User::where('official_id', $official_id)->first();
+        $department = auth()->user()->dept_id;
+
+        if (auth()->user()->isSuperAdmin || auth()->user()->isAdmin && $department == $supervisor->dept_id) {
+            $proposals = Proposal::where('ass_teacher_id', $official_id)
+                ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $proposalCount = Proposal::where('ass_teacher_id', $official_id)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $type = '';
+            $showExtraColumns = false;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+        } else {
+            return redirect('/');
+        }
+    }
+
+    public function indexStudentProposals($official_id)
+    {
+        $student = User::where('official_id', $official_id)->first();
+        $department = auth()->user()->dept_id;
+
+        if (auth()->user()->isSuperAdmin || auth()->user()->isAdmin && $department == $student->dept_id) {
+            $proposals = Proposal::where('student_id', $official_id)
+                ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $proposalCount = Proposal::where('student_id', $official_id)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $type = '';
+            $showExtraColumns = false;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -127,12 +203,16 @@ class ProposalController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $proposalCount = Proposal::where('student_id', $studentId)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
             $supervisors = User::where('role', 'supervisor')->get();
 
             $type = '';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
         } else {
             return redirect('/');
         }

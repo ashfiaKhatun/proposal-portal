@@ -55,7 +55,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="cart-title">Supervisors</h4>
+                                    <h4 class="cart-title">Admins ({{ $supervisorCount }})</h4>
 
                                     <!-- Search Field -->
                                     <div class="mb-1 w-25">

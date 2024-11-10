@@ -83,13 +83,18 @@ Route::put('/edit-proposal-{id}',  [ProposalController::class, 'update'])->middl
 // View proposal
 Route::get('/show-proposal-{id}', [ProposalController::class, 'show'])->middleware(['auth', 'verified'])->name('proposals.show');
 
-// Routes for teacher-specific thesis and project proposals
+// Routes for supervisor-specific thesis and project proposals
 Route::get('/supervisor-thesis-proposals', [ProposalController::class, 'indexSupervisorThesisProposals'])->middleware(['auth', 'verified'])->name('supervisor.proposals.thesis');
 Route::get('/supervisor-project-proposals', [ProposalController::class, 'indexSupervisorProjectProposals'])->middleware(['auth', 'verified'])->name('supervisor.proposals.project');
 
-// Routes for teacher-specific thesis and project proposals
+// Routes for department-specific thesis and project proposals
 Route::get('/department-thesis-proposals', [ProposalController::class, 'indexDepartmentThesisProposals'])->middleware(['auth', 'verified'])->name('department.proposals.thesis');
 Route::get('/department-project-proposals', [ProposalController::class, 'indexDepartmentProjectProposals'])->middleware(['auth', 'verified'])->name('department.proposals.project');
+
+// proposals for particular supervisor
+Route::get('/supervisor-{official_id}/proposals', [ProposalController::class, 'indexSupervisorProposals'])->middleware(['auth', 'verified'])->name('supervisors.proposals');
+// proposals for particular student
+Route::get('/student-{official_id}/proposals', [ProposalController::class, 'indexStudentProposals'])->middleware(['auth', 'verified'])->name('students.proposals');
 
 // Update proposal status
 Route::put('/update-status-{id}', [ProposalController::class, 'updateStatus'])->middleware(['auth', 'verified'])->name('proposals.updateStatus');

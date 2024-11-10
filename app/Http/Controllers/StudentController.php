@@ -12,13 +12,17 @@ class StudentController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $students = User::where('role', 'student')
                 ->where('dept_id', auth()->user()->dept_id)
                 ->orderBy('created_at', 'desc')
                 ->get();
-    
-            return view('template.home.users.students.index', compact('students'));
+
+            $studentCount = User::where('role', 'student')
+                ->where('dept_id', auth()->user()->dept_id)
+                ->count();
+
+            return view('template.home.users.students.index', compact('students', 'studentCount'));
         } else {
             return redirect('/');
         }
@@ -26,7 +30,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $departments = Department::all();
             return view('template.home.users.students.create', compact('departments'));
         } else {
@@ -36,7 +40,7 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
@@ -46,7 +50,7 @@ class StudentController extends Controller
                 // 'isSuperAdmin' => 'boolean',
                 'dept_id' => 'nullable|exists:departments,id',
             ]);
-    
+
             $user = User::create([
                 'name' => $request->name,
                 'official_id' => $request->student_id,
@@ -69,7 +73,7 @@ class StudentController extends Controller
 
     public function edit($id)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $student = User::findOrFail($id);
             $departments = Department::all();
             return view('template.home.users.students.edit', compact('student', 'departments'));
@@ -80,9 +84,9 @@ class StudentController extends Controller
 
     public function update(Request $request, $id)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $student = User::findOrFail($id);
-            
+
             $student->update([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -90,7 +94,7 @@ class StudentController extends Controller
                 'credit_finished' => $request->credit_finished,
                 'cgpa' => $request->cgpa,
             ]);
-    
+
             return redirect()->back()->with('success', 'Student updated successfully!');
         } else {
             return redirect('/');
@@ -116,10 +120,10 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
-        if(auth()->user()->isAdmin){
+        if (auth()->user()->isAdmin) {
             $student = User::findOrFail($id);
             $student->delete();
-    
+
             return redirect()->back()->with('success', 'Student deleted successfully!');
         } else {
             return redirect('/');

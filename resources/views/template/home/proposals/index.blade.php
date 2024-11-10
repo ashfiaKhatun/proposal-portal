@@ -56,13 +56,13 @@
                             <div class="card-body">
 
                                 @if($type == 'project')
-                                <h4 class="cart-title">Project Proposals</h4>
+                                <h4 class="cart-title">Project Proposals ({{ $proposalCount }})</h4>
 
                                 @elseif($type == 'thesis')
-                                <h4 class="cart-title">Thesis Proposals</h4>
+                                <h4 class="cart-title">Thesis Proposals ({{ $proposalCount }})</h4>
 
                                 @elseif(!$type)
-                                <h4 class="cart-title">All Submissions</h4>
+                                <h4 class="cart-title">All Submissions ({{ $proposalCount }})</h4>
 
                                 @endif
 

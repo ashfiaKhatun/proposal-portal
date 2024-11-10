@@ -89,6 +89,11 @@
                                                 <td>{{ $supervisor->designation }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
+                                                    <a href="{{ route('supervisors.proposals', $supervisor->official_id) }}">
+                                                        <button class="btn bg-transparent btn-sm"><i class="icon-notebook" data-toggle="tooltip" title="View Proposals"></i></button>
+                                                    </a>
+
+                                                    <!-- Edit Button -->
                                                     <a href="{{ route('supervisors.edit', $supervisor->id) }}">
                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-pen-to-square" data-toggle="tooltip" title="Edit"></i></button>
                                                     </a>

@@ -18,7 +18,11 @@ class SupervisorController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
                 
-            return view('template.home.users.supervisors.index', compact('supervisors'));
+            $supervisorCount = User::where('role', 'supervisor')
+                ->where('dept_id', auth()->user()->dept_id)
+                ->count();
+                
+            return view('template.home.users.supervisors.index', compact('supervisors', 'supervisorCount'));
         } else {
             return redirect('/');
         }

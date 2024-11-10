@@ -15,7 +15,9 @@ class DepartmentController extends Controller
     {
         if (auth()->user()->isSuperAdmin) {
             $departments = Department::all();
-            return view('template.home.departments.index', compact('departments'));
+            $departmentCount = Department::all()->count();
+
+            return view('template.home.departments.index', compact('departments', 'departmentCount'));
         } else {
             return redirect('/');
         }
@@ -112,7 +114,12 @@ class DepartmentController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            return view('template.home.departments.supervisors', compact('department', 'supervisors'));
+            $supervisorCount = User::where('dept_id', $id)
+                ->where('role', 'supervisor')
+                ->where('status', 'approved')
+                ->count();
+
+            return view('template.home.departments.supervisors', compact('department', 'supervisors', 'supervisorCount'));
         } else {
             return redirect('/');
         }
@@ -128,7 +135,12 @@ class DepartmentController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
-            return view('template.home.departments.students', compact('department', 'students'));
+            $studentCount = User::where('dept_id', $id)
+                ->where('role', 'student')
+                ->where('status', 'approved')
+                ->count();
+
+            return view('template.home.departments.students', compact('department', 'students', 'studentCount'));
         } else {
             return redirect('/');
         }
@@ -144,6 +156,10 @@ class DepartmentController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->get();
 
+            $proposalCount = Proposal::where('dept_id', $id)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
                 ->get();
@@ -151,7 +167,7 @@ class DepartmentController extends Controller
             $type = '';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
         } else {
             return redirect('/');
         }

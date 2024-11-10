@@ -55,7 +55,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <h4 class="cart-title">Departments</h4>
+                                    <h4 class="cart-title">Departments ({{ $departmentCount }})</h4>
                                     <button type="button" class="btn btn-sm btn-secondary text-white" data-toggle="modal" data-target="#addDepartmentModal">
                                         Add New Department
                                     </button>
