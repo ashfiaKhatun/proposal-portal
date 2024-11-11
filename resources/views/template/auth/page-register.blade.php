@@ -35,7 +35,7 @@
                                     <h4 class="mt-3">Proposal Portal</h4>
                                 </div>
 
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('register') }}" onsubmit="return validateForm()">
                                     @csrf
 
                                     <!-- ID -->
@@ -69,7 +69,8 @@
                                     <!-- Credit Finished -->
                                     <div>
                                         <label class="col-form-label">Credit Finished:</label>
-                                        <input class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+                                        <input id="credit_finished" class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+                                        <span id="creditError" style="color: red; display: none;">You need to complete at least 100 credits to register.</span>
 
                                     </div>
 
@@ -131,12 +132,24 @@
     </div>
 
 
-
-
     <!--**********************************
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    <script>
+        function validateForm() {
+            const creditFinished = document.getElementById("credit_finished").value;
+            const creditError = document.getElementById("creditError");
+
+            if (parseInt(creditFinished) < 100) {
+                creditError.style.display = "inline";
+                return false; // Prevent form submission
+            } else {
+                creditError.style.display = "none";
+                return true; // Allow form submission
+            }
+        }
+    </script>
 </body>
 
 </html>

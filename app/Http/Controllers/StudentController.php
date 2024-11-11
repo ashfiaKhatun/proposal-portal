@@ -22,7 +22,11 @@ class StudentController extends Controller
                 ->where('dept_id', auth()->user()->dept_id)
                 ->count();
 
-            return view('template.home.users.students.index', compact('students', 'studentCount'));
+            $batches = User::distinct()
+                ->where('dept_id', auth()->user()->dept_id)
+                ->pluck('batch');
+
+            return view('template.home.users.students.index', compact('students', 'studentCount', 'batches'));
         } else {
             return redirect('/');
         }

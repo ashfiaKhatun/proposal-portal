@@ -1,7 +1,7 @@
 <!--**********************************
             Nav header start
         ***********************************-->
-<div class="nav-header position-fixed">
+<div class="nav-header">
     <div class="brand-logo bg-white  h-100 d-flex justify-content-center align-items-center">
         <a href="/">
             <b class="logo-abbr"><img src="../../template/images/logo.png" alt=""> </b>

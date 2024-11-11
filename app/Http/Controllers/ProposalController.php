@@ -10,12 +10,49 @@ use Illuminate\Http\Request;
 class ProposalController extends Controller
 {
 
+    public function pendingProposals()
+    {
+        if (auth()->user()->isAdmin) {
+
+            // Get the logged-in teacher's dept_id
+            $department = auth()->user()->dept_id;
+
+            // Fetch all thesis proposals assigned to the logged-in supervisor
+            $proposals = Proposal::where('status', 'pending')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $proposalCount = Proposal::where('status', 'pending')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
+            $type = 'thesis';
+            $showExtraColumns = true;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
+        } else {
+            return redirect('/');
+        }
+    }
+
     public function indexSupervisorThesisProposals()
     {
         if (auth()->user()->role == 'supervisor') {
 
             // Get the logged-in teacher's official_id
             $supervisorId = auth()->user()->official_id;
+            $department = auth()->user()->dept_id;
 
             // Fetch all thesis proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('type', 'thesis')
@@ -31,10 +68,14 @@ class ProposalController extends Controller
 
             $supervisors = User::where('role', 'supervisor')->get();
 
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
             $type = 'thesis';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -46,6 +87,7 @@ class ProposalController extends Controller
 
             // Get the logged-in teacher's official_id
             $supervisorId = auth()->user()->official_id;
+            $department = auth()->user()->dept_id;
 
             // Fetch all project proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('type', 'project')
@@ -61,10 +103,14 @@ class ProposalController extends Controller
 
             $supervisors = User::where('role', 'supervisor')->get();
 
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
             $type = 'project';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -93,10 +139,14 @@ class ProposalController extends Controller
                 ->where('dept_id', $department)
                 ->get();
 
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
             $type = 'thesis';
             $showExtraColumns = true;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -125,10 +175,14 @@ class ProposalController extends Controller
                 ->where('dept_id', $department)
                 ->get();
 
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
             $type = 'project';
             $showExtraColumns = true;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -153,10 +207,14 @@ class ProposalController extends Controller
                 ->where('dept_id', $department)
                 ->get();
 
+            $batches = User::distinct()
+                ->where('dept_id', $supervisor->dept_id)
+                ->pluck('batch');
+
             $type = '';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -181,10 +239,12 @@ class ProposalController extends Controller
                 ->where('dept_id', $department)
                 ->get();
 
+            $batches = '';
+
             $type = '';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }
@@ -196,6 +256,7 @@ class ProposalController extends Controller
 
             // Get the logged-in teacher's official_id
             $studentId = auth()->user()->official_id;
+            $department = auth()->user()->dept_id;
 
             // Fetch all project proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('student_id', $studentId)
@@ -209,10 +270,12 @@ class ProposalController extends Controller
 
             $supervisors = User::where('role', 'supervisor')->get();
 
+            $batches = '';
+
             $type = '';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }

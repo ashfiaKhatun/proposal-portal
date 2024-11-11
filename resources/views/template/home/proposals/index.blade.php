@@ -55,43 +55,76 @@
                         <div class="card">
                             <div class="card-body">
 
-                                @if($type == 'project')
-                                <h4 class="cart-title">Project Proposals ({{ $proposalCount }})</h4>
-
-                                @elseif($type == 'thesis')
-                                <h4 class="cart-title">Thesis Proposals ({{ $proposalCount }})</h4>
-
-                                @elseif(!$type)
-                                <h4 class="cart-title">All Submissions ({{ $proposalCount }})</h4>
-
-                                @endif
-
-                                @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
-
                                 <!-- Search Field -->
-                                <div class="mb-1 w-25">
+                                <div class="mb-1 d-lg-flex justify-content-between">
+
+                                    <div>
+                                        @if($type == 'project')
+                                        <h4 class="cart-title">Project Proposals ({{ $proposalCount }})</h4>
+
+                                        @elseif($type == 'thesis')
+                                        <h4 class="cart-title">Thesis Proposals ({{ $proposalCount }})</h4>
+
+                                        @elseif(!$type)
+                                        <h4 class="cart-title">All Submissions ({{ $proposalCount }})</h4>
+
+                                        @endif
+
+                                        @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                        @endif
+                                    </div>
+
                                     <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
                                 </div>
+
+                                @if($batches)
+                                <label for="batchFilter">Filter by Batch:</label>
+                                <select id="batchFilter" onchange="filterByBatch()">
+                                    <option value="all">All Batches</option>
+                                    @foreach ($batches as $batch)
+                                    <option value="{{ $batch }}">{{ $batch }}</option>
+                                    @endforeach
+                                </select>
+                                @endif
 
                                 <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>View</th>
-                                                <th>Submission Date</th>
-                                                <th>Student ID</th>
-                                                <th>Student Name</th>
-                                                <th>Batch</th>
-                                                <th>CGPA</th>
-                                                <th>Area</th>
-                                                <th>Title</th>
-                                                <th>Status</th>
-                                                <th>Assigned Supervisor</th>
-
+                                                <th>Submission Date
+                                                    <button class="btn bg-transparent" onclick="sortTable('submissionDate')">↑↓</button>
+                                                </th>
+                                                <th>Student ID
+                                                    <button class="btn bg-transparent" onclick="sortTable('studentID')">↑↓</button>
+                                                </th>
+                                                <th>Student Name
+                                                    <button class="btn bg-transparent" onclick="sortTable('studentName')">↑↓</button>
+                                                </th>
+                                                <th>Batch
+                                                    <button class="btn bg-transparent" onclick="sortTable('batch')">↑↓</button>
+                                                </th>
+                                                <th>CGPA
+                                                    <button class="btn bg-transparent" onclick="sortTable('cgpa')">↑↓</button>
+                                                </th>
+                                                <th>Area
+                                                    <button class="btn bg-transparent" onclick="sortTable('area')">↑↓</button>
+                                                </th>
+                                                <th>Title
+                                                    <button class="btn bg-transparent" onclick="sortTable('title')">↑↓</button>
+                                                </th>
+                                                <th>Status
+                                                    <button class="btn bg-transparent" onclick="sortTable('status')">↑↓</button>
+                                                </th>
+                                                <th>Assigned Supervisor
+                                                    <button class="btn bg-transparent" onclick="sortTable('supervisor')">↑↓</button>
+                                                </th>
+                                                <th>Supervisor Initial
+                                                    <button class="btn bg-transparent" onclick="sortTable('supervisorInitial')">↑↓</button>
+                                                </th>
                                                 @if($showExtraColumns)
                                                 <th>Change Status</th>
                                                 <th>Assign Supervisor</th>
@@ -124,6 +157,8 @@
                                                 </td>
 
                                                 <td>{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</td>
+
+                                                <td>{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->teacher_initial : 'Not Assigned' }}</td>
 
                                                 @if($showExtraColumns)
 
@@ -195,6 +230,8 @@
     @include('template.home.layouts.scripts')
 
     @include('template.home.layouts.custom_scripts.search_script')
+    @include('template.home.layouts.custom_scripts.proposal_table_filter_script')
+    @include('template.home.layouts.custom_scripts.batch_filter_script')
 
 </body>
 

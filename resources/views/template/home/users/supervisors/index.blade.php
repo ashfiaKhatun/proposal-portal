@@ -74,7 +74,7 @@
                                 </div>
                                 @endif
 
-                                <div class="table-responsive">
+                                <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>

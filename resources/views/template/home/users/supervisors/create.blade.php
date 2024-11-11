@@ -52,7 +52,7 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card w-75 mx-auto">
+                        <div class="card w-lg-75 mx-auto">
                             <div class="card-body">
                                 <h4 class="cart-title">Create New Supervisor</h4>
                                 <div>

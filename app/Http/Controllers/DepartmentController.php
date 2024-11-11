@@ -140,7 +140,11 @@ class DepartmentController extends Controller
                 ->where('status', 'approved')
                 ->count();
 
-            return view('template.home.departments.students', compact('department', 'students', 'studentCount'));
+            $batches = User::distinct()
+                ->where('dept_id', $id)
+                ->pluck('batch');
+
+            return view('template.home.departments.students', compact('department', 'students', 'studentCount', 'batches'));
         } else {
             return redirect('/');
         }
@@ -164,10 +168,14 @@ class DepartmentController extends Controller
                 ->where('dept_id', $department)
                 ->get();
 
+            $batches = User::distinct()
+                ->where('dept_id', $id)
+                ->pluck('batch');
+
             $type = '';
             $showExtraColumns = false;
 
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount'));  // Return the view with proposals
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
             return redirect('/');
         }

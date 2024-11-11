@@ -54,24 +54,36 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-lg-flex justify-content-between">
                                     <h4 class="cart-title">Students in {{ $department->name }}</h4>
 
                                     <!-- Search Field -->
                                     <div class="mb-1 w-25">
                                         <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
                                     </div>
-
                                 </div>
-                                <div class="table-responsive">
+
+                                @if($batches)
+                                <div>
+                                    <label for="batchFilter">Filter by Batch:</label>
+                                    <select id="batchFilter" onchange="filterByBatch()">
+                                        <option value="all">All Batches</option>
+                                        @foreach ($batches as $batch)
+                                        <option value="{{ $batch }}">{{ $batch }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
+
+                                <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>Student ID</th>
                                                 <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Batch</th>
                                                 <th>Credit Finished</th>
+                                                <th>Batch</th>
                                                 <th>Current CGPA</th>
                                                 <th>Assigned Teacher</th>
                                                 <th>Actions</th>
@@ -83,8 +95,8 @@
                                                 <td>{{ $student->official_id }}</td>
                                                 <td>{{ $student->name }}</td>
                                                 <td>{{ $student->email }}</td>
-                                                <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->credit_finished }}</td>
+                                                <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->cgpa }}</td>
                                                 <td>{{ $student->assigned_teacher }}</td>
                                                 <td>
@@ -142,6 +154,8 @@
     @include('template.home.layouts.scripts')
 
     @include('template.home.layouts.custom_scripts.search_script')
+    @include('template.home.layouts.custom_scripts.batch_filter_script')
+
 
 
 </body>

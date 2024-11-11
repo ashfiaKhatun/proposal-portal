@@ -83,6 +83,8 @@ Route::put('/edit-proposal-{id}',  [ProposalController::class, 'update'])->middl
 // View proposal
 Route::get('/show-proposal-{id}', [ProposalController::class, 'show'])->middleware(['auth', 'verified'])->name('proposals.show');
 
+Route::get('/pending-proposals', [ProposalController::class, 'pendingProposals'])->middleware(['auth', 'verified'])->name('proposals.pending');
+
 // Routes for supervisor-specific thesis and project proposals
 Route::get('/supervisor-thesis-proposals', [ProposalController::class, 'indexSupervisorThesisProposals'])->middleware(['auth', 'verified'])->name('supervisor.proposals.thesis');
 Route::get('/supervisor-project-proposals', [ProposalController::class, 'indexSupervisorProjectProposals'])->middleware(['auth', 'verified'])->name('supervisor.proposals.project');

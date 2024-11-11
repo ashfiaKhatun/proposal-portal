@@ -54,7 +54,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-lg-flex justify-content-between">
                                     <h4 class="cart-title">Teachers in {{ $department->name }}</h4>
 
                                     <!-- Search Field -->
@@ -67,7 +67,7 @@
                                     <button class="btn bg-secondary btn-sm text-white">Assign Admin</button>
                                 </a>
 
-                                <div class="table-responsive">
+                                <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>

@@ -32,14 +32,14 @@
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 @include('profile.partials.update-profile-information-form')
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 @include('profile.partials.update-password-form')

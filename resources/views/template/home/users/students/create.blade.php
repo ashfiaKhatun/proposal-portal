@@ -52,11 +52,11 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="card w-75 mx-auto">
+                        <div class="card w-lg-75 mx-auto">
                             <div class="card-body">
                                 <h4 class="cart-title">Create New Student</h4>
                                 <div>
-                                    <form method="POST" action="{{ route('students.store') }}">
+                                    <form method="POST" action="{{ route('students.store') }}" onsubmit="return validateForm()">
                                         @csrf
 
                                         <!-- ID -->
@@ -86,11 +86,12 @@
                                             <input class="form-control rounded" type="text" name="batch" placeholder="Batch" required>
 
                                         </div>
-                                        
+
                                         <!-- Credit Finished -->
                                         <div>
                                             <label class="col-form-label">Credit Finished:</label>
-                                            <input class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+                                            <input id="credit_finished" class="form-control rounded" type="text" name="credit_finished" placeholder="Credit Finished" required>
+                                            <span id="creditError" style="color: red; display: none;">You need to complete at least 100 credits to register.</span>
 
                                         </div>
 
@@ -149,6 +150,20 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    <script>
+        function validateForm() {
+            const creditFinished = document.getElementById("credit_finished").value;
+            const creditError = document.getElementById("creditError");
+
+            if (parseInt(creditFinished) < 100) {
+                creditError.style.display = "inline";
+                return false; // Prevent form submission
+            } else {
+                creditError.style.display = "none";
+                return true; // Allow form submission
+            }
+        }
+    </script>
 
 </body>
 

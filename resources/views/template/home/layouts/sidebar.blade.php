@@ -49,6 +49,7 @@
                     <i class="icon-notebook menu-icon"></i><span class="nav-text">Proposals</span>
                 </a>
                 <ul aria-expanded="false">
+                    <li><a href="{{ route('proposals.pending') }}">Pending Proposals</a></li>
                     <li><a href="{{ route('department.proposals.thesis') }}">Thesis Proposals</a></li>
                     <li><a href="{{ route('department.proposals.project') }}">Project Proposals</a></li>
                 </ul>
