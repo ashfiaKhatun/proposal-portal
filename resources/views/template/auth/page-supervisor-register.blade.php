@@ -23,7 +23,7 @@
     ********************-->
 
 
-    <div class="login-form-bg h-100">
+    <div class="login-form-bg">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
                 <div class="col-xl-6">
@@ -33,6 +33,7 @@
                                 <div class="text-center">
                                     <img src="template/images/favicon.png" width="48">
                                     <h4 class="mt-3">Proposal Portal</h4>
+                                    <h5 class="mt-3">Supervisor Registration</h5>
                                 </div>
 
                                 <form method="POST" action="{{ route('supervisors.register') }}">
@@ -120,6 +121,7 @@
                 </div>
             </div>
         </div>
+        @include('template.home.layouts.footer')
     </div>
 
 

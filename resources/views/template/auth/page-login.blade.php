@@ -68,6 +68,7 @@
                 </div>
             </div>
         </div>
+        @include('template.home.layouts.footer')
     </div>
 
 
