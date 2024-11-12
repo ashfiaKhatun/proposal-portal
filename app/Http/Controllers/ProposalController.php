@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Feedback;
 use App\Models\Proposal;
 use App\Models\User;
+use App\Notifications\FeedbackSubmittedNotification;
+use App\Notifications\ProposalStatusNotification;
+use App\Notifications\SupervisorAssignedNotification;
 use Illuminate\Http\Request;
 
 class ProposalController extends Controller
@@ -455,7 +458,14 @@ class ProposalController extends Controller
 
             $proposal->update(['status' => $request->status]);
 
-            return redirect()->back()->with('success', 'Status updated successfully!');
+            // Find the student associated with the proposal and send the notification
+            $student = $proposal->student; // Assuming you have a relationship defined in the Proposal model
+
+            if ($student) {
+                $student->notify(new ProposalStatusNotification($request->status, $proposal->title));
+            }
+
+            return redirect()->back()->with('success', 'Status updated and email sent successfully!');
         } else {
             return redirect('/');
         }
@@ -470,14 +480,20 @@ class ProposalController extends Controller
             $proposal->ass_teacher_id = $request->input('ass_teacher_id');
             $proposal->save();
 
-            // Update the assigned_teacher in users
+            // Update the assigned_teacher in the student's user record
             $student = User::where('official_id', $proposal->student_id)->first();
             if ($student) {
                 $student->assigned_teacher = $proposal->ass_teacher_id;
                 $student->save();
             }
 
-            return redirect()->back()->with('success', 'Supervisor assigned successfully!');
+            // Notify the assigned supervisor
+            $supervisor = $proposal->assignedTeacher; // Using the relationship in the Proposal model
+            if ($supervisor) {
+                $supervisor->notify(new SupervisorAssignedNotification($proposal->title, $student->name));
+            }
+
+            return redirect()->back()->with('success', 'Supervisor assigned and notified successfully!');
         } else {
             return redirect('/');
         }
@@ -494,11 +510,17 @@ class ProposalController extends Controller
         $proposal = Proposal::findOrFail($id);
 
         if (auth()->user()->role == 'supervisor' && auth()->user()->dept_id === $proposal->dept_id) {
-
+            // Store the feedback
             Feedback::create([
                 'feedback' => $request->feedback,
                 'prop_id' => $proposal->id,
             ]);
+
+            // Send the notification to the student
+            $student = User::where('official_id', $proposal->student_id)->first();
+            if ($student) {
+                $student->notify(new FeedbackSubmittedNotification($request->feedback, $proposal));
+            }
 
             // Redirect back with success message
             return back()->with('success', 'Feedback submitted successfully.');

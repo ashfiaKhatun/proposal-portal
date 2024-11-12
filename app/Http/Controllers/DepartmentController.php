@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use App\Models\Proposal;
 use App\Models\User;
+use App\Notifications\AdminAssignedNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -37,7 +38,8 @@ class DepartmentController extends Controller
     {
         if (auth()->user()->isSuperAdmin) {
             $department = Department::findOrFail($id);
-
+    
+            // Create the admin user
             $user = User::create([
                 'name' => $request->name,
                 'official_id' => $request->teacher_id,
@@ -51,7 +53,11 @@ class DepartmentController extends Controller
                 'isSuperAdmin' => $request->isSuperAdmin ?? false,
                 'dept_id' => $id,
             ]);
-            return redirect()->route('departments.supervisors', ['id' => $id]);
+    
+            // Send the notification to the new admin
+            $user->notify(new AdminAssignedNotification($department->name, $user->name));
+    
+            return redirect()->route('departments.supervisors', ['id' => $id])->with('success', 'Admin created successfully!');
         } else {
             return redirect('/');
         }

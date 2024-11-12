@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\User;
+use App\Notifications\AccountStatusNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -107,16 +108,19 @@ class StudentController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $supervisor = User::findOrFail($id);
+        $student = User::findOrFail($id);
 
-        if (auth()->user()->isAdmin && auth()->user()->dept_id === $supervisor->dept_id) {
+        if (auth()->user()->isAdmin && auth()->user()->dept_id === $student->dept_id) {
             $request->validate([
                 'status' => 'required|in:pending,approved,rejected',
             ]);
 
-            $supervisor->update(['status' => $request->status]);
+            $student->update(['status' => $request->status]);
 
-            return redirect()->back()->with('success', 'Status updated successfully!');
+            // Send the email notification to the student
+            $student->notify(new AccountStatusNotification($request->status));
+
+            return redirect()->back()->with('success', 'Status updated and email sent successfully!');
         } else {
             return redirect('/');
         }

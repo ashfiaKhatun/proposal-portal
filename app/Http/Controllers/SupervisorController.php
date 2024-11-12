@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use App\Models\User;
+use App\Notifications\AccountStatusNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -17,11 +18,11 @@ class SupervisorController extends Controller
                 ->where('dept_id', auth()->user()->dept_id)
                 ->orderBy('created_at', 'desc')
                 ->get();
-                
+
             $supervisorCount = User::where('role', 'supervisor')
                 ->where('dept_id', auth()->user()->dept_id)
                 ->count();
-                
+
             return view('template.home.users.supervisors.index', compact('supervisors', 'supervisorCount'));
         } else {
             return redirect('/');
@@ -91,7 +92,7 @@ class SupervisorController extends Controller
         // Check if there are any users in the database
         $isFirstUser = User::count() === 0;
 
-        if($isFirstUser){
+        if ($isFirstUser) {
             $department = Department::create([
                 'name' => 'Information Technology and Management',
             ]);
@@ -104,7 +105,7 @@ class SupervisorController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'designation' => $request->designation,
-            'role' => 'supervisor', 
+            'role' => 'supervisor',
             'status' => $isFirstUser ? 'approved' : 'pending', // Use 'status' instead of overwriting 'role'
             'isAdmin' => $isFirstUser ? true : $request->isAdmin ?? false,
             'isSuperAdmin' => $isFirstUser ? true : $request->isSuperAdmin ?? false,
@@ -156,7 +157,10 @@ class SupervisorController extends Controller
 
             $supervisor->update(['status' => $request->status]);
 
-            return redirect()->back()->with('success', 'Status updated successfully!');
+            // Send the email notification to the student
+            $supervisor->notify(new AccountStatusNotification($request->status));
+
+            return redirect()->back()->with('success', 'Status updated and email sent successfully!');
         } else {
             return redirect('/');
         }
