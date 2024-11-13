@@ -63,11 +63,6 @@
                                     </div>
                                 </div>
 
-                                @if(session('success'))
-                                <div class="alert alert-success mt-3">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
 
                                 <a href="{{ route('departments.createAdmin', $department->id) }}">
                                     <button class="btn bg-secondary btn-sm text-white">Assign Admin</button>
@@ -146,6 +141,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    @include('template.home.layouts.custom_scripts.sweet_alert_script')
+
 
     @include('template.home.layouts.custom_scripts.search_script')
 

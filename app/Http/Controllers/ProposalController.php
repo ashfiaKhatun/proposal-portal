@@ -45,7 +45,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -80,7 +80,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -115,7 +115,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -151,7 +151,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -187,7 +187,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -219,7 +219,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -249,7 +249,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -280,7 +280,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -311,7 +311,7 @@ class ProposalController extends Controller
 
         // If the user has no access, redirect or return a 403 error
         if (!$hasAccess) {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
 
         $department = auth()->user()->dept_id;
@@ -342,7 +342,7 @@ class ProposalController extends Controller
 
             return view('template.home.proposals.create', compact('existingProposal'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -402,7 +402,7 @@ class ProposalController extends Controller
             // Redirect with a success message
             return redirect()->route('proposals.create')->with('success', 'Proposal submitted successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -418,7 +418,7 @@ class ProposalController extends Controller
                 return redirect()->route('proposals.create');
             }
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -443,7 +443,7 @@ class ProposalController extends Controller
             // Redirect with an error message
             return redirect()->route('proposals.create', $proposal->id);
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -467,7 +467,7 @@ class ProposalController extends Controller
 
             return redirect()->back()->with('success', 'Status updated and email sent successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -495,7 +495,7 @@ class ProposalController extends Controller
 
             return redirect()->back()->with('success', 'Supervisor assigned and notified successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -525,7 +525,19 @@ class ProposalController extends Controller
             // Redirect back with success message
             return back()->with('success', 'Feedback submitted successfully.');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        if (auth()->user()->isAdmin) {
+            $proposal = Proposal::findOrFail($id);
+            $proposal->delete();
+
+            return redirect()->back()->with('success', 'Proposal deleted successfully!');
+        } else {
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 }

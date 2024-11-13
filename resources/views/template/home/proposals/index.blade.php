@@ -70,11 +70,6 @@
 
                                         @endif
 
-                                        @if(session('success'))
-                                        <div class="alert alert-success">
-                                            {{ session('success') }}
-                                        </div>
-                                        @endif
                                     </div>
 
                                     <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
@@ -128,6 +123,7 @@
                                                 @if($showExtraColumns)
                                                 <th>Change Status</th>
                                                 <th>Assign Supervisor</th>
+                                                <th>Delete</th>
                                                 @endif
                                             </tr>
                                         </thead>
@@ -193,6 +189,14 @@
                                                     </form>
                                                     @endif
                                                 </td>
+                                                <td>
+                                                    <!-- Delete Button -->
+                                                    <form action="{{ route('proposals.destroy', $proposal->id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn bg-transparent btn-sm" onclick="return confirm('Are you sure you want to delete this proposal?')" data-toggle="tooltip" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                                    </form>
+                                                </td>
                                                 @endif
 
                                             </tr>
@@ -228,6 +232,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    @include('template.home.layouts.custom_scripts.sweet_alert_script')
+
 
     @include('template.home.layouts.custom_scripts.search_script')
     @include('template.home.layouts.custom_scripts.proposal_table_filter_script')

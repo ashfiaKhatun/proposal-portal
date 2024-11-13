@@ -20,7 +20,7 @@ class DepartmentController extends Controller
 
             return view('template.home.departments.index', compact('departments', 'departmentCount'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -30,7 +30,7 @@ class DepartmentController extends Controller
             $department = Department::findOrFail($id);
             return view('template.home.departments.create_admin', compact('department'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -59,7 +59,7 @@ class DepartmentController extends Controller
     
             return redirect()->route('departments.supervisors', ['id' => $id])->with('success', 'Admin created successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -76,7 +76,7 @@ class DepartmentController extends Controller
 
             return redirect()->route('departments.index')->with('success', 'Department added successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -94,7 +94,7 @@ class DepartmentController extends Controller
 
             return redirect()->route('departments.index');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -106,7 +106,7 @@ class DepartmentController extends Controller
 
             return redirect()->route('departments.index')->with('success', 'Department deleted successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -127,7 +127,7 @@ class DepartmentController extends Controller
 
             return view('template.home.departments.supervisors', compact('department', 'supervisors', 'supervisorCount'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -152,7 +152,7 @@ class DepartmentController extends Controller
 
             return view('template.home.departments.students', compact('department', 'students', 'studentCount', 'batches'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -183,7 +183,7 @@ class DepartmentController extends Controller
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 }

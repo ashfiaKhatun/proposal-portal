@@ -152,6 +152,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    @include('template.home.layouts.custom_scripts.sweet_alert_script')
+
 
     @include('template.home.layouts.custom_scripts.search_script')
     @include('template.home.layouts.custom_scripts.batch_filter_script')

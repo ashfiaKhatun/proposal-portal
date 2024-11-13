@@ -25,7 +25,7 @@ class SupervisorController extends Controller
 
             return view('template.home.users.supervisors.index', compact('supervisors', 'supervisorCount'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -35,7 +35,7 @@ class SupervisorController extends Controller
             $departments = Department::all();
             return view('template.home.users.supervisors.create', compact('departments'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -73,7 +73,7 @@ class SupervisorController extends Controller
             ]);
             return redirect()->route('supervisors.index')->with('success', 'Supervisor created successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -121,7 +121,7 @@ class SupervisorController extends Controller
             $departments = Department::all();
             return view('template.home.users.supervisors.edit', compact('supervisor', 'departments'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -142,7 +142,7 @@ class SupervisorController extends Controller
 
             return redirect()->back()->with('success', 'Supervisor updated successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -162,7 +162,7 @@ class SupervisorController extends Controller
 
             return redirect()->back()->with('success', 'Status updated and email sent successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -174,7 +174,7 @@ class SupervisorController extends Controller
 
             return redirect()->back()->with('success', 'Supervisor deleted successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 }

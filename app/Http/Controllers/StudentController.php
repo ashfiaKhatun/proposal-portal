@@ -29,7 +29,7 @@ class StudentController extends Controller
 
             return view('template.home.users.students.index', compact('students', 'studentCount', 'batches'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -39,7 +39,7 @@ class StudentController extends Controller
             $departments = Department::all();
             return view('template.home.users.students.create', compact('departments'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -72,7 +72,7 @@ class StudentController extends Controller
             ]);
             return redirect()->route('students.index')->with('success', 'Student created successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -83,7 +83,7 @@ class StudentController extends Controller
             $departments = Department::all();
             return view('template.home.users.students.edit', compact('student', 'departments'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -102,7 +102,7 @@ class StudentController extends Controller
 
             return redirect()->back()->with('success', 'Student updated successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -122,7 +122,7 @@ class StudentController extends Controller
 
             return redirect()->back()->with('success', 'Status updated and email sent successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 
@@ -134,7 +134,7 @@ class StudentController extends Controller
 
             return redirect()->back()->with('success', 'Student deleted successfully!');
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 }

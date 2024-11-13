@@ -80,11 +80,6 @@
                                     </div>
                                 </div>
 
-                                @if(session('success'))
-                                <div class="alert alert-success mt-3">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
 
                                 <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
@@ -186,6 +181,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    @include('template.home.layouts.custom_scripts.sweet_alert_script')
+
 
     @include('template.home.layouts.custom_scripts.search_script')
     @include('template.home.layouts.custom_scripts.batch_filter_script')

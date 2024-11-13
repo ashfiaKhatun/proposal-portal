@@ -56,11 +56,6 @@
                             <div class="card-body">
                                 <h4 class="cart-title">Edit Supervisor</h4>
 
-                                @if(session('success'))
-                                <div class="alert alert-success mt-3">
-                                    {{ session('success') }}
-                                </div>
-                                @endif
 
                                 <div>
                                     <form method="POST" action="{{ route('supervisors.update', $supervisor->id) }}">
@@ -164,6 +159,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    @include('template.home.layouts.custom_scripts.sweet_alert_script')
+
 
 </body>
 

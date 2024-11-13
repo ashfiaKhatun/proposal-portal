@@ -25,7 +25,7 @@ class UserController extends Controller
                 ->count();
             return view('template.home.users.admins.index', compact('supervisors', 'supervisorCount'));
         } else {
-            return redirect('/');
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
 }

@@ -93,7 +93,7 @@
                                                     <form action="{{ route('supervisors.destroy', $supervisor->id) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn bg-transparent btn-sm" onclick="return confirm('Are you sure you want to delete this supervisor?')" data-toggle="tooltip" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                                                        <button type="submit" class="btn bg-transparent btn-sm" onclick="return confirm('Are you sure you want to delete this admin?')" data-toggle="tooltip" title="Delete"><i class="fa-solid fa-trash"></i></button>
                                                     </form>
                                                 </td>
 
@@ -131,6 +131,8 @@
         Scripts
     ***********************************-->
     @include('template.home.layouts.scripts')
+    @include('template.home.layouts.custom_scripts.sweet_alert_script')
+
 
     @include('template.home.layouts.custom_scripts.search_script')
 

@@ -107,6 +107,9 @@ Route::put('/assign-teacher-proposal-{id}', [ProposalController::class, 'assignT
 // Provide feedback
 Route::post('/feedback-proposals-{id}', [ProposalController::class, 'giveFeedback'])->name('proposals.giveFeedback');
 
+// delete proposal
+Route::delete('/delete-proposal-{id}',  [ProposalController::class, 'destroy'])->middleware(['auth', 'verified'])->name('proposals.destroy');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
