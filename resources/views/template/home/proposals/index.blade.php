@@ -75,21 +75,39 @@
                                     <input type="text" id="searchInput" class="form-control-sm rounded" placeholder="Search...">
                                 </div>
 
-                                @if($batches)
-                                <label for="batchFilter">Filter by Batch:</label>
-                                <select id="batchFilter" onchange="filterByBatch()">
-                                    <option value="all">All Batches</option>
-                                    @foreach ($batches as $batch)
-                                    <option value="{{ $batch }}">{{ $batch }}</option>
-                                    @endforeach
-                                </select>
-                                @endif
+                                <div class="d-flex">
+                                    @if($batches)
+                                    <div class="mr-3">
+                                        <label for="batchFilter">Filter by Batch:</label>
+                                        <select id="batchFilter" onchange="filterByBatch()">
+                                            <option value="all">All Batches</option>
+                                            @foreach ($batches as $batch)
+                                            <option value="{{ $batch }}">{{ $batch }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @endif
+
+                                    @if($showExtraColumns)
+                                    <div>
+                                        <label for="typeFilter">Filter by Type:</label>
+                                        <select id="typeFilter">
+                                            <option>Select</option>
+                                            <option value="{{ route('proposals.index') }}">All</option>
+                                            <option value="{{ route('department.proposals.thesis') }}">Thesis</option>
+                                            <option value="{{ route('department.proposals.project') }}">Project</option>
+
+                                        </select>
+                                    </div>
+                                    @endif
+                                </div>
 
                                 <div class="table-responsive text-nowrap">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>
                                                 <th>View</th>
+                                                <th>Type</th>
                                                 <th>Submission Date
                                                     <button class="btn bg-transparent" onclick="sortTable('submissionDate')">↑↓</button>
                                                 </th>
@@ -135,6 +153,7 @@
                                                         <button class="btn bg-transparent btn-sm"><i class="fa-regular fa-eye" data-toggle="tooltip" title="View"></i></button>
                                                     </a>
                                                 </td>
+                                                <td>{{ $proposal->type == 'thesis' ? 'Thesis' : 'Project' }}</td>
                                                 <td>{{ $proposal->created_at->format('j F Y') }}</td>
                                                 <td>{{ $proposal->student->official_id }}</td>
                                                 <td>{{ $proposal->student->name }}</td>
@@ -238,6 +257,15 @@
     @include('template.home.layouts.custom_scripts.search_script')
     @include('template.home.layouts.custom_scripts.proposal_table_filter_script')
     @include('template.home.layouts.custom_scripts.batch_filter_script')
+
+    <script>
+        document.getElementById('typeFilter').addEventListener('change', function() {
+            const selectedRoute = this.value;
+            if (selectedRoute) {
+                window.location.href = selectedRoute;
+            }
+        });
+    </script>
 
 </body>
 

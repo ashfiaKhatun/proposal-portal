@@ -50,8 +50,8 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('proposals.pending') }}">Pending Proposals</a></li>
-                    <li><a href="{{ route('department.proposals.thesis') }}">Thesis Proposals</a></li>
-                    <li><a href="{{ route('department.proposals.project') }}">Project Proposals</a></li>
+                    <li><a href="{{ route('proposals.index') }}">All Proposals</a></li>
+                   
                 </ul>
             </li>
             @endif

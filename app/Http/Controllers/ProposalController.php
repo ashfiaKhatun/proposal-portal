@@ -13,6 +13,41 @@ use Illuminate\Http\Request;
 class ProposalController extends Controller
 {
 
+    public function index()
+    {
+        if (auth()->user()->isAdmin) {
+
+            // Get the logged-in teacher's dept_id
+            $department = auth()->user()->dept_id;
+
+            // Fetch all thesis proposals assigned to the logged-in supervisor
+            $proposals = Proposal::where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $proposalCount = Proposal::where('status', 'approved')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
+            $type = '';
+            $showExtraColumns = true;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
+        } else {
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
+        }
+    }
+    
     public function pendingProposals()
     {
         if (auth()->user()->isAdmin) {
@@ -41,6 +76,78 @@ class ProposalController extends Controller
                 ->pluck('batch');
 
             $type = 'thesis';
+            $showExtraColumns = true;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
+        } else {
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
+        }
+    }
+    
+    public function indexDepartmentThesisProposals()
+    {
+        if (auth()->user()->isAdmin) {
+
+            // Get the logged-in teacher's dept_id
+            $department = auth()->user()->dept_id;
+
+            // Fetch all thesis proposals assigned to the logged-in supervisor
+            $proposals = Proposal::where('type', 'thesis')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $proposalCount = Proposal::where('type', 'thesis')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
+            $type = 'thesis';
+            $showExtraColumns = true;
+
+            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
+        } else {
+            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
+        }
+    }
+
+    public function indexDepartmentProjectProposals()
+    {
+        if (auth()->user()->isAdmin) {
+
+            // Get the logged-in teacher's official_id
+            $department = auth()->user()->dept_id;
+
+            // Fetch all thesis proposals assigned to the logged-in supervisor
+            $proposals = Proposal::where('type', 'project')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            $proposalCount = Proposal::where('type', 'project')
+                ->where('dept_id', $department)
+                ->with('student', 'assignedTeacher')
+                ->count();
+
+            $supervisors = User::where('role', 'supervisor')
+                ->where('dept_id', $department)
+                ->get();
+
+            $batches = User::distinct()
+                ->where('dept_id', $department)
+                ->pluck('batch');
+
+            $type = 'project';
             $showExtraColumns = true;
 
             return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
@@ -119,77 +226,6 @@ class ProposalController extends Controller
         }
     }
 
-    public function indexDepartmentThesisProposals()
-    {
-        if (auth()->user()->isAdmin) {
-
-            // Get the logged-in teacher's dept_id
-            $department = auth()->user()->dept_id;
-
-            // Fetch all thesis proposals assigned to the logged-in supervisor
-            $proposals = Proposal::where('type', 'thesis')
-                ->where('dept_id', $department)
-                ->with('student', 'assignedTeacher')
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-            $proposalCount = Proposal::where('type', 'thesis')
-                ->where('dept_id', $department)
-                ->with('student', 'assignedTeacher')
-                ->count();
-
-            $supervisors = User::where('role', 'supervisor')
-                ->where('dept_id', $department)
-                ->get();
-
-            $batches = User::distinct()
-                ->where('dept_id', $department)
-                ->pluck('batch');
-
-            $type = 'thesis';
-            $showExtraColumns = true;
-
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
-        } else {
-            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
-        }
-    }
-
-    public function indexDepartmentProjectProposals()
-    {
-        if (auth()->user()->isAdmin) {
-
-            // Get the logged-in teacher's official_id
-            $department = auth()->user()->dept_id;
-
-            // Fetch all thesis proposals assigned to the logged-in supervisor
-            $proposals = Proposal::where('type', 'project')
-                ->where('dept_id', $department)
-                ->with('student', 'assignedTeacher')
-                ->orderBy('created_at', 'desc')
-                ->get();
-
-            $proposalCount = Proposal::where('type', 'project')
-                ->where('dept_id', $department)
-                ->with('student', 'assignedTeacher')
-                ->count();
-
-            $supervisors = User::where('role', 'supervisor')
-                ->where('dept_id', $department)
-                ->get();
-
-            $batches = User::distinct()
-                ->where('dept_id', $department)
-                ->pluck('batch');
-
-            $type = 'project';
-            $showExtraColumns = true;
-
-            return view('template.home.proposals.index', compact('proposals', 'supervisors', 'type', 'showExtraColumns', 'proposalCount', 'batches'));  // Return the view with proposals
-        } else {
-            return redirect('/dashboard')->with('error', 'You do not have access to this page.');
-        }
-    }
 
     public function indexSupervisorProposals($official_id)
     {

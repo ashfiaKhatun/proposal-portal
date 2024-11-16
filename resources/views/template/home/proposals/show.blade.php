@@ -71,6 +71,11 @@
                                 <div class="proposal-details mt-4">
 
                                     <div class="row">
+                                        <b class="col-4">Submission Date:</b>
+                                        <p  class="col-8 ">{{ $proposal->created_at->format('j F Y') }}</p>
+                                    </div>
+                                    
+                                    <div class="row">
                                         <b class="col-4">Area:</b>
                                         <p  class="col-8 ">{{ $proposal->area }}</p>
                                     </div>
