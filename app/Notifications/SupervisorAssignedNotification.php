@@ -13,11 +13,13 @@ class SupervisorAssignedNotification extends Notification
 
     protected $proposalTitle;
     protected $studentName;
+    protected $recipientType;
 
-    public function __construct($proposalTitle, $studentName)
+    public function __construct($proposalTitle, $studentName, $recipientType)
     {
         $this->proposalTitle = $proposalTitle;
         $this->studentName = $studentName;
+        $this->recipientType = $recipientType; // 'supervisor' or 'student'
     }
 
     public function via($notifiable)
@@ -27,12 +29,27 @@ class SupervisorAssignedNotification extends Notification
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->from(config('mail.from.address'), config('mail.from.name'))
-            ->subject('New Proposal Assignment')
-            ->line("You have been assigned as the supervisor for the proposal titled '{$this->proposalTitle}'.")
-            ->line("The proposal was submitted by {$this->studentName}.")
-            ->line('Please review the proposal and provide feedback if necessary. http://127.0.0.1:8000/')
-            ->line('Thank you for your guidance and support!');
+        $mailMessage = new MailMessage;
+        $mailMessage->from(config('mail.from.address'), config('mail.from.name'));
+
+        if ($this->recipientType === 'supervisor') {
+            $mailMessage->subject('New Proposal Assignment')
+                ->greeting("Hello, {$notifiable->name}")
+                ->line("You have been assigned as the supervisor for the proposal titled '{$this->proposalTitle}'.")
+                ->line("The proposal was submitted by {$this->studentName}.")
+                ->line('Please review the proposal and provide feedback if necessary.')
+                ->action('Proposal Portal', url('/'))
+                ->line('Thank you for your guidance and support!');
+        } else if ($this->recipientType === 'student') {
+            $mailMessage->subject('Supervisor Assigned to Your Proposal')
+                ->greeting("Hello, {$notifiable->name}")
+                ->line("Your proposal titled '{$this->proposalTitle}' has been assigned a supervisor.")
+                ->line("Assigned Supervisor: {$this->studentName}")
+                ->line('Please follow up with your supervisor for further guidance.')
+                ->action('Proposal Portal', url('/'))
+                ->line('Thank you for using our system!');
+        }
+
+        return $mailMessage;
     }
 }

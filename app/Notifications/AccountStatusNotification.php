@@ -28,7 +28,8 @@ class AccountStatusNotification extends Notification
         $message = (new MailMessage)
             ->from(config('mail.from.address'), config('mail.from.name'))
             ->subject('Account Status Update')
-            ->line("Your account status has been updated to: {$this->status}.");
+            ->line("Your account status has been updated to: {$this->status}.")
+            ->action('Proposal Portal', url('/'));
 
         if ($this->status === 'approved') {
             $message->line('Your account has been approved. You can now log in to the system. http://127.0.0.1:8000/');

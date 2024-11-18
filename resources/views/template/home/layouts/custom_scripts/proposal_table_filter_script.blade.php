@@ -19,34 +19,34 @@
         let columnIndex;
         switch (column) {
             case 'submissionDate':
-                columnIndex = 1;
-                break;
-            case 'studentID':
                 columnIndex = 2;
                 break;
-            case 'studentName':
+            case 'studentID':
                 columnIndex = 3;
                 break;
-            case 'batch':
+            case 'studentName':
                 columnIndex = 4;
                 break;
-            case 'cgpa':
+            case 'batch':
                 columnIndex = 5;
                 break;
-            case 'area':
+            case 'cgpa':
                 columnIndex = 6;
                 break;
-            case 'title':
+            case 'area':
                 columnIndex = 7;
                 break;
-            case 'status':
+            case 'title':
                 columnIndex = 8;
                 break;
-            case 'supervisor':
+            case 'status':
                 columnIndex = 9;
                 break;
-            case 'supervisorInitial':
+            case 'supervisor':
                 columnIndex = 10;
+                break;
+            case 'supervisorInitial':
+                columnIndex = 11;
                 break;
                 // Add cases for other columns if needed
         }

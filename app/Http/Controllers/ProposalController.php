@@ -47,7 +47,7 @@ class ProposalController extends Controller
             return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
-    
+
     public function pendingProposals()
     {
         if (auth()->user()->isAdmin) {
@@ -83,7 +83,7 @@ class ProposalController extends Controller
             return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
-    
+
     public function indexDepartmentThesisProposals()
     {
         if (auth()->user()->isAdmin) {
@@ -512,7 +512,11 @@ class ProposalController extends Controller
         $proposal = Proposal::findOrFail($id);
 
         if (auth()->user()->isAdmin && auth()->user()->dept_id === $proposal->dept_id) {
-            // Update the ass_teacher_id in proposals
+            $request->validate([
+                'ass_teacher_id' => 'required|exists:users,official_id',
+            ]);
+
+            // Update the proposal with the assigned teacher
             $proposal->ass_teacher_id = $request->input('ass_teacher_id');
             $proposal->save();
 
@@ -526,14 +530,20 @@ class ProposalController extends Controller
             // Notify the assigned supervisor
             $supervisor = $proposal->assignedTeacher; // Using the relationship in the Proposal model
             if ($supervisor) {
-                $supervisor->notify(new SupervisorAssignedNotification($proposal->title, $student->name));
+                $supervisor->notify(new SupervisorAssignedNotification($proposal->title, $student->name, 'supervisor'));
             }
 
-            return redirect()->back()->with('success', 'Supervisor assigned and notified successfully!');
+            // Notify the student
+            if ($student) {
+                $student->notify(new SupervisorAssignedNotification($proposal->title, $supervisor->name, 'student'));
+            }
+
+            return redirect()->back()->with('success', 'Supervisor assigned and both notified successfully!');
         } else {
             return redirect('/dashboard')->with('error', 'You do not have access to this page.');
         }
     }
+
 
     public function giveFeedback(Request $request, $id)
     {

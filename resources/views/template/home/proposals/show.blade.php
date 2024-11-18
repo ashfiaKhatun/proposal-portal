@@ -56,7 +56,7 @@
                             <div class="card-body">
 
                                 <div>
-                                    <h4 class="card-title">Submitted Proposal</h4>
+                                    <h4 class="card-title">Submitted {{ $proposal->type == 'thesis' ? 'Thesis' : 'Project' }} Proposal</h4>
 
                                     @if($proposal->status == 'approved')
                                     <span class="label label-pill label-success">Approved</span>
@@ -72,61 +72,61 @@
 
                                     <div class="row">
                                         <b class="col-4">Submission Date:</b>
-                                        <p  class="col-8 ">{{ $proposal->created_at->format('j F Y') }}</p>
+                                        <p class="col-8 ">{{ $proposal->created_at->format('j F Y') }}</p>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <b class="col-4">Area:</b>
-                                        <p  class="col-8 ">{{ $proposal->area }}</p>
+                                        <p class="col-8 ">{{ $proposal->area }}</p>
                                     </div>
 
 
                                     <div class="row">
                                         <b class="col-4">Title:</b>
-                                        <p  class="col-8 ">{{ $proposal->title }}</p>
+                                        <p class="col-8 ">{{ $proposal->title }}</p>
                                     </div>
 
                                     @if($proposal->type == 'project')
                                     <div class="row">
                                         <b class="col-4">Brief Discussion:</b>
-                                        <p  class="col-8 ">{!! nl2br(e($proposal->description)) !!}</p>
+                                        <p class="col-8 ">{!! nl2br(e($proposal->description)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-4">Skills:</b>
-                                        <p  class="col-8 ">{!! nl2br(e($proposal->skills)) !!}</p>
+                                        <p class="col-8 ">{!! nl2br(e($proposal->skills)) !!}</p>
                                     </div>
 
                                     @elseif($proposal->type == 'thesis')
                                     <div class="row">
                                         <b class="col-4">Background Study:</b>
-                                        <p  class="col-8 ">{!! nl2br(e($proposal->background)) !!}</p>
+                                        <p class="col-8 ">{!! nl2br(e($proposal->background)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-4">Research Questions:</b>
-                                        <p  class="col-8 ">{!! nl2br(e($proposal->question)) !!}</p>
+                                        <p class="col-8 ">{!! nl2br(e($proposal->question)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-4">Research Objectives:</b>
-                                        <p  class="col-8 ">{!! nl2br(e($proposal->objective)) !!}</p>
+                                        <p class="col-8 ">{!! nl2br(e($proposal->objective)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-4">Skills:</b>
-                                        <p  class="col-8 ">{!! nl2br(e($proposal->skills)) !!}</p>
+                                        <p class="col-8 ">{!! nl2br(e($proposal->skills)) !!}</p>
                                     </div>
                                     @endif
 
                                     <div class="row">
                                         <b class="col-4">Assigned To:</b>
-                                        <p  class="col-8 ">{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</p>
+                                        <p class="col-8 ">{{ $proposal->assignedTeacher ? $proposal->assignedTeacher->name : 'Not Assigned' }}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-12">Supervisors Feedback:</b>
-                                        <div  class="col-12 text-nowrap">
+                                        <div class="col-12 text-nowrap">
                                             <table id="table" class="table verticle-middle ">
                                                 @foreach ($feedbacks as $feedback)
                                                 <tr>
@@ -136,7 +136,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    
+
                                     @if(auth()->user()->role == 'supervisor' && auth()->user()->official_id == $proposal->ass_teacher_id && $proposal->status == 'approved')
                                     <div class="row mb-3">
                                         <b class="col-4">Provide Feedback:</b>
@@ -213,37 +213,38 @@
                         <div class="card mx-auto">
                             <div class="card-body">
 
+                                <h4 class="card-title">Student Information</h4>
 
                                 <div class="proposal-details mt-4">
 
                                     <div class="row">
                                         <b class="col-4">Student ID:</b>
-                                        <p  class="col-8 ">{{ $proposal->student->official_id }}</p>
+                                        <p class="col-8 ">{{ $proposal->student->official_id }}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-4">Student Name:</b>
-                                        <p  class="col-8 ">{{ $proposal->student->name }}</p>
+                                        <p class="col-8 ">{{ $proposal->student->name }}</p>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <b class="col-4">Student Email:</b>
-                                        <p  class="col-8 ">{{ $proposal->student->email }}</p>
+                                        <p class="col-8 ">{{ $proposal->student->email }}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-4">Batch:</b>
-                                        <p  class="col-8 ">{{ $proposal->student->batch }}</p>
+                                        <p class="col-8 ">{{ $proposal->student->batch }}</p>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <b class="col-4">Credit Finished:</b>
-                                        <p  class="col-8 ">{{ $proposal->student->credit_finished }}</p>
+                                        <p class="col-8 ">{{ $proposal->student->credit_finished }}</p>
                                     </div>
-                                    
+
                                     <div class="row">
                                         <b class="col-4">CGPA:</b>
-                                        <p  class="col-8 ">{{ $proposal->student->cgpa }}</p>
+                                        <p class="col-8 ">{{ $proposal->student->cgpa }}</p>
                                     </div>
 
                                 </div>

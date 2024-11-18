@@ -30,10 +30,11 @@ class ProposalStatusNotification extends Notification
         $message = (new MailMessage)
             ->from(config('mail.from.address'), config('mail.from.name'))
             ->subject('Proposal Status Update')
-            ->line("Your proposal titled '{$this->proposalTitle}' has been updated to: {$this->status}.");
+            ->line("Your proposal titled '{$this->proposalTitle}' has been updated to: {$this->status}.")
+            ->action('Proposal Portal', url('/'));;
 
         if ($this->status === 'approved') {
-            $message->line('Your proposal has been approved. You may proceed as instructed. http://127.0.0.1:8000/');
+            $message->line('Your proposal has been approved. You may proceed as instructed.');
         } elseif ($this->status === 'rejected') {
             $message->line('Unfortunately, your proposal has been rejected.');
         }

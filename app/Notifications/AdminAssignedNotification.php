@@ -32,7 +32,8 @@ class AdminAssignedNotification extends Notification
             ->subject('Admin Role Assigned')
             ->greeting("Hello {$this->adminName},")
             ->line("You have been assigned as the admin for the {$this->departmentName} department.")
-            ->line('You can now log in and start managing your department. http://127.0.0.1:8000/')
+            ->line('You can now log in and start managing your department.')
+            ->action('Proposal Portal', url('/'))
             ->line('Thank you for being a part of our team!');
     }
 }

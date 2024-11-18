@@ -33,7 +33,8 @@ class FeedbackSubmittedNotification extends Notification
             ->greeting("Hello {$notifiable->name},")
             ->line("You have received new feedback on your proposal (Proposal Title: {$this->proposal->title}).")
             ->line("Feedback: {$this->feedback}")
-            ->line('You can log in to the portal to view more details. http://127.0.0.1:8000/')
+            ->line('You can log in to the portal to view more details.')
+            ->action('Proposal Portal', url('/'))
             ->line('Thank you for using our system!');
     }
 }

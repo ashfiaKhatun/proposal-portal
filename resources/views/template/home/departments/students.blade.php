@@ -83,8 +83,8 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Credit Finished</th>
-                                                <th>Batch</th>
                                                 <th>Current CGPA</th>
+                                                <th>Batch</th>
                                                 <th>Assigned Teacher</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -96,8 +96,8 @@
                                                 <td>{{ $student->name }}</td>
                                                 <td>{{ $student->email }}</td>
                                                 <td>{{ $student->credit_finished }}</td>
-                                                <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->cgpa }}</td>
+                                                <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->assigned_teacher }}</td>
                                                 <td>
                                                     <!-- Edit Button -->
