@@ -78,4 +78,9 @@ class HomeController extends Controller
         }
         return view('template.home.index');
     }
+    public function developer()
+    {
+        
+        return view('template.home.developer');
+    }
 }

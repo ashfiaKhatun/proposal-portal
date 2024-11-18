@@ -111,6 +111,8 @@ Route::post('/feedback-proposals-{id}', [ProposalController::class, 'giveFeedbac
 // delete proposal
 Route::delete('/delete-proposal-{id}',  [ProposalController::class, 'destroy'])->middleware(['auth', 'verified'])->name('proposals.destroy');
 
+// Developer Info
+Route::get('/developer', [HomeController::class, 'developer'])->name('developer');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
