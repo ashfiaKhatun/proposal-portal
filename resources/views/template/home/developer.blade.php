@@ -78,6 +78,7 @@
                         ASHFIA <span class="name-highlight">KHATUN</span>
                     </h1>
                     <div class="fs-5 text-secondary mb-4">
+                        <span class="text-decoration-none name-highlight">DEVELOPER</span><br>
                         Department of Information Technology and Management <br>
                         Daffodil International University <br>
                         +88 01521 565097 <br>
@@ -95,6 +96,9 @@
                     </a>
                     <a href="https://github.com/ashfiaKhatun" target="_blank" class="social-icon">
                         <i class="bi bi-github"></i>
+                    </a>
+                    <a href="https://www.instagram.com/ashfiasohely?igsh=aDhnN2p2YnhkenB0" target="_blank" class="social-icon">
+                        <i class="bi bi-instagram"></i>
                     </a>
                     <a href="https://www.facebook.com/profile.php?id=100008428578863" target="_blank" class="social-icon">
                         <i class="bi bi-facebook"></i>
