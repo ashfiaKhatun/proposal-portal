@@ -102,7 +102,7 @@
                                     @endif
                                 </div>
 
-                                <div class="table-responsive text-nowrap">
+                                <div class="table-responsive text-nowrap text-black">
                                     <table id="table" class="table table-bordered table-striped verticle-middle mt-3">
                                         <thead>
                                             <tr>

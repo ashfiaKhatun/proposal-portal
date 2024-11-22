@@ -21,3 +21,5 @@
 <!-- Add this in the <head> section of your main layout -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@include('template.home.layouts.custom_styles.custom_style')

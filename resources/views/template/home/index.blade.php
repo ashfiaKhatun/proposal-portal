@@ -180,7 +180,7 @@
                                     </a>
                                     @endif
                                 </div>
-                                <div class="table-responsive text-nowrap">
+                                <div class="table-responsive text-nowrap text-black">
                                     <table class="table table-xs mb-0">
                                         <thead>
                                             <tr>
