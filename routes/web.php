@@ -24,6 +24,10 @@ Route::get('/', function () {
     return view('template.auth.page-login');
 })->middleware(['guest']);
 
+Route::get('/register', function () {
+    return redirect('/dashboard');
+});
+
 // Dashboard
 Route::get('/dashboard',  [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
 

@@ -42,7 +42,6 @@ class HomeController extends Controller
                 ->get();
 
             return view('template.home.index', compact('proposalCount', 'thesisProposalCount', 'projectProposalCount', 'pendingProposalCount', 'proposals'));
-
         } elseif (auth()->user()->role == 'supervisor') {
             // Get the logged-in teacher's official_id
             $supervisorId = auth()->user()->official_id;
@@ -50,6 +49,7 @@ class HomeController extends Controller
 
             $proposalCount = Proposal::where('dept_id', $department)
                 ->where('ass_teacher_id', $supervisorId)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->count();
 
@@ -69,6 +69,7 @@ class HomeController extends Controller
 
             // Fetch all thesis proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('ass_teacher_id', $supervisorId)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->orderBy('created_at', 'desc')
                 ->limit(5)
@@ -80,7 +81,7 @@ class HomeController extends Controller
     }
     public function developer()
     {
-        
+
         return view('template.home.developer');
     }
 }

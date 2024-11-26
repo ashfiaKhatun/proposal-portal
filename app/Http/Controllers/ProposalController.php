@@ -69,6 +69,7 @@ class ProposalController extends Controller
 
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
+                ->where('status', 'approved')
                 ->get();
 
             $batches = User::distinct()
@@ -105,6 +106,7 @@ class ProposalController extends Controller
 
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
+                ->where('status', 'approved')
                 ->get();
 
             $batches = User::distinct()
@@ -141,6 +143,7 @@ class ProposalController extends Controller
 
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
+                ->where('status', 'approved')
                 ->get();
 
             $batches = User::distinct()
@@ -167,16 +170,20 @@ class ProposalController extends Controller
             // Fetch all thesis proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('type', 'thesis')
                 ->where('ass_teacher_id', $supervisorId)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             $proposalCount = Proposal::where('type', 'thesis')
                 ->where('ass_teacher_id', $supervisorId)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->count();
 
-            $supervisors = User::where('role', 'supervisor')->get();
+            $supervisors = User::where('role', 'supervisor')
+                ->where('status', 'approved')
+                ->get();
 
             $batches = User::distinct()
                 ->where('dept_id', $department)
@@ -202,16 +209,20 @@ class ProposalController extends Controller
             // Fetch all project proposals assigned to the logged-in supervisor
             $proposals = Proposal::where('type', 'project')
                 ->where('ass_teacher_id', $supervisorId)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             $proposalCount = Proposal::where('type', 'project')
                 ->where('ass_teacher_id', $supervisorId)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->count();
 
-            $supervisors = User::where('role', 'supervisor')->get();
+            $supervisors = User::where('role', 'supervisor')
+                ->where('status', 'approved')
+                ->get();
 
             $batches = User::distinct()
                 ->where('dept_id', $department)
@@ -234,16 +245,19 @@ class ProposalController extends Controller
 
         if (auth()->user()->isSuperAdmin || auth()->user()->isAdmin && $department == $supervisor->dept_id) {
             $proposals = Proposal::where('ass_teacher_id', $official_id)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             $proposalCount = Proposal::where('ass_teacher_id', $official_id)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->count();
 
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
+                ->where('status', 'approved')
                 ->get();
 
             $batches = User::distinct()
@@ -266,16 +280,19 @@ class ProposalController extends Controller
 
         if (auth()->user()->isSuperAdmin || auth()->user()->isAdmin && $department == $student->dept_id) {
             $proposals = Proposal::where('student_id', $official_id)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             $proposalCount = Proposal::where('student_id', $official_id)
+                ->where('status', 'approved')
                 ->with('student', 'assignedTeacher')
                 ->count();
 
             $supervisors = User::where('role', 'supervisor')
                 ->where('dept_id', $department)
+                ->where('status', 'approved')
                 ->get();
 
             $batches = '';
@@ -307,7 +324,9 @@ class ProposalController extends Controller
                 ->with('student', 'assignedTeacher')
                 ->count();
 
-            $supervisors = User::where('role', 'supervisor')->get();
+            $supervisors = User::where('role', 'supervisor')
+                ->where('status', 'approved')
+                ->get();
 
             $batches = '';
 
@@ -353,6 +372,7 @@ class ProposalController extends Controller
         $department = auth()->user()->dept_id;
         $supervisors = User::where('role', 'supervisor')
             ->where('dept_id', $department)
+            ->where('status', 'approved')
             ->get();
 
         $feedbacks = Feedback::where('prop_id', $id)
@@ -521,7 +541,10 @@ class ProposalController extends Controller
             $proposal->save();
 
             // Update the assigned_teacher in the student's user record
-            $student = User::where('official_id', $proposal->student_id)->first();
+            $student = User::where('official_id', $proposal->student_id)
+                ->where('status', 'approved')
+                ->first();
+
             if ($student) {
                 $student->assigned_teacher = $proposal->ass_teacher_id;
                 $student->save();
@@ -563,7 +586,10 @@ class ProposalController extends Controller
             ]);
 
             // Send the notification to the student
-            $student = User::where('official_id', $proposal->student_id)->first();
+            $student = User::where('official_id', $proposal->student_id)
+                ->where('status', 'approved')
+                ->first();
+
             if ($student) {
                 $student->notify(new FeedbackSubmittedNotification($request->feedback, $proposal));
             }
