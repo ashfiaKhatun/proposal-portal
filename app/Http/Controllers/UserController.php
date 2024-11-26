@@ -16,12 +16,14 @@ class UserController extends Controller
             $supervisors = User::with('department')
                 ->where('role', 'supervisor')
                 ->where('isAdmin', true)
+                ->where('status', 'approved')
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             $supervisorCount = User::with('department')
                 ->where('role', 'supervisor')
                 ->where('isAdmin', true)
+                ->where('status', 'approved')
                 ->count();
             return view('template.home.users.admins.index', compact('supervisors', 'supervisorCount'));
         } else {
