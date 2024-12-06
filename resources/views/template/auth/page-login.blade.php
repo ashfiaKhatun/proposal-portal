@@ -54,9 +54,22 @@
                                 </form>
 
 
-                                <a class="underline text-sm text-gray-600 hover:text-gray-900 ml-3" href="{{ route('password.request') }}">
-                                    {{ __('Forget Password?') }}
-                                </a>
+                                <div class="d-flex justify-content-between">
+                                    <a class="underline text-sm text-gray-600 hover:text-gray-900 ml-3" href="{{ route('password.request') }}">
+                                        {{ __('Forget Password?') }}
+                                    </a>
+    
+                                    <div>
+                                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/final-year-student-register"><i class="fa-solid fa-user-graduate mr-2"></i>
+                                            {{ __('Enroll as Student') }}
+                                        </a><br><br>
+                                        
+                                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/proposal-thesis-supervisor-register"><i class="fa-solid fa-chalkboard-teacher mr-2"></i>
+                                            {{ __('Enroll as Teacher') }}
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
