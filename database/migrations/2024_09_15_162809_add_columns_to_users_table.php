@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('credit_finished')->nullable();
             $table->string('cgpa')->nullable();
             $table->integer('batch')->nullable();
+            $table->string('semester')->nullable();
 
         });
     }
@@ -55,6 +56,7 @@ return new class extends Migration
             $table->dropColumn('credit_finished');
             $table->dropColumn('cgpa');
             $table->dropColumn('batch');
+            $table->dropColumn('semester');
         });
     }
 };

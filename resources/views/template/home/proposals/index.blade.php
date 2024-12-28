@@ -120,6 +120,9 @@
                                                 <th>Batch
                                                     <button class="btn bg-transparent" onclick="sortTable('batch')">↑↓</button>
                                                 </th>
+                                                <th>Semester
+                                                    <button class="btn bg-transparent" onclick="sortTable('semester')">↑↓</button>
+                                                </th>
                                                 <th>CGPA
                                                     <button class="btn bg-transparent" onclick="sortTable('cgpa')">↑↓</button>
                                                 </th>
@@ -158,6 +161,7 @@
                                                 <td>{{ $proposal->student->official_id }}</td>
                                                 <td>{{ $proposal->student->name }}</td>
                                                 <td>{{ $proposal->student->batch }}</td>
+                                                <td>{{ $proposal->student->semester }}</td>
                                                 <td>{{ $proposal->student->cgpa }}</td>
                                                 <td>{{ $proposal->area }}</td>
                                                 <td>{{ $proposal->title }}</td>

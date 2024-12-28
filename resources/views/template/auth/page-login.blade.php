@@ -65,7 +65,7 @@
                                         </a><br><br>
                                         
                                         <a class="underline text-sm text-gray-600 hover:text-gray-900" href="/proposal-thesis-supervisor-register"><i class="fa-solid fa-chalkboard-teacher mr-2"></i>
-                                            {{ __('Enroll as Teacher') }}
+                                            {{ __('Enroll as Supervisor') }}
                                         </a>
                                     </div>
 

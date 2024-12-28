@@ -56,7 +56,7 @@
                             <div class="card-body">
                                 <h4 class="cart-title">Edit Student</h4>
 
-                                
+
                                 <div>
                                     <form method="POST" action="{{ route('students.update', $student->id) }}">
                                         @csrf
@@ -96,6 +96,14 @@
                                         <div>
                                             <label class="col-form-label">Batch:</label>
                                             <input class="form-control rounded" type="text" name="batch" value="{{ $student->batch }}" placeholder="Batch" required>
+
+                                        </div>
+
+
+                                        <!-- Semester -->
+                                        <div>
+                                            <label class="col-form-label">Semester of Final Defense Registration:</label>
+                                            <input class="form-control rounded" type="text" name="semester" value="{{ $student->semester }}" placeholder="Ex: SPRING-2025" required>
 
                                         </div>
 

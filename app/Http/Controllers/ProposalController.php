@@ -420,8 +420,8 @@ class ProposalController extends Controller
             // Validate the request
             $validatedData = $request->validate([
                 'type' => 'required|string',
-                'area' => 'required|string',
-                'title' => 'required|string',
+                'area' => 'required|string|max:200',
+                'title' => 'required|string|max:200',
                 'description' => 'nullable|string',
                 'background' => 'nullable|string',
                 'question' => 'nullable|string',

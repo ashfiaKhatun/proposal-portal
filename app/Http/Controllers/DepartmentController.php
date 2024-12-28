@@ -138,7 +138,7 @@ class DepartmentController extends Controller
             $students = User::where('dept_id', $id)
                 ->where('role', 'student')
                 ->where('status', 'approved')
-                ->orderBy('created_at', 'desc')
+                ->orderBy('official_id', 'desc')
                 ->get();
 
             $studentCount = User::where('dept_id', $id)

@@ -33,6 +33,7 @@ class User extends Authenticatable
         'credit_finished',
         'cgpa',
         'batch',
+        'semester',
     ];
 
     /**

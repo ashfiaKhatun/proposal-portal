@@ -87,6 +87,13 @@
 
                                         </div>
 
+                                        <!-- Semester -->
+                                        <div>
+                                            <label class="col-form-label">Semester of Final Defense Registration:</label>
+                                            <input class="form-control rounded" type="text" name="semester" placeholder="Ex: SPRING-2025" required>
+
+                                        </div>
+
                                         <!-- Credit Finished -->
                                         <div>
                                             <label class="col-form-label">Credit Finished:</label>

@@ -48,6 +48,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'batch' => $request->batch,
+            'semester' => $request->semester,
             'credit_finished' => $request->credit_finished,
             'cgpa' => $request->cgpa,
             'role' => 'student',

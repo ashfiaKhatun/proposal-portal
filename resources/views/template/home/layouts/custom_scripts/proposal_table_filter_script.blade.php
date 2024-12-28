@@ -30,23 +30,26 @@
             case 'batch':
                 columnIndex = 5;
                 break;
-            case 'cgpa':
+            case 'semester':
                 columnIndex = 6;
                 break;
-            case 'area':
+            case 'cgpa':
                 columnIndex = 7;
                 break;
-            case 'title':
+            case 'area':
                 columnIndex = 8;
                 break;
-            case 'status':
+            case 'title':
                 columnIndex = 9;
                 break;
-            case 'supervisor':
+            case 'status':
                 columnIndex = 10;
                 break;
-            case 'supervisorInitial':
+            case 'supervisor':
                 columnIndex = 11;
+                break;
+            case 'supervisorInitial':
+                columnIndex = 12;
                 break;
                 // Add cases for other columns if needed
         }

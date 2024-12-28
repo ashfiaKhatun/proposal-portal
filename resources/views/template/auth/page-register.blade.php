@@ -63,7 +63,14 @@
                                     <!-- Batch -->
                                     <div>
                                         <label class="col-form-label">Batch:</label>
-                                        <input class="form-control rounded" type="text" name="batch" placeholder="Batch" required>
+                                        <input class="form-control rounded" type="text" name="batch" placeholder="Enter number" required>
+
+                                    </div>
+                                    
+                                    <!-- Semester -->
+                                    <div>
+                                        <label class="col-form-label">Semester of Final Defense Registration:</label>
+                                        <input class="form-control rounded" type="text" name="semester" placeholder="Ex: SPRING-2025" required>
 
                                     </div>
 

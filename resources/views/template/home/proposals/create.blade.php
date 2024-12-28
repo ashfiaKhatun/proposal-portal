@@ -90,33 +90,33 @@
                                     @if($existingProposal->type == 'project')
                                     <div class="row">
                                         <b class="col-3">Brief Discussion:</b>
-                                        <p class="col-9 ">{{ $existingProposal->description }}</p>
+                                        <p class="col-9 ">{!! nl2br(e($existingProposal->description)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-3">Skills:</b>
-                                        <p class="col-9 ">{{ $existingProposal->skills }}</p>
+                                        <p class="col-9 ">{!! nl2br(e($existingProposal->skills)) !!}</p>
                                     </div>
 
                                     @elseif($existingProposal->type == 'thesis')
                                     <div class="row">
                                         <b class="col-3">Background Study:</b>
-                                        <p class="col-9 ">{{ $existingProposal->background }}</p>
+                                        <p class="col-9 ">{!! nl2br(e($existingProposal->background)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-3">Research Questions:</b>
-                                        <p class="col-9 ">{{ $existingProposal->question }}</p>
+                                        <p class="col-9 ">{!! nl2br(e($existingProposal->question)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-3">Research Objectives:</b>
-                                        <p class="col-9 ">{{ $existingProposal->objective }}</p>
+                                        <p class="col-9 ">{!! nl2br(e($existingProposal->objective)) !!}</p>
                                     </div>
 
                                     <div class="row">
                                         <b class="col-3">Skills:</b>
-                                        <p class="col-9 ">{{ $existingProposal->skills }}</p>
+                                        <p class="col-9 ">{!! nl2br(e($existingProposal->skills)) !!}</p>
                                     </div>
                                     @endif
 
@@ -158,12 +158,12 @@
                                         <!-- Common Fields -->
                                         <div class="form-group">
                                             <label for="area">Area</label>
-                                            <input type="text" id="area" name="area" class="form-control rounded" required>
+                                            <input type="text" id="area" name="area" placeholder="Max: 200 char" class="form-control rounded" maxlength="200" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input type="text" id="title" name="title" class="form-control rounded" required>
+                                            <input type="text" id="title" name="title" placeholder="Max: 200 char" class="form-control rounded" maxlength="200" required>
                                         </div>
 
                                         <!-- Project Fields (Shown only if 'project' is selected) -->

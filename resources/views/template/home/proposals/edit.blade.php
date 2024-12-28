@@ -71,14 +71,14 @@
                                         </div>
 
                                         <!-- Common Fields -->
-                                        <div class="form-group">
+                                         <div class="form-group">
                                             <label for="area">Area</label>
-                                            <input type="text" id="area" name="area" value="{{ $proposal->area }}" class="form-control rounded" required>
+                                            <input type="text" id="area" name="area" value="{{ $proposal->area }}" placeholder="Max: 200 char"  class="form-control rounded" maxlength="200" required>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="title">Title</label>
-                                            <input type="text" id="title" name="title" value="{{ $proposal->title }}" class="form-control rounded" required>
+                                            <input type="text" id="title" name="title" value="{{ $proposal->title }}" placeholder="Max: 200 char"  class="form-control rounded" maxlength="200" required>
                                         </div>
 
                                         <!-- Project Fields (Shown only if 'project' is selected) -->

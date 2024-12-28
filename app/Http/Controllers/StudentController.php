@@ -16,7 +16,7 @@ class StudentController extends Controller
         if (auth()->user()->isAdmin) {
             $students = User::where('role', 'student')
                 ->where('dept_id', auth()->user()->dept_id)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('official_id', 'desc')
                 ->get();
 
             $studentCount = User::where('role', 'student')
@@ -62,6 +62,7 @@ class StudentController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'batch' => $request->batch,
+                'semester' => $request->semester,
                 'credit_finished' => $request->credit_finished,
                 'cgpa' => $request->cgpa,
                 'role' => 'student',
@@ -96,6 +97,7 @@ class StudentController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'batch' => $request->batch,
+                'semester' => $request->semester,
                 'credit_finished' => $request->credit_finished,
                 'cgpa' => $request->cgpa,
             ]);

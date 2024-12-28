@@ -89,6 +89,7 @@
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Credit Finished</th>
+                                                <th>Semester</th>
                                                 <th>Batch</th>
                                                 <th>Current CGPA</th>
                                                 <th>Status</th>
@@ -103,6 +104,7 @@
                                                 <td>{{ $student->name }}</td>
                                                 <td>{{ $student->email }}</td>
                                                 <td>{{ $student->credit_finished }}</td>
+                                                <td>{{ $student->semester }}</td>
                                                 <td>{{ $student->batch }}</td>
                                                 <td>{{ $student->cgpa }}</td>
 

@@ -50,7 +50,7 @@
 
             <div class="container-fluid">
 
-                <div class="row">
+                <div class="row text-black">
                     <div class="col-lg-7">
                         <div class="card mx-auto">
                             <div class="card-body">
@@ -235,6 +235,11 @@
                                     <div class="row">
                                         <b class="col-4">Batch:</b>
                                         <p class="col-8 ">{{ $proposal->student->batch }}</p>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <b class="col-4">Semester:</b>
+                                        <p class="col-8 ">{{ $proposal->student->semester }}</p>
                                     </div>
 
                                     <div class="row">
