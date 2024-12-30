@@ -86,7 +86,7 @@
                                                 <th>Semester</th>
                                                 <th>Batch</th>
                                                 <th>Current CGPA</th>
-                                                <th>Assigned Teacher</th>
+                                                <th>Assigned Teacher ID</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
