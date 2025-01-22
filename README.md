@@ -4,37 +4,50 @@ A web application designed to streamline the submission, approval, and managemen
 **Features**
 
 **Student Features:**
-    - Submit project/thesis proposals.
-    - Track approval status and assigned supervisors.
-    
+
+Submit project/thesis proposals.
+Track approval status and assigned supervisors.
+
+
 **Teacher Features:**
-    - Review proposals.
-    - Provide feedbacks to approved proposals.
+
+Review proposals.
+Provide feedbacks to approved proposals.
+
 
 **Admin Features:**
-    - Manage user roles (students, teachers, admins).
-    - Oversee departmental submissions and approvals.
+
+Manage user roles (students, teachers, admins).
+Oversee departmental submissions and approvals.
+
     
 **Technologies Used**
 
 **Frontend:**
-    - HTML, CSS, JavaScript
-    - Bootstrap
+
+HTML, CSS, JavaScript
+Bootstrap
+
     
 **Backend:**
-    - Laravel
+
+Laravel
     
 **Database:**
-    - MySQL
+
+MySQL
     
 **Server:**
-    - XAMPP (local development, php 8.2 required)
+XAMPP (local development, php 8.2 required)
+
     
 **Installation**
 **Clone the repository:**
+
 git clone https://github.com/ashfiaKhatun/proposal-portal.git  
 
 **Navigate to the project directory:**
+
 cd proposal-portal  
 
 **Install dependencies:**
@@ -43,24 +56,30 @@ composer install
 npm install  
 
 **Set up .env file:**
+
 Copy .env.example to .env.
 Configure database and email settings.
 
 **Generate application key:**
+
 php artisan key:generate  
 
 **Run migrations:**
+
 php artisan migrate  
 
 **Start the development server:**
+
 php artisan serve  
 
 **Usage**
-    - Access the application at http://localhost:8000.
-    - Login or register based on your role (student, teacher, admin).
-    - Explore features like proposal submission, approval, and management.
+
+Access the application at http://localhost:8000.
+Login or register based on your role (student, teacher, admin).
+Explore features like proposal submission, approval, and management.
     
 **Contact**
+
 For queries or suggestions, feel free to contact:
 Ashfia Khatun
 Email: ashfia.khatun01@gmail.com
