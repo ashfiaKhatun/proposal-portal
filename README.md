@@ -35,9 +35,10 @@ A web application designed to streamline the submission, approval, and managemen
 git clone https://github.com/ashfiaKhatun/proposal-portal.git  
 
 **Navigate to the project directory:**
-cd project-thesis-management-system  
+cd proposal-portal  
 
 **Install dependencies:**
+
 composer install  
 npm install  
 
