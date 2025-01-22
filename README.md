@@ -32,7 +32,7 @@ A web application designed to streamline the submission, approval, and managemen
     
 **Installation**
 **Clone the repository:**
-git clone https://github.com/yourusername/project-thesis-management-system.git 
+git clone https://github.com/ashfiaKhatun/proposal-portal.git  
 
 **Navigate to the project directory:**
 cd project-thesis-management-system  
